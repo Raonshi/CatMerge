@@ -1,6 +1,7 @@
-﻿using UnityEditor;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class Game : MonoBehaviour
 {
@@ -15,8 +16,14 @@ public class Game : MonoBehaviour
     public float xPos;
     public float yPos;
 
+    //현재 점수
     public Text scoreText;
     public int score;
+
+    //최고 점수
+    public Text bestText;
+    public int best;
+
     public int count;
     int k;
 
@@ -40,7 +47,12 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+        //매 게임마다 현재 점수 초기화
         score = 0;
+
+        //매 게임마다 최고 점수를 불러옴
+        best = PlayerPrefs.GetInt("bestScore");
+
         gameOver.SetActive(false);
         close.SetActive(false);
         isMove = false;
@@ -61,7 +73,9 @@ public class Game : MonoBehaviour
             return;
         }
 
-        if(count == 16)
+        count = GameObject.FindGameObjectsWithTag("Tile").Length;
+
+        if (count == 16)
         {
             TileCheck();
         }
@@ -93,7 +107,7 @@ public class Game : MonoBehaviour
             }
             else if(Input.GetKeyDown(KeyCode.Escape))
             {
-                EditorApplication.isPlaying = false;
+                OnClickExit();
             }
 #endif
             Touch();
@@ -103,6 +117,7 @@ public class Game : MonoBehaviour
         {
             if(k != 0)
             {
+                LineClear();
                 GenerateNumber();
             }
             k = 0;
@@ -110,6 +125,15 @@ public class Game : MonoBehaviour
         }
        
         InitCombine();
+
+
+        //현재 점수가 최고점보다 높을 경우에 최고점이 실시간으로 올라간다.
+        if(score > best)
+        {
+            best = score;
+        }
+        bestText.text = best.ToString();
+
     }
 
     public void InitCombine()
@@ -127,6 +151,67 @@ public class Game : MonoBehaviour
         }
     }
 
+    //1줄 제거 기능
+    public void LineClear()
+    {
+        int x, y;
+        for(y = 0; y < size; y++)
+        {
+            bool tmp = false;
+            for(x = 0; x < size-1; x++)
+            {
+                if(slotArray[x,y] == false || slotArray[x + 1, y] == false || (slotArray[x, y].name != slotArray[x + 1, y].name))
+                {
+                    tmp = false;
+                    break;
+                }
+                else if(slotArray[x, y].name == slotArray[x + 1, y].name)
+                {
+                    tmp = true;
+                }
+            }
+
+            if(tmp == true)
+            {
+                int i = Convert.ToInt32(slotArray[x, y].name) * 8;
+                score += i;
+
+                for(int j = 0; j < size; j++)
+                {
+                    Destroy(slotArray[j, y]);
+                }
+            }
+        }
+
+        for(x = 0; x < size; x++)
+        {
+            bool tmp = false;
+            for (y = 0; y < size - 1; y++)
+            {
+                if (slotArray[x, y] == false || slotArray[x, y + 1] == false || (slotArray[x, y].name != slotArray[x, y + 1].name))
+                {
+                    tmp = false;
+                    break;
+                }
+                else if (slotArray[x, y].name == slotArray[x, y + 1].name)
+                {
+                    tmp = true;
+                }
+            }
+
+            if (tmp == true)
+            {
+                int i = Convert.ToInt32(slotArray[x, y].name) * 8;
+                score += i;
+
+                for (int j = 0; j < size; j++)
+                {
+                    Destroy(slotArray[x, j]);
+                }
+            }
+        }
+    }
+
     
     public void GenerateNumber()
     {
@@ -135,13 +220,13 @@ public class Game : MonoBehaviour
             return;
         }
 
-        count++;
+        //count++;
         int x, y;
 
         while(true)
         {
-            x = Random.Range(0, size);
-            y = Random.Range(0, size);
+            x = UnityEngine.Random.Range(0, size);
+            y = UnityEngine.Random.Range(0, size);
 
             if(slotArray[x, y] == null)
             {
@@ -181,7 +266,6 @@ public class Game : MonoBehaviour
     public void TileCheck()
     {
         int i = 0;
-        //가로 조합 체크
         for(int x = 0; x < size; x++)
         {
             for(int y = 0; y < size - 1; y++)
@@ -193,7 +277,6 @@ public class Game : MonoBehaviour
             }
         }
 
-        //세로 조합 체크
         for (int y = 0; y < size; y++)
         {
             for (int x = 0; x < size - 1; x++)
@@ -223,6 +306,10 @@ public class Game : MonoBehaviour
             endPos = Input.mousePosition;
             gap = endPos - startPos;
         }
+        else if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            OnClickExit();
+        }
 
         if(gap.x > 250)
         {
@@ -245,6 +332,8 @@ public class Game : MonoBehaviour
             isStop = true;
         }
     }
+
+
 
     public void Move(string dir)
     {

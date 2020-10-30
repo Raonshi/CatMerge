@@ -5,6 +5,7 @@ ScriptsOnlyBuild:
     - GameOver
     - Info
     - Main
+    - Rule
     - Slot
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
@@ -61,6 +62,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11172}
     - Class: 114
+      Script: {instanceID: 11488}
+    - Class: 114
       Script: {instanceID: 11516}
     - Class: 114
       Script: {instanceID: 11614}
@@ -69,17 +72,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12180}
     - Class: 114
-      Script: {instanceID: 12884}
+      Script: {instanceID: 12882}
     - Class: 114
       Script: {instanceID: 13112}
     - Class: 114
-      Script: {instanceID: 13648}
+      Script: {instanceID: 13646}
     - Class: 114
-      Script: {instanceID: 14166}
+      Script: {instanceID: 14164}
     - Class: 114
-      Script: {instanceID: 14258}
-    - Class: 114
-      Script: {instanceID: 30576}
+      Script: {instanceID: 14256}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -120,19 +121,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11172}
     - Class: 114
+      Script: {instanceID: 11488}
+    - Class: 114
       Script: {instanceID: 11516}
     - Class: 114
       Script: {instanceID: 12180}
     - Class: 114
-      Script: {instanceID: 12884}
+      Script: {instanceID: 12882}
+    - Class: 114
+      Script: {instanceID: 13038}
     - Class: 114
       Script: {instanceID: 13112}
     - Class: 114
-      Script: {instanceID: 13648}
+      Script: {instanceID: 13646}
     - Class: 114
-      Script: {instanceID: 14258}
+      Script: {instanceID: 14256}
     - Class: 114
-      Script: {instanceID: 34990}
+      Script: {instanceID: 18236}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -216,6 +221,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Scrollbar
+  - hash:
+      serializedVersion: 2
+      Hash: 3cad07b319f4b6c55ce94f3fca794039
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Info
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -452,6 +463,12 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
+      Hash: ff8863c75ba73ee7b5567f0ffa16070f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Main
+  - hash:
+      serializedVersion: 2
       Hash: 1fcb89d4fec8068355a9f23df3132795
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -578,7 +595,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 63799c81287b955a360b39386fe050f4
+      Hash: 9325907aa64eb6c4f63700edc3a92c8e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -650,16 +667,10 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 3cad07b319f4b6c55ce94f3fca794039
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Info
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: Main
+    className: Rule
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu.unity

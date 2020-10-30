@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 
 public class Info : MonoBehaviour
 {
@@ -16,7 +14,19 @@ public class Info : MonoBehaviour
 
     public void OnClickYes()
     {
-        SceneManager.LoadScene("MainMenu");
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "MainMenu":
+#if UNITY_ENGINE
+                EditorApplication.isPlaying = false;           
+#else
+                Application.Quit();
+#endif
+                break;
+            case "Game":
+                SceneManager.LoadScene("MainMenu");
+                break;
+        }
     }
     public void OnClickNo()
     {

@@ -41,6 +41,6 @@ public class GameOver : MonoBehaviour
     public void OnClickOK()
     {
         Debug.Log("=====================Game Over===================== \n Your Score : " + Game.instance.score);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("MainMenu");
     }
 }
