@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63d0bfb99bb8ec7429f65d5b91ea52c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numText: {fileID: 1022180073320471399}
+  Text: {fileID: 1022180073320471399}
   num: 0
   isCombine: 0
   _x: 0

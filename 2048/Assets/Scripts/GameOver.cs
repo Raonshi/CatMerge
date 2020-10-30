@@ -4,17 +4,20 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    int you, best;
+    int you, best, point;
     public Text yourScore;
     public Text bestScore;
+    public Text pointText;
 
     private void OnEnable()
     {
         you = Game.instance.score;
+        point = Game.instance.point;
 
         yourScore.text = you.ToString();
+        pointText.text = point.ToString();
 
-        if(PlayerPrefs.HasKey("bestScore"))
+        if (PlayerPrefs.HasKey("bestScore"))
         {
             best = PlayerPrefs.GetInt("bestScore");
 

@@ -25,10 +25,14 @@ public class Game : MonoBehaviour
     public int best;
 
     public int count;
-    int k;
+    public int point;
 
     public bool isMove, isStop;
     Vector2 startPos, endPos, gap;
+
+
+    public float time;
+    public Text timeText;
 
 
     public int screenWidth;
@@ -40,6 +44,7 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        time = 60;
 
         screenWidth = Screen.width;
         Screen.SetResolution(screenWidth, (screenWidth * 16) / 9, true);
@@ -68,6 +73,15 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
+        time -= Time.deltaTime;
+        timeText.text = Convert.ToInt32(time).ToString();
+
+        if(time <= 0)
+        {
+            time = 0;
+            gameOver.SetActive(true);
+        }
+
         if(gameOver.activeSelf == true)
         {
             return;
@@ -115,12 +129,8 @@ public class Game : MonoBehaviour
 
         if(isStop == true)
         {
-            if(k != 0)
-            {
-                LineClear();
-                GenerateNumber();
-            }
-            k = 0;
+
+            GenerateNumber();
             isStop = false;
         }
        
@@ -151,68 +161,6 @@ public class Game : MonoBehaviour
         }
     }
 
-    //1줄 제거 기능
-    public void LineClear()
-    {
-        int x, y;
-        for(y = 0; y < size; y++)
-        {
-            bool tmp = false;
-            for(x = 0; x < size-1; x++)
-            {
-                if(slotArray[x,y] == false || slotArray[x + 1, y] == false || (slotArray[x, y].name != slotArray[x + 1, y].name))
-                {
-                    tmp = false;
-                    break;
-                }
-                else if(slotArray[x, y].name == slotArray[x + 1, y].name)
-                {
-                    tmp = true;
-                }
-            }
-
-            if(tmp == true)
-            {
-                int i = Convert.ToInt32(slotArray[x, y].name) * 8;
-                score += i;
-
-                for(int j = 0; j < size; j++)
-                {
-                    Destroy(slotArray[j, y]);
-                }
-            }
-        }
-
-        for(x = 0; x < size; x++)
-        {
-            bool tmp = false;
-            for (y = 0; y < size - 1; y++)
-            {
-                if (slotArray[x, y] == false || slotArray[x, y + 1] == false || (slotArray[x, y].name != slotArray[x, y + 1].name))
-                {
-                    tmp = false;
-                    break;
-                }
-                else if (slotArray[x, y].name == slotArray[x, y + 1].name)
-                {
-                    tmp = true;
-                }
-            }
-
-            if (tmp == true)
-            {
-                int i = Convert.ToInt32(slotArray[x, y].name) * 8;
-                score += i;
-
-                for (int j = 0; j < size; j++)
-                {
-                    Destroy(slotArray[x, j]);
-                }
-            }
-        }
-    }
-
-    
     public void GenerateNumber()
     {
         if(count >= 16)
@@ -220,8 +168,7 @@ public class Game : MonoBehaviour
             return;
         }
 
-        //count++;
-        int x, y;
+        int x, y, i;
 
         while(true)
         {
@@ -233,16 +180,29 @@ public class Game : MonoBehaviour
                 break;
             }
         }
-        GameObject obj;
+        i = UnityEngine.Random.Range(0, 100);
 
-        if(score > 5000)
+        GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+
+
+        if (i >= 0 && i < 5)
         {
-            obj = n[1];
+            //조커 생성
+            obj = Resources.Load("Prefabs/Joker") as GameObject;
         }
-        else
+
+        else if (i >= 5 && i < 15)
         {
-            obj = n[0];
+            //곱하기 생성
+            obj = Resources.Load("Prefabs/Multiple") as GameObject;
         }
+
+        else if (i >= 15 && i < 25)
+        {
+            //나누기 생성
+            obj = Resources.Load("Prefabs/Division") as GameObject;
+        }
+        
 
         slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
         slotArray[x, y].gameObject.name = obj.name;
@@ -400,25 +360,77 @@ public class Game : MonoBehaviour
 
     public void MoveOrCombine(int x1, int y1, int x2, int y2)
     {
+        //일반 이동
         if (slotArray[x2, y2] == null && slotArray[x1, y1] != null)
         {
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
 
-            k++;
+            
         }
-        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == slotArray[x2, y2].GetComponent<Slot>().num && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        //조커 결합 >> 조커가 (x2, y2)일 경우 해당 라인의 모든 타일이 제거되는 버그가 있음.
+        else if(slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Joker" || slotArray[x2, y2].name == "Joker") &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
-            int i;
+            if(slotArray[x1, y1].name == "Joker" && (slotArray[x2,y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Joker"))
+            {
+                return;
+            }
+            else if(slotArray[x2, y2].name == "Joker" && (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Joker"))
+            {
+                return;
+            }
             isMove = true;
 
-            for (i = 0; i <= n.Length; i++)
+            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
+
+            Destroy(slotArray[x2, y2]);
+            count--;
+
+            slotArray[x1, y1] = null;
+
+            if (time > 55)
             {
-                if (slotArray[x2, y2].name == n[i].name)
-                {
-                    break;
-                }
+                time = 60;
+            }
+            else
+            {
+                time += 5;
+            }
+
+            score += 64;
+            point++;
+
+            
+        }
+        //곱셈 결합
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Multiple" || slotArray[x2, y2].name == "Multiple") &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        {
+            if (slotArray[x1, y1].name == "Multiple" && (slotArray[x2, y2].name == "Joker" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple"))
+            {
+                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                return;
+            }
+            else if (slotArray[x2, y2].name == "Multiple" && (slotArray[x1, y1].name == "Joker" || slotArray[x1, y1].name == "Division" || slotArray[x2, y2].name == "Multiple"))
+            {
+                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                return;
+            }
+
+            isMove = true;
+
+            GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+            int i = 1;
+
+            if (slotArray[x1, y1].name == "Multiple")
+            {
+                i = slotArray[x2, y2].GetComponent<Slot>().num;
+            }
+            else if (slotArray[x2, y2].name == "Multiple")
+            {
+                i = slotArray[x1, y1].GetComponent<Slot>().num;
             }
 
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
@@ -428,16 +440,158 @@ public class Game : MonoBehaviour
 
             slotArray[x1, y1] = null;
 
-            slotArray[x2, y2] = Instantiate(n[i+1], GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x2, y2].gameObject.name = n[i+1].name;
+            slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+            slotArray[x2, y2].gameObject.name = obj.name;
+            slotArray[x2, y2].GetComponent<Slot>().num = i * 2;
 
             slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 320) - xPos, (y2 * 320) - yPos);
             slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-            score += (int)Mathf.Pow(2, i + 2);
 
-            k++;
+            score += slotArray[x2, y2].GetComponent<Slot>().num;
+
+            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            {
+                if (time > 55)
+                {
+                    time = 60;
+                }
+                else
+                {
+                    time += 5;
+                }
+                
+                Destroy(slotArray[x2, y2]);
+                point++;
+            }
+            
+        }
+        //나눗셈 결합
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Division" || slotArray[x2, y2].name == "Division") &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        {
+            if (slotArray[x1, y1].name == "Division" && (slotArray[x2, y2].name == "Joker" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division"))
+            {
+                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                return;
+            }
+            else if (slotArray[x2, y2].name == "Division" && (slotArray[x1, y1].name == "Joker" || slotArray[x1, y1].name == "Multiple" || slotArray[x2, y2].name == "Division"))
+            {
+                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                return;
+            }
+
+            isMove = true;
+
+            GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+            int i = 1;
+
+            if (slotArray[x1, y1].name == "Division")
+            {
+                if(slotArray[x2, y2].GetComponent<Slot>().num == 2)
+                {
+                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    return;
+                }
+                i = slotArray[x2, y2].GetComponent<Slot>().num;
+            }
+            else if (slotArray[x2, y2].name == "Division")
+            {
+                if (slotArray[x1, y1].GetComponent<Slot>().num == 2)
+                {
+                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    return;
+                }
+                i = slotArray[x1, y1].GetComponent<Slot>().num;
+            }
+
+            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
+
+            Destroy(slotArray[x2, y2]);
+            count--;
+
+            slotArray[x1, y1] = null;
+
+            slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+            slotArray[x2, y2].gameObject.name = obj.name;
+            slotArray[x2, y2].GetComponent<Slot>().num = i / 2;
+
+            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 320) - xPos, (y2 * 320) - yPos);
+            slotArray[x2, y2].transform.rotation = Quaternion.identity;
+
+            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+
+            score += slotArray[x2, y2].GetComponent<Slot>().num;
+
+            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            {
+                if (time > 55)
+                {
+                    time = 60;
+                }
+                else
+                {
+                    time += 5;
+                }
+
+                Destroy(slotArray[x2, y2]);
+                point++;
+            }
+
+        }
+        //일반 결합
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == slotArray[x2, y2].GetComponent<Slot>().num &&
+            slotArray[x1, y1].GetComponent<Slot>().num != 1 && slotArray[x2, y2].GetComponent<Slot>().num != 1 &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        {
+            isMove = true;
+
+            GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+            int i, j;
+
+            i = slotArray[x1, y1].GetComponent<Slot>().num;
+            j = slotArray[x2, y2].GetComponent<Slot>().num;
+
+            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
+
+            Destroy(slotArray[x2, y2]);
+            count--;
+
+            slotArray[x1, y1] = null;
+
+            slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+            slotArray[x2, y2].gameObject.name = obj.name;
+            slotArray[x2, y2].GetComponent<Slot>().num = j + i;
+
+            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 320) - xPos, (y2 * 320) - yPos);
+            slotArray[x2, y2].transform.rotation = Quaternion.identity;
+
+            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+
+            score += slotArray[x2, y2].GetComponent<Slot>().num;
+
+            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            {
+                if (time > 55)
+                {
+                    time = 60;
+                }
+                else
+                {
+                    time += 5;
+                }
+
+                Destroy(slotArray[x2, y2]);
+                point++;
+            }
+        }
+        //특수블럭 간 결합 못하도록 함
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 0 && slotArray[x2, y2].GetComponent<Slot>().num == 0 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        {
+            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
+            slotArray[x2, y2] = slotArray[x1, y1];
+            slotArray[x1, y1] = null;
         }
     }
 

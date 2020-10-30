@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    public Text numText;
+    public Text Text;
     public int num;
     public bool isCombine;
 
@@ -18,8 +18,23 @@ public class Slot : MonoBehaviour
     void Start()
     {
         isCombine = false;
-        num = Convert.ToInt32(gameObject.name);
-        numText.text = num.ToString();
+
+        if(gameObject.name == "Joker")
+        {
+            Text.text = "J";
+        }
+        else if(gameObject.name == "Multiple")
+        {
+            Text.text = "M";
+        }
+        else if(gameObject.name == "Division")
+        {
+            Text.text = "D";
+        }
+        else
+        {
+            Text.text = num.ToString();
+        }
 
         _xPos = GameObject.Find("Game").GetComponent<Game>().xPos;
         _yPos = GameObject.Find("Game").GetComponent<Game>().yPos;
