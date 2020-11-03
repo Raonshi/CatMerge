@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Slot : MonoBehaviour
 {
-    public Text Text;
+    public Image bg;
     public Image image;
     public int num;
 
@@ -27,22 +27,38 @@ public class Slot : MonoBehaviour
     }
     void Start()
     {
+        switch(num)
+        {
+            case 1:
+                if(gameObject.name == "Multiple")
+                {
+                    bg.color = new Color(102 / 255f, 255 / 255f, 102 / 255f);
+                }
+                else if(gameObject.name == "Division")
+                {
+                    bg.color = new Color(255 / 255f, 51 / 255f, 51 / 255f);
+                }
+                break;
 
-        if (gameObject.name == "Joker")
-        {
-            Text.text = "J";
-        }
-        else if(gameObject.name == "Multiple")
-        {
-            Text.text = "M";
-        }
-        else if(gameObject.name == "Division")
-        {
-            Text.text = "D";
-        }
-        else
-        {
-            Text.text = num.ToString();
+            case 2:
+                bg.color = new Color(102 / 255f, 102 / 255f, 102 / 255f);
+                break;
+
+            case 4:
+                bg.color = new Color(102 / 255f, 51 / 255f, 0 / 255f);
+                break;
+
+            case 8:
+                bg.color = new Color(255 / 255f, 204 / 255f, 102 / 255f);
+                break;
+
+            case 16:
+                bg.color = new Color(51 / 255f, 102 / 255f, 255 / 255f);
+                break;
+
+            case 32:
+                bg.color = new Color(153/255f, 102/255f, 255/255f);
+                break;
         }
 
         _xPos = GameObject.Find("Game").GetComponent<Game>().xPos;

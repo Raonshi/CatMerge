@@ -21,13 +21,19 @@ public class Tutorial : MonoBehaviour
 
     void OnEnable()
     {
-        Game.instance.isOver = true;
-        Game.instance.isClose = true;
+        if (gameObject.name != "Tutorial4")
+        {
+            Game.instance.isOver = true;
+            Game.instance.isClose = true;
+        }
     }
 
     public void OnClickOK()
     {
-        Game.instance.isOver = false;
+        if(gameObject.name != "Tutorial4")
+        {
+            Game.instance.isOver = false;
+        }
         gameObject.SetActive(false);
     }
 

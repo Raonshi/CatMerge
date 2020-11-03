@@ -601,7 +601,7 @@ public class Game : MonoBehaviour
 
             if(slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {
-                if (!PlayerPrefs.HasKey("destroy" + tutorial1.name))
+                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name))
                 {
                     tutorial4.SetActive(true);
                 }
@@ -737,7 +737,18 @@ public class Game : MonoBehaviour
 
             score += slotArray[x2, y2].GetComponent<Slot>().num * 10;
 
-            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            if (slotArray[x2, y2].GetComponent<Slot>().num == 32)
+            {
+                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name))
+                {
+                    tutorial4.SetActive(true);
+                }
+                else
+                {
+                    tutorial4.SetActive(false);
+                }
+            }
+            else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
             {
                 if (time > maxTime - 5)
                 {
