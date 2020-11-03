@@ -39,6 +39,7 @@ public class Game : MonoBehaviour
     float maxTime;
     float time;
     public Slider timeSlider;
+    public Text timeText;
 
     //생존 시간
     public float lifeTime;
@@ -116,6 +117,7 @@ public class Game : MonoBehaviour
             time -= Time.deltaTime;
         }
         timeSlider.value = time;
+        timeText.text = timeSlider.value.ToString();
 
         //제한시간 동안
         if(time > 0)
