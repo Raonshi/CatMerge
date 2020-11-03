@@ -1,12 +1,15 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Cat
+    - CatTown
     - Game
     - GameOver
     - Info
     - Main
     - Rule
     - Slot
+    - Tutorial
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
@@ -20,8 +23,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -36,7 +41,10 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.Image
     - UnityEngine.UI.Outline
+    - UnityEngine.UI.RawImage
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
+    - UnityEngine.UI.Toggle
   sceneClasses:
     Assets/Scenes/Game.unity:
     - Class: 1
@@ -58,29 +66,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11148}
     - Class: 114
-      Script: {instanceID: 11150}
+      Script: {instanceID: 11170}
     - Class: 114
-      Script: {instanceID: 11172}
+      Script: {instanceID: 11486}
     - Class: 114
-      Script: {instanceID: 11488}
+      Script: {instanceID: 11514}
     - Class: 114
-      Script: {instanceID: 11516}
+      Script: {instanceID: 11612}
     - Class: 114
-      Script: {instanceID: 11614}
+      Script: {instanceID: 11736}
     - Class: 114
-      Script: {instanceID: 11738}
+      Script: {instanceID: 12178}
     - Class: 114
-      Script: {instanceID: 12180}
+      Script: {instanceID: 12884}
     - Class: 114
-      Script: {instanceID: 12882}
+      Script: {instanceID: 12918}
     - Class: 114
-      Script: {instanceID: 13114}
+      Script: {instanceID: 13650}
     - Class: 114
-      Script: {instanceID: 13648}
+      Script: {instanceID: 14158}
     - Class: 114
-      Script: {instanceID: 14166}
+      Script: {instanceID: 14170}
     - Class: 114
-      Script: {instanceID: 14258}
+      Script: {instanceID: 14262}
+    - Class: 114
+      Script: {instanceID: 14282}
+    - Class: 114
+      Script: {instanceID: 14304}
+    - Class: 114
+      Script: {instanceID: 29018}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -110,34 +124,46 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
       Script: {instanceID: 11148}
     - Class: 114
-      Script: {instanceID: 11150}
+      Script: {instanceID: 11170}
     - Class: 114
-      Script: {instanceID: 11172}
+      Script: {instanceID: 11486}
     - Class: 114
-      Script: {instanceID: 11488}
+      Script: {instanceID: 11514}
     - Class: 114
-      Script: {instanceID: 11516}
+      Script: {instanceID: 11612}
     - Class: 114
-      Script: {instanceID: 12180}
+      Script: {instanceID: 12178}
     - Class: 114
-      Script: {instanceID: 12882}
+      Script: {instanceID: 12270}
     - Class: 114
-      Script: {instanceID: 13012}
+      Script: {instanceID: 12486}
     - Class: 114
-      Script: {instanceID: 13040}
+      Script: {instanceID: 12884}
     - Class: 114
-      Script: {instanceID: 13114}
+      Script: {instanceID: 13014}
     - Class: 114
-      Script: {instanceID: 13648}
+      Script: {instanceID: 13042}
     - Class: 114
-      Script: {instanceID: 14258}
+      Script: {instanceID: 13116}
+    - Class: 114
+      Script: {instanceID: 13650}
+    - Class: 114
+      Script: {instanceID: 14262}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -155,12 +181,6 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
-  - hash:
-      serializedVersion: 2
-      Hash: caa533b001ae39b864ba8425019e2268
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Outline
   - hash:
       serializedVersion: 2
       Hash: aeb62f729c52c814dec86c47dcac1471
@@ -301,7 +321,7 @@ ScriptsOnlyBuild:
     className: PhysicsRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 74ca15cab77836f8c84f9e4517ea2e37
+      Hash: 012f5db8b72e8906ae6806c08ea09d4c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameOver
@@ -409,6 +429,18 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
+      Hash: 609a6e55752be28428b294e68d716239
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Cat
+  - hash:
+      serializedVersion: 2
+      Hash: bfc9bfb959044857786011029aa4a89a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CatTown
+  - hash:
+      serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -469,13 +501,13 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: ff8863c75ba73ee7b5567f0ffa16070f
+      Hash: c8a3d1590e5efa6450fc1a5415951c62
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Main
   - hash:
       serializedVersion: 2
-      Hash: 1fcb89d4fec8068355a9f23df3132795
+      Hash: 2e482662620235818f35f3a6ba473d75
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Slot
@@ -601,7 +633,13 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: ac9c12a2a3e6fdb3323afa46905b7135
+      Hash: caa533b001ae39b864ba8425019e2268
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Outline
+  - hash:
+      serializedVersion: 2
+      Hash: abcf050b66eeeff830015452e2abcdd1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -671,8 +709,14 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: a7f3246e8f54c49cd64209188e818b58
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Tutorial
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
-  playerPath: C:/Users/HongSunwon/Desktop/2048.apk
+  playerPath: C:/Users/HongSunwon/Desktop/Cat.apk

@@ -5,8 +5,12 @@ using UnityEngine.UI;
 public class Slot : MonoBehaviour
 {
     public Text Text;
+    public Image image;
     public int num;
-    public bool isCombine;
+
+
+    public bool isCombine, isNew, isBomb;
+    public Animator anim;
 
     public int _x;
     public int _y;
@@ -15,11 +19,16 @@ public class Slot : MonoBehaviour
 
     public bool move, _combine;
 
-    void Start()
+    private void Awake()
     {
         isCombine = false;
 
-        if(gameObject.name == "Joker")
+        anim = gameObject.GetComponent<Animator>();
+    }
+    void Start()
+    {
+
+        if (gameObject.name == "Joker")
         {
             Text.text = "J";
         }
@@ -39,17 +48,17 @@ public class Slot : MonoBehaviour
         _xPos = GameObject.Find("Game").GetComponent<Game>().xPos;
         _yPos = GameObject.Find("Game").GetComponent<Game>().yPos;
 
+        //생성 애니메이션 재생
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(move)
+        if (move)
         {
             Move(_x, _y, _combine);
         }
     }
-
 
     public void Move(int x, int y, bool combine)
     {
@@ -59,7 +68,7 @@ public class Slot : MonoBehaviour
         _combine = combine;
 
         Vector3 target = new Vector3((320 * x) - _xPos, (320 * y) - _yPos, 0);
-        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 100);
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 60);
         
         
         if (transform.localPosition == target)

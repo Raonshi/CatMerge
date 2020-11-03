@@ -9,6 +9,8 @@ public class Main : MonoBehaviour
 
     public GameObject startButton;
     public GameObject ruleButton;
+
+    public Text point;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -24,6 +26,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        point.text = "POINT : " + PlayerPrefs.GetInt("point");
         if(rule.activeSelf == true || close.activeSelf == true)
         {
             startButton.GetComponent<Button>().interactable = false;

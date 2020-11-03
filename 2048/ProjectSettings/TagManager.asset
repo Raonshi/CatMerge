@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tile
+  - Target
+  - Cat
+  - Multiple
+  - Division
+  - Tutorial
   layers:
   - Default
   - TransparentFX
