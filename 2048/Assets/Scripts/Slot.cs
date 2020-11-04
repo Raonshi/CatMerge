@@ -32,32 +32,32 @@ public class Slot : MonoBehaviour
             case 1:
                 if(gameObject.name == "Multiple")
                 {
-                    bg.color = new Color(102 / 255f, 255 / 255f, 102 / 255f);
+                    bg.color = new Color(153 / 255f, 255 / 255f, 153 / 255f);
                 }
                 else if(gameObject.name == "Division")
                 {
-                    bg.color = new Color(255 / 255f, 51 / 255f, 51 / 255f);
+                    bg.color = new Color(255 / 255f, 51 / 255f, 0 / 255f);
                 }
                 break;
 
             case 2:
-                bg.color = new Color(102 / 255f, 102 / 255f, 102 / 255f);
+                bg.color = new Color(204 / 255f, 102 / 255f, 0 / 255f);
                 break;
 
             case 4:
-                bg.color = new Color(102 / 255f, 51 / 255f, 0 / 255f);
+                bg.color = new Color(255 / 255f, 153 / 255f, 51 / 255f);
                 break;
 
             case 8:
-                bg.color = new Color(255 / 255f, 204 / 255f, 102 / 255f);
+                bg.color = new Color(255 / 255f, 153 / 255f, 102 / 255f);
                 break;
 
             case 16:
-                bg.color = new Color(51 / 255f, 102 / 255f, 255 / 255f);
+                bg.color = new Color(255 / 255f, 153 / 255f, 153 / 255f);
                 break;
 
             case 32:
-                bg.color = new Color(153/255f, 102/255f, 255/255f);
+                bg.color = new Color(255 / 255f, 153 / 255f, 204 / 255f);
                 break;
         }
 

@@ -15,6 +15,10 @@ public class Game : MonoBehaviour
     public float xPos;
     public float yPos;
 
+    //점수 배율 조정
+    public int townLevel;   //마을 레벨
+    public float scoreRate;   //마을 레벨에 따른 점수 배율
+
     //현재 점수
     public Text scoreText;
     public int score;
@@ -67,6 +71,17 @@ public class Game : MonoBehaviour
         maxTime = 90;
         time = maxTime;
         lifeTime = 0;
+
+        //점수 배율 조정
+        townLevel = PlayerPrefs.GetInt("townLevel");
+        if(townLevel == 1)
+        {
+            scoreRate = 0;
+        }
+        else
+        {
+            scoreRate = (townLevel * 0.25f);
+        }
 
         //매 게임마다 현재 점수 초기화
         score = 0;
@@ -597,7 +612,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
 
-            score += slotArray[x2, y2].GetComponent<Slot>().num * 10;
+            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * scoreRate));
 
             if(slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {
@@ -685,7 +700,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
 
-            score += slotArray[x2, y2].GetComponent<Slot>().num * 10;
+            //score += slotArray[x2, y2].GetComponent<Slot>().num * 10;
 
             if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
             {
@@ -735,7 +750,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
 
-            score += slotArray[x2, y2].GetComponent<Slot>().num * 10;
+            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * scoreRate));
 
             if (slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {

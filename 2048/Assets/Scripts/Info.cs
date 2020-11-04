@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 public class Info : MonoBehaviour
 {
-    public GameObject Yes;
-    public GameObject No;
+    //public GameObject Yes;
+    //public GameObject No;
+
+    public List<GameObject> buttonList = new List<GameObject>();
 
     private void OnEnable()
     {
