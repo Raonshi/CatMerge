@@ -65,7 +65,7 @@ public class CatTown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (townLevel < 5 && GameObject.Find("Main").GetComponent<Main>().close.activeSelf == false)
+        if (townLevel < 5 && GameObject.Find("Main").GetComponent<Main>().close.activeSelf == false && GameObject.Find("Main").GetComponent<Main>().tutorial.activeSelf == false)
         {
             buyButton.interactable = true;
         }
@@ -171,7 +171,7 @@ public class CatTown : MonoBehaviour
         {
             int point = PlayerPrefs.GetInt("point");
 
-            if (point < price)
+            if (point < 5)
             {
                 info.SetActive(true);
                 infoText.text = "포인트가 부족합니다.\n게임 플레이를 통해 포인트를 획득할 수 있습니다.";
@@ -193,6 +193,4 @@ public class CatTown : MonoBehaviour
             return;
         }
     }
-
-
 }

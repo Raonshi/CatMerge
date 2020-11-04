@@ -35,6 +35,7 @@ public class Game : MonoBehaviour
     public bool isStop;     //타일이 정지하는 순간 true, 이후 바로 false
     public bool isOver;     //게임 오버시 고양이 타일 이동 금지
     public bool isClose;    //튜토리얼 창 닫을 때 고양이 움직이지 못하도록 하기 위함. 
+    public bool isNum;      //게임 화면에서 숫자 표현 토글을 사용하기 위한 변수
 
     //터치 좌표
     Vector2 startPos, endPos, gap;
@@ -221,6 +222,27 @@ public class Game : MonoBehaviour
         }
         bestText.text = best.ToString();
 
+        
+        if(isNum == true)
+        {
+            GameObject tileSet = GameObject.Find("Canvas/TileSet");
+            int tmp = tileSet.transform.childCount;
+            for (int i = 0; i < tmp; i++)
+            {
+                Slot slot = tileSet.transform.GetChild(i).GetComponent<Slot>();
+                slot.isNum = true;
+            }
+        }
+        else
+        {
+            GameObject tileSet = GameObject.Find("Canvas/TileSet");
+            int tmp = tileSet.transform.childCount;
+            for (int i = 0; i < tmp; i++)
+            {
+                Slot slot = tileSet.transform.GetChild(i).GetComponent<Slot>();
+                slot.isNum = false;
+            }
+        }
     }
 
     //결합된 고양이의 불 값을 변경
@@ -785,6 +807,19 @@ public class Game : MonoBehaviour
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
+        }
+    }
+
+
+    public void OnClickNumber()
+    {
+        if(isNum == true)
+        {
+            isNum = false;
+        }
+        else
+        {
+            isNum = true;
         }
     }
 

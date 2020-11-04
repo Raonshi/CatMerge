@@ -6,10 +6,12 @@ public class Slot : MonoBehaviour
 {
     public Image bg;
     public Image image;
+    public GameObject numImage;
+    public Text numText;
+    
     public int num;
 
-
-    public bool isCombine, isNew, isBomb;
+    public bool isCombine, isNew, isBomb, isNum;
     public Animator anim;
 
     public int _x;
@@ -22,7 +24,6 @@ public class Slot : MonoBehaviour
     private void Awake()
     {
         isCombine = false;
-
         anim = gameObject.GetComponent<Animator>();
     }
     void Start()
@@ -33,31 +34,38 @@ public class Slot : MonoBehaviour
                 if(gameObject.name == "Multiple")
                 {
                     bg.color = new Color(153 / 255f, 255 / 255f, 153 / 255f);
+                    numText.text = string.Format("<color=purple>×2</color>");
                 }
                 else if(gameObject.name == "Division")
                 {
                     bg.color = new Color(255 / 255f, 51 / 255f, 0 / 255f);
+                    numText.text = string.Format("<color=red>÷2</color>");
                 }
                 break;
 
             case 2:
                 bg.color = new Color(204 / 255f, 102 / 255f, 0 / 255f);
+                numText.text = string.Format("<color=black> {0} </color>", num);
                 break;
 
             case 4:
                 bg.color = new Color(255 / 255f, 153 / 255f, 51 / 255f);
+                numText.text = string.Format("<color=blue> {0} </color>", num);
                 break;
 
             case 8:
                 bg.color = new Color(255 / 255f, 153 / 255f, 102 / 255f);
+                numText.text = string.Format("<color=green> {0} </color>", num);
                 break;
 
             case 16:
                 bg.color = new Color(255 / 255f, 153 / 255f, 153 / 255f);
+                numText.text = string.Format("<color=orange> {0} </color>", num);
                 break;
 
             case 32:
                 bg.color = new Color(255 / 255f, 153 / 255f, 204 / 255f);
+                numText.text = string.Format("<color=yellow> {0} </color>", num);
                 break;
         }
 
@@ -70,6 +78,16 @@ public class Slot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(isNum == true)
+        {
+            numImage.SetActive(true);
+        }
+        else
+        {
+            numImage.SetActive(false);
+        }
+
+
         if (move)
         {
             Move(_x, _y, _combine);
