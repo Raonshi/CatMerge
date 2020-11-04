@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class Main : MonoBehaviour
     //메인화면 알림창
     public GameObject close;
     public GameObject info;
+    public GameObject giftInfo;
 
     //메인화면 버튼
     public GameObject startButton;
@@ -16,22 +18,41 @@ public class Main : MonoBehaviour
     //포인트
     public Text point;
 
-    //처음 시작
+    //최초 게임시작 유도
     public bool isNew;
     public GameObject tutorial;
+
+    //도움말
+    public bool isHelp;
+    public GameObject help;
+
+    //선물 알림창 활성여부
+    public bool isGift;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        isHelp = false;
+        isGift = true;
+
         close.SetActive(false);
         tutorial.SetActive(false);
+        help.SetActive(false);
+
+        TimeManager.Singleton.InitTimeManager();
     }
 
     void Start()
     {
-        if(!PlayerPrefs.HasKey("point"))
+        if (!PlayerPrefs.HasKey("point"))
         {
             PlayerPrefs.SetInt("point", 200);
+        }
+
+        if(!PlayerPrefs.HasKey("isHelp") && PlayerPrefs.HasKey("isNew"))
+        {
+            help.SetActive(true);
+            PlayerPrefs.SetInt("isHelp", 1);
         }
     }
 
@@ -40,7 +61,15 @@ public class Main : MonoBehaviour
     {
         point.text = "포인트 : " + PlayerPrefs.GetInt("point");
 
-        if(!PlayerPrefs.HasKey("isNew"))
+        if (GameObject.Find("Gift") == true && isGift == true)
+        {
+            giftInfo.SetActive(true);
+            isGift = false;
+        }
+
+
+
+        if (!PlayerPrefs.HasKey("isNew"))
         {
             isNew = true;
             tutorial.SetActive(true);
@@ -78,6 +107,15 @@ public class Main : MonoBehaviour
             tutorial.SetActive(false);
             PlayerPrefs.SetInt("isNew", 1);
         }
+
+        string closeTime = DateTime.Now.ToString();
+
+        PlayerPrefs.SetString("closeTime", closeTime);
         SceneManager.LoadScene("Game");
+    }
+
+    public void OnClickClose(GameObject obj)
+    {
+        obj.SetActive(false);
     }
 }

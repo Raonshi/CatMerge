@@ -7,28 +7,28 @@ using UnityEngine.UI;
 
 public class CatTown : MonoBehaviour
 {
+    //마을 화면
     public Image town;
+    public List<GameObject> catList = new List<GameObject>();
+    public int catCount;
+    public int maxCount;
+    public Text cat;
+
+    //마을 강화
     public int townLevel;
-
-    public Button buyButton;
-
-    public Text priceText;
     public int price;
+    public Text priceText;
+    public Button townUpgrade;
 
+    //점수 배율
     public Text scoreRateText;
     public float scoreRate;
 
     public bool isSpawn;
 
+    //포인트 부족 알림창
     public GameObject info;
     public Text infoText;
-
-    public List<GameObject> catList = new List<GameObject>();
-
-    public GameObject[] catArray;
-    public int catCount;
-    public int maxCount;
-    public Text cat;
 
     
     void Start()
@@ -67,7 +67,7 @@ public class CatTown : MonoBehaviour
     {
         if (townLevel < 5 && GameObject.Find("Main").GetComponent<Main>().close.activeSelf == false && GameObject.Find("Main").GetComponent<Main>().tutorial.activeSelf == false)
         {
-            buyButton.interactable = true;
+            townUpgrade.interactable = true;
         }
         priceText.text = "마을강화" + "\n-" + price + "point";
 
@@ -94,7 +94,7 @@ public class CatTown : MonoBehaviour
         else if (townLevel == 5)
         {
             priceText.text = "마을강화\n최대";
-            buyButton.interactable = false;
+            townUpgrade.interactable = false;
             maxCount = 9;
         }
 
@@ -125,8 +125,10 @@ public class CatTown : MonoBehaviour
             {
                 for (int i = 0; i < catCount; i++)
                 {
-                    GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/" + Mathf.Pow(2, townLevel)), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
+                    //GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/" + Mathf.Pow(2, townLevel)), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
+                    GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
                     obj.name = "Cat";
+                    obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + Mathf.Pow(2, townLevel));
                     catList.Add(obj);
                 }
                 isSpawn = true;
@@ -180,8 +182,11 @@ public class CatTown : MonoBehaviour
 
             PlayerPrefs.SetInt("point", point - 5);
 
-            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/" + Mathf.Pow(2, townLevel)), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
+            //GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/" + Mathf.Pow(2, townLevel)), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
+            GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
             obj.name = "Cat";
+            obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/"+Mathf.Pow(2,townLevel));
+            catList.Add(obj);
 
             catCount++;
             PlayerPrefs.SetInt("catCount", catCount);

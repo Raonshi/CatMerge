@@ -28,44 +28,59 @@ public class Slot : MonoBehaviour
     }
     void Start()
     {
-        switch(num)
+        switch (num)
         {
             case 1:
-                if(gameObject.name == "Multiple")
+                Color color1;
+                if (gameObject.name == "Multiple")
                 {
-                    bg.color = new Color(153 / 255f, 255 / 255f, 153 / 255f);
-                    numText.text = string.Format("<color=purple>×2</color>");
+                    ColorUtility.TryParseHtmlString("#9CF6FF", out color1);
+                    bg.color = color1;
+
+                    numText.text = string.Format("<color=#9CF6FF>×2</color>");
                 }
                 else if(gameObject.name == "Division")
                 {
-                    bg.color = new Color(255 / 255f, 51 / 255f, 0 / 255f);
-                    numText.text = string.Format("<color=red>÷2</color>");
+                    ColorUtility.TryParseHtmlString("#D43726", out color1);
+                    bg.color = color1;
+
+                    numText.text = string.Format("<color=#D43726>÷2</color>");
                 }
                 break;
 
             case 2:
-                bg.color = new Color(204 / 255f, 102 / 255f, 0 / 255f);
-                numText.text = string.Format("<color=black> {0} </color>", num);
+                Color color2;
+                ColorUtility.TryParseHtmlString("#FFEA99", out color2);
+                bg.color = color2;
+                numText.text = string.Format("<color=#FFEA99> {0} </color>", num);
                 break;
 
             case 4:
-                bg.color = new Color(255 / 255f, 153 / 255f, 51 / 255f);
-                numText.text = string.Format("<color=blue> {0} </color>", num);
+                Color color3;
+                ColorUtility.TryParseHtmlString("#FFCD3F", out color3);
+                bg.color = color3;
+                numText.text = string.Format("<color=#FFCD3F> {0} </color>", num);
                 break;
 
             case 8:
-                bg.color = new Color(255 / 255f, 153 / 255f, 102 / 255f);
-                numText.text = string.Format("<color=green> {0} </color>", num);
+                Color color4;
+                ColorUtility.TryParseHtmlString("#DB9600", out color4);
+                bg.color = color4;
+                numText.text = string.Format("<color=#DB9600> {0} </color>", num);
                 break;
 
             case 16:
-                bg.color = new Color(255 / 255f, 153 / 255f, 153 / 255f);
-                numText.text = string.Format("<color=orange> {0} </color>", num);
+                Color color5;
+                ColorUtility.TryParseHtmlString("#CAF562", out color5);
+                bg.color = color5;
+                numText.text = string.Format("<color=#CAF562> {0} </color>", num);
                 break;
 
             case 32:
-                bg.color = new Color(255 / 255f, 153 / 255f, 204 / 255f);
-                numText.text = string.Format("<color=yellow> {0} </color>", num);
+                Color color6;
+                ColorUtility.TryParseHtmlString("#8ddf01", out color6);
+                bg.color = color6;
+                numText.text = string.Format("<color=#8ddf01> {0} </color>", num);
                 break;
         }
 

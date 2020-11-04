@@ -55,7 +55,10 @@ public class Game : MonoBehaviour
     //UI
     public GameObject gameOver;
     public GameObject close;
-    public GameObject tutorial1, tutorial2, tutorial3, tutorial4;
+    public GameObject tutorial0, tutorial1, tutorial2, tutorial3, tutorial4;
+
+    //1게임당 튜토리얼 1번 표시
+    public bool isTutorial0, isTutorial1, isTutorial2, isTutorial3, isTutorial4;
 
     //기타
     int count;  //현재 생성되어 있는 타일의 수
@@ -72,6 +75,13 @@ public class Game : MonoBehaviour
         maxTime = 90;
         time = maxTime;
         lifeTime = 0;
+
+        //튜토리얼 표시 초기화
+        isTutorial0 = false;
+        isTutorial1 = false;
+        isTutorial2 = false;
+        isTutorial3 = false;
+        isTutorial4 = false;
 
         //점수 배율 조정
         townLevel = PlayerPrefs.GetInt("townLevel");
@@ -96,7 +106,10 @@ public class Game : MonoBehaviour
     {
         isOver = false;
 
+        //게임 시작하자마자 시간을 풀충전해야함
         timeSlider.maxValue = maxTime;
+        timeSlider.value = maxTime;
+        timeText.text = timeSlider.value.ToString();
 
         //매 게임마다 최고 점수를 불러옴
         best = PlayerPrefs.GetInt("bestScore");
@@ -116,6 +129,8 @@ public class Game : MonoBehaviour
         GenerateNumber();
         GenerateNumber();
 
+        //숫자보기 튜토리얼 처음에 표시
+        tutorial0.SetActive(true);
     }
 
     private void Update()
@@ -222,8 +237,15 @@ public class Game : MonoBehaviour
         }
         bestText.text = best.ToString();
 
-        
-        if(isNum == true)
+
+        //고양이 숫자 표시
+        EnableNum();
+    }
+
+    //고양이 숫자 표시
+    public void EnableNum()
+    {
+        if (isNum == true)
         {
             GameObject tileSet = GameObject.Find("Canvas/TileSet");
             int tmp = tileSet.transform.childCount;
@@ -301,13 +323,10 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Multiple");
 
             //곱하기 타일 최초 생성이면 튜토리얼 창 활성화
-            if(!PlayerPrefs.HasKey("destroy" + tutorial2.name))
+            if(!PlayerPrefs.HasKey("destroy" + tutorial2.name) && isTutorial2 == false)
             {
+                isTutorial2 = true;
                 tutorial2.SetActive(true);
-            }
-            else
-            {
-                tutorial2.SetActive(false);
             }
         }
 
@@ -321,13 +340,10 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Division");
 
             //나누기 타일 최초 생성이면 튜토리얼 창 활성화
-            if (!PlayerPrefs.HasKey("destroy" + tutorial3.name))
+            if (!PlayerPrefs.HasKey("destroy" + tutorial3.name) && isTutorial3 == false)
             {
+                isTutorial3 = true;
                 tutorial3.SetActive(true);
-            }
-            else
-            {
-                tutorial3.SetActive(false);
             }
         }
         //일반 고양이 생성
@@ -339,13 +355,10 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/2");
 
             //숫자 타일 최초 생성이면 튜토리얼 창 활성화
-            if (!PlayerPrefs.HasKey("destroy" + tutorial1.name))
+            if (!PlayerPrefs.HasKey("destroy" + tutorial1.name) && isTutorial1 == false)
             {
+                isTutorial1 = true;
                 tutorial1.SetActive(true);
-            }
-            else
-            {
-                tutorial1.SetActive(false);
             }
         }
 
@@ -638,13 +651,10 @@ public class Game : MonoBehaviour
 
             if(slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {
-                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name))
+                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name) && isTutorial4 == false)
                 {
+                    isTutorial4 = true;
                     tutorial4.SetActive(true);
-                }
-                else
-                {
-                    tutorial4.SetActive(false);
                 }
             }
             else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
@@ -776,13 +786,10 @@ public class Game : MonoBehaviour
 
             if (slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {
-                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name))
+                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name) && isTutorial4 == false)
                 {
+                    isTutorial4 = true;
                     tutorial4.SetActive(true);
-                }
-                else
-                {
-                    tutorial4.SetActive(false);
                 }
             }
             else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
@@ -821,6 +828,7 @@ public class Game : MonoBehaviour
         {
             isNum = true;
         }
+        EnableNum();
     }
 
 
