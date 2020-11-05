@@ -2737,9 +2737,7 @@ MonoBehaviour:
   summonButton: {fileID: 1790391181}
   townUpgradeButton: {fileID: 1466530794}
   point: {fileID: 440990549}
-  isNew: 0
   tutorial: {fileID: 1918977017}
-  isHelp: 0
   help: {fileID: 1895896306}
   isGift: 0
 --- !u!224 &1172446099 stripped
@@ -4853,9 +4851,8 @@ MonoBehaviour:
   catCount: 0
   maxCount: 0
   cat: {fileID: 2027161908}
-  townLevel: 0
-  price: 0
-  priceText: {fileID: 690035457}
+  townUpgradePrice: 0
+  townUpgradePriceText: {fileID: 690035457}
   townUpgrade: {fileID: 1466530796}
   scoreRateText: {fileID: 1704014236}
   scoreRate: 0

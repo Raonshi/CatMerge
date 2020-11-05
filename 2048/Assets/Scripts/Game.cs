@@ -67,6 +67,9 @@ public class Game : MonoBehaviour
     //싱글턴
     public static Game instance;
 
+
+
+
     private void Awake()
     {
         instance = this;
@@ -84,7 +87,7 @@ public class Game : MonoBehaviour
         isTutorial4 = false;
 
         //점수 배율 조정
-        townLevel = PlayerPrefs.GetInt("townLevel");
+        townLevel = GameManager.Singleton.townLevel;
         if(townLevel == 1)
         {
             scoreRate = 0;

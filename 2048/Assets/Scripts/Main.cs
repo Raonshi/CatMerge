@@ -19,11 +19,9 @@ public class Main : MonoBehaviour
     public Text point;
 
     //최초 게임시작 유도
-    public bool isNew;
     public GameObject tutorial;
 
     //도움말
-    public bool isHelp;
     public GameObject help;
 
     //선물 알림창 활성여부
@@ -32,34 +30,31 @@ public class Main : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        isHelp = false;
         isGift = true;
 
         close.SetActive(false);
         tutorial.SetActive(false);
         help.SetActive(false);
 
-        GameManager.Singleton.InitGameManager();
+        if(GameObject.Find("GameManager") == false)
+        {
+            GameManager.Singleton.InitGameManager();
+        }
     }
 
     void Start()
     {
-        if (!PlayerPrefs.HasKey("point"))
-        {
-            PlayerPrefs.SetInt("point", 200);
-        }
-
-        if(!PlayerPrefs.HasKey("isHelp") && PlayerPrefs.HasKey("isNew"))
+        if(GameManager.Singleton.isHelp == true && GameManager.Singleton.isNew == false)
         {
             help.SetActive(true);
-            PlayerPrefs.SetInt("isHelp", 1);
+            GameManager.Singleton.isHelp = false;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        point.text = "포인트 : " + PlayerPrefs.GetInt("point");
+        point.text = "포인트 : " + GameManager.Singleton.totalPoint;
 
         if (GameObject.Find("Gift") == true && isGift == true)
         {
@@ -69,9 +64,8 @@ public class Main : MonoBehaviour
 
 
 
-        if (!PlayerPrefs.HasKey("isNew"))
+        if (GameManager.Singleton.isNew == true)
         {
-            isNew = true;
             tutorial.SetActive(true);
             //게임시작 버튼 유도
 
@@ -102,15 +96,15 @@ public class Main : MonoBehaviour
 
     public void OnClickStart()
     {
-        if(isNew == true)
+        if(GameManager.Singleton.isNew == true)
         {
             tutorial.SetActive(false);
-            PlayerPrefs.SetInt("isNew", 1);
+            GameManager.Singleton.isNew = false;
         }
 
         string closeTime = DateTime.Now.ToString();
 
-        PlayerPrefs.SetString("closeTime", closeTime);
+        SaveManager.Singleton.SaveTimeJson();
         SceneManager.LoadScene("Game");
     }
 

@@ -10,14 +10,12 @@ public class CatTown : MonoBehaviour
     //마을 화면
     public Image town;
     public List<GameObject> catList = new List<GameObject>();
-    public int catCount;
     public int maxCount;
     public Text cat;
 
     //마을 강화
-    public int townLevel;
-    public int price;
-    public Text priceText;
+    public int townUpgradePrice;
+    public Text townUpgradePriceText;
     public Button townUpgrade;
 
     //점수 배율
@@ -35,13 +33,6 @@ public class CatTown : MonoBehaviour
     {
         isSpawn = false;
 
-        if(!PlayerPrefs.HasKey("townLevel"))
-        {
-            townLevel = 1;
-            PlayerPrefs.SetInt("townLevel", townLevel);
-        }
-        townLevel = PlayerPrefs.GetInt("townLevel");
-
 
         if (!PlayerPrefs.HasKey("maxCount"))
         {
@@ -50,14 +41,7 @@ public class CatTown : MonoBehaviour
         }
         maxCount = PlayerPrefs.GetInt("maxCount");
 
-        if (!PlayerPrefs.HasKey("catCount"))
-        {
-            catCount = 0;
-            PlayerPrefs.SetInt("catCount", catCount);
-        }
-        catCount = PlayerPrefs.GetInt("catCount");
-
-        town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + townLevel);
+        town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
 
         CatSpawn();
     }
@@ -65,52 +49,41 @@ public class CatTown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (townLevel < 5 && GameObject.Find("Main").GetComponent<Main>().close.activeSelf == false && GameObject.Find("Main").GetComponent<Main>().tutorial.activeSelf == false)
+        if (GameManager.Singleton.townLevel < 5 && GameObject.Find("Main").GetComponent<Main>().close.activeSelf == false && GameObject.Find("Main").GetComponent<Main>().tutorial.activeSelf == false)
         {
             townUpgrade.interactable = true;
         }
-        priceText.text = "마을강화" + "\n-" + price + "point";
+        townUpgradePriceText.text = "마을강화" + "\n-" + townUpgradePrice + "point";
 
-        if(townLevel == 1)
+        if(GameManager.Singleton.townLevel == 1)
         {
-            price = 10;
+            townUpgradePrice = 10;
             maxCount = 5;
         }
-        else if (townLevel == 2)
+        else if (GameManager.Singleton.townLevel == 2)
         {
-            price = 30;
+            townUpgradePrice = 30;
             maxCount = 6;
         }
-        else if (townLevel == 3)
+        else if (GameManager.Singleton.townLevel == 3)
         {
-            price = 50;
+            townUpgradePrice = 50;
             maxCount = 7;
         }
-        else if (townLevel == 4)
+        else if (GameManager.Singleton.townLevel == 4)
         {
-            price = 100;
+            townUpgradePrice = 100;
             maxCount = 8;
         }
-        else if (townLevel == 5)
+        else if (GameManager.Singleton.townLevel == 5)
         {
-            priceText.text = "마을강화\n최대";
+            townUpgradePriceText.text = "마을강화\n최대";
             townUpgrade.interactable = false;
             maxCount = 9;
         }
 
-        //점수 배율 조정
-        townLevel = PlayerPrefs.GetInt("townLevel");
-        if (townLevel == 1)
-        {
-            scoreRate = 0;
-        }
-        else
-        {
-            scoreRate = (townLevel * 0.25f);
-        }
-
-        scoreRateText.text = "점수배율 : 1 + " + scoreRate + " 배";
-        cat.text = "고양이 : " + catCount + " / " + maxCount;
+        scoreRateText.text = "점수배율 : 1 + " + GameManager.Singleton.scoreRate + " 배";
+        cat.text = "고양이 : " + GameManager.Singleton.catCount + " / " + maxCount;
     }
 
 
@@ -118,37 +91,30 @@ public class CatTown : MonoBehaviour
     {
         catList.Clear();
 
-        if (PlayerPrefs.HasKey("catCount"))
+        if (isSpawn == false)
         {
-            catCount = PlayerPrefs.GetInt("catCount");
-            if (isSpawn == false)
+            for (int i = 0; i < GameManager.Singleton.catCount; i++)
             {
-                for (int i = 0; i < catCount; i++)
-                {
-                    //GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/" + Mathf.Pow(2, townLevel)), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
-                    GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
-                    obj.name = "Cat";
-                    obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + Mathf.Pow(2, townLevel));
-                    catList.Add(obj);
-                }
-                isSpawn = true;
+                GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
+                obj.name = "Cat";
+                obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + Mathf.Pow(2, GameManager.Singleton.townLevel));
+                catList.Add(obj);
             }
+            isSpawn = true;
         }
     }
 
 
     public void OnClickBuy()
     {
-        int point = PlayerPrefs.GetInt("point");
-        
-        if(point < price)
+        if(GameManager.Singleton.totalPoint < townUpgradePrice)
         {
             info.SetActive(true);
             infoText.text = "포인트가 부족합니다.\n게임 플레이를 통해 포인트를 획득할 수 있습니다.";
             return;
         }
 
-        PlayerPrefs.SetInt("point", point - price);
+        GameManager.Singleton.totalPoint -= townUpgradePrice;
 
         isSpawn = false;
 
@@ -159,37 +125,36 @@ public class CatTown : MonoBehaviour
         }
 
 
-        townLevel++;
-        PlayerPrefs.SetInt("townLevel", townLevel);
+        GameManager.Singleton.townLevel++;
 
-        town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + townLevel);
+        town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
 
         CatSpawn();
+
+        SaveManager.Singleton.SaveUserJson();
     }
 
     public void OnClickSummon()
     {
-        if(catCount < maxCount)
+        if(GameManager.Singleton.catCount < maxCount)
         {
-            int point = PlayerPrefs.GetInt("point");
+            
 
-            if (point < 5)
+            if (GameManager.Singleton.totalPoint < 5)
             {
                 info.SetActive(true);
                 infoText.text = "포인트가 부족합니다.\n게임 플레이를 통해 포인트를 획득할 수 있습니다.";
                 return;
             }
 
-            PlayerPrefs.SetInt("point", point - 5);
+            GameManager.Singleton.totalPoint -= 5;
 
-            //GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/" + Mathf.Pow(2, townLevel)), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
             GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
             obj.name = "Cat";
-            obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/"+Mathf.Pow(2,townLevel));
+            obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/"+Mathf.Pow(2,GameManager.Singleton.townLevel));
             catList.Add(obj);
 
-            catCount++;
-            PlayerPrefs.SetInt("catCount", catCount);
+            GameManager.Singleton.catCount++;
         }
         else
         {
@@ -197,5 +162,7 @@ public class CatTown : MonoBehaviour
             infoText.text = "최대 소환 한도입니다.";
             return;
         }
+
+        SaveManager.Singleton.SaveUserJson();
     }
 }

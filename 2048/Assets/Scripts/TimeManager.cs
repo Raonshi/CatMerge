@@ -41,32 +41,8 @@ public class TimeManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        //PlayerPrefs의 날짜 문자열을 DateTime형식으로 변환
-        if (PlayerPrefs.HasKey("closeTime"))
-        {
-            closeString = PlayerPrefs.GetString("closeTime");
-        }
-        else
-        {
-
-            closeString = DateTime.Now.ToString();
-            PlayerPrefs.SetString("closeTime", closeString);
-        }
-
-        closeTime = Convert.ToDateTime(closeString);
-        openTime = DateTime.Now;
-
-        openString = DateTime.Now.ToString();
-
-
-        if (closeTime < openTime)
-        {
-            time = openTime - closeTime;
-        }
-        else
-        {
-            closeTime = openTime;
-        }
+        SaveManager.Singleton.LoadTimeJson();
+        closeString = closeTime.ToString();
     }
 
     // Start is called before the first frame update
@@ -78,5 +54,6 @@ public class TimeManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 }

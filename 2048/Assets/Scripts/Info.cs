@@ -50,10 +50,13 @@ public class Info : MonoBehaviour
         {
             case "GameClose":
                 string closeTime = DateTime.Now.ToString();
-                PlayerPrefs.SetString("closeTime", closeTime);
 
-                //EditorApplication.isPlaying = false;
-                Application.Quit();
+                SaveManager.Singleton.SaveTimeJson();
+                SaveManager.Singleton.SaveUserJson();
+
+                //PlayerPrefs.SetString("closeTime", closeTime);
+                EditorApplication.isPlaying = false;
+                //Application.Quit();
                 break;
 
             case "GoToMain":
