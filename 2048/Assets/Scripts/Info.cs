@@ -33,6 +33,14 @@ public class Info : MonoBehaviour
             case "GiftInfo":
                 message.text = string.Format("고양이가 선물을 찾아왔습니다!");
                 break;
+
+            case "CanNotUseItem":
+                message.text = string.Format("고양이를 움직여 빈 공간을 만든 후\n아이템을 사용하세요.");
+                break;
+
+            case "ItemEmpty":
+                message.text = string.Format("아이템을 모두 소진하였습니다");
+                break;
         }
     }
 

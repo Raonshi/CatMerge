@@ -6,8 +6,10 @@ ScriptsOnlyBuild:
     - Game
     - GameOver
     - Info
+    - Item
     - Main
     - Slot
+    - Timer
     - Tutorial
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
@@ -73,33 +75,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11150}
     - Class: 114
-      Script: {instanceID: 11172}
+      Script: {instanceID: 11152}
     - Class: 114
-      Script: {instanceID: 11302}
+      Script: {instanceID: 11176}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11306}
     - Class: 114
-      Script: {instanceID: 11614}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 11738}
+      Script: {instanceID: 11620}
     - Class: 114
-      Script: {instanceID: 12180}
+      Script: {instanceID: 11744}
     - Class: 114
-      Script: {instanceID: 12886}
+      Script: {instanceID: 12186}
     - Class: 114
-      Script: {instanceID: 12920}
+      Script: {instanceID: 12924}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13654}
     - Class: 114
-      Script: {instanceID: 14158}
+      Script: {instanceID: 13662}
     - Class: 114
-      Script: {instanceID: 14170}
+      Script: {instanceID: 14166}
     - Class: 114
-      Script: {instanceID: 14262}
+      Script: {instanceID: 14178}
     - Class: 114
-      Script: {instanceID: 14282}
+      Script: {instanceID: 14270}
     - Class: 114
-      Script: {instanceID: 14304}
+      Script: {instanceID: 14290}
+    - Class: 114
+      Script: {instanceID: 14312}
+    - Class: 114
+      Script: {instanceID: 49958}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -146,29 +152,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11150}
     - Class: 114
-      Script: {instanceID: 11172}
+      Script: {instanceID: 11152}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11176}
     - Class: 114
-      Script: {instanceID: 11614}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 12180}
+      Script: {instanceID: 11620}
     - Class: 114
-      Script: {instanceID: 12272}
+      Script: {instanceID: 12186}
     - Class: 114
-      Script: {instanceID: 12488}
+      Script: {instanceID: 12278}
     - Class: 114
-      Script: {instanceID: 12886}
+      Script: {instanceID: 12494}
     - Class: 114
-      Script: {instanceID: 13042}
+      Script: {instanceID: 13046}
     - Class: 114
-      Script: {instanceID: 13116}
+      Script: {instanceID: 13120}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13654}
     - Class: 114
-      Script: {instanceID: 14158}
+      Script: {instanceID: 14166}
     - Class: 114
-      Script: {instanceID: 14262}
+      Script: {instanceID: 14270}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -198,6 +204,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 5f1752ed2092162f016c19510c28a8b9
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Button
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -246,6 +258,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: GroupTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Achivement
   - hash:
       serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
@@ -488,12 +506,6 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 5f1752ed2092162f016c19510c28a8b9
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Button
-  - hash:
-      serializedVersion: 2
       Hash: f84d945e5e1ca985698660fc26e9657f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -596,10 +608,22 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 10d1beb47d9a6e3d24f3556f177e8ebc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Item
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
     className: BeforeAfterTestCommandState
+  - hash:
+      serializedVersion: 2
+      Hash: a794a8e854ba7a0af243e28bcba2f412
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TimeManager
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -644,7 +668,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: d51752f9db0bb52ce87941a17fec0ded
+      Hash: b34671ee2f1d78ebd594a6c967ab7348
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -716,12 +740,24 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: a794a8e854ba7a0af243e28bcba2f412
+      Hash: 0e72192f4519549c538297d0fbbddca6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: TimeManager
+    className: Timer
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SaveManager
+  - hash:
+      serializedVersion: 2
+      Hash: 30451e389d2df460b8178b4803fa66de
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameManager
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
-  playerPath: C:/Users/HongSunwon/Desktop/Test_point200_Cat_2.apk
+  playerPath: C:/Users/HongSunwon/Desktop/Test_point200_Cat.apk

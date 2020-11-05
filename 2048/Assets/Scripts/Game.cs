@@ -9,7 +9,7 @@ public class Game : MonoBehaviour
     public GameObject[,] slotArray;
 
     //타일 사이즈
-    int size = 4;
+    public int size = 4;
 
     //슬롯 기준점
     public float xPos;
@@ -27,8 +27,9 @@ public class Game : MonoBehaviour
     public int best;
     public Text bestText;
 
-    //왕고양이 포인트
+    //왕고양이 포인트, 시간
     public int point;
+    public int recoveryTime;
 
     //상태값
     public bool isMove;     //타일이 움직이는 동안 true
@@ -41,21 +42,20 @@ public class Game : MonoBehaviour
     Vector2 startPos, endPos, gap;
 
     //게임 플레이 제한시간
-    float maxTime;
-    float time;
+    public float maxTime;
+    public float time;
     public Slider timeSlider;
     public Text timeText;
 
     //생존 시간
     public float lifeTime;
 
-    //해상도
-    public int screenWidth;
-
     //UI
     public GameObject gameOver;
     public GameObject close;
     public GameObject tutorial0, tutorial1, tutorial2, tutorial3, tutorial4;
+    public GameObject itemTutorial1, itemTutorial2;
+    public Image bg;
 
     //1게임당 튜토리얼 1번 표시
     public bool isTutorial0, isTutorial1, isTutorial2, isTutorial3, isTutorial4;
@@ -96,15 +96,14 @@ public class Game : MonoBehaviour
 
         //매 게임마다 현재 점수 초기화
         score = 0;
-
-        //해상도 조절
-        screenWidth = Screen.width;
-        Screen.SetResolution(screenWidth, (screenWidth * 16) / 9, true);
     }
 
     void Start()
     {
         isOver = false;
+
+        //배경은 마을(레벨에 따라 달라짐)
+        bg.sprite = Resources.Load<Sprite>("Images/Towns/Level" + townLevel);
 
         //게임 시작하자마자 시간을 풀충전해야함
         timeSlider.maxValue = maxTime;
@@ -117,6 +116,10 @@ public class Game : MonoBehaviour
         //알림창 전부 false
         gameOver.SetActive(false);
         close.SetActive(false);
+
+        //튜토리얼 창 false
+        itemTutorial1.SetActive(false);
+        itemTutorial2.SetActive(false);
         tutorial1.SetActive(false);
         tutorial2.SetActive(false);
         tutorial3.SetActive(false);
@@ -197,7 +200,6 @@ public class Game : MonoBehaviour
                 OnClickExit();
             }
 #endif
-
             Touch();
         }
 
@@ -363,7 +365,7 @@ public class Game : MonoBehaviour
         }
 
         slotArray[x, y].gameObject.name = obj.name;
-        slotArray[x, y].transform.localPosition = new Vector2((x * 320) - xPos, (y * 320) - yPos);
+        slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
         slotArray[x, y].transform.rotation = Quaternion.identity;
     }
 
@@ -641,7 +643,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
             
             //위치 및 로테이션 초기화
-            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 320) - xPos, (y2 * 320) - yPos);
+            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
             slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
@@ -659,13 +661,13 @@ public class Game : MonoBehaviour
             }
             else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
             {
-                if (time > maxTime - 5)
+                if (time > maxTime - recoveryTime)
                 {
                     time = maxTime;
                 }
                 else
                 {
-                    time += 5;
+                    time += recoveryTime;
                 }
 
                 Destroy(slotArray[x2, y2]);
@@ -726,28 +728,11 @@ public class Game : MonoBehaviour
 
             slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
 
-            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 320) - xPos, (y2 * 320) - yPos);
+            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
             slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
-
-            //score += slotArray[x2, y2].GetComponent<Slot>().num * 10;
-
-            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
-            {
-                if (time > maxTime - 5)
-                {
-                    time = maxTime;
-                }
-                else
-                {
-                    time += 5;
-                }
-
-                Destroy(slotArray[x2, y2]);
-                point++;
-            }
             k++;
         }
         //일반 결합
@@ -776,7 +761,7 @@ public class Game : MonoBehaviour
 
             slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
 
-            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 320) - xPos, (y2 * 320) - yPos);
+            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
             slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
@@ -794,13 +779,13 @@ public class Game : MonoBehaviour
             }
             else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
             {
-                if (time > maxTime - 5)
+                if (time > maxTime - recoveryTime)
                 {
                     time = maxTime;
                 }
                 else
                 {
-                    time += 5;
+                    time += recoveryTime;
                 }
 
                 Destroy(slotArray[x2, y2]);

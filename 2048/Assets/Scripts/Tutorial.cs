@@ -6,7 +6,6 @@ public class Tutorial : MonoBehaviour
 {
     public int destroy;
 
-
     private void Awake()
     {
         if(PlayerPrefs.HasKey("destroy" + gameObject.name))
@@ -30,6 +29,21 @@ public class Tutorial : MonoBehaviour
 
     public void OnClickOK()
     {
+        if(gameObject.name == "Tutorial0")
+        {
+            gameObject.SetActive(false);
+            Game.instance.itemTutorial1.SetActive(true);
+            return;
+        }
+        else if(gameObject.name == "ItemTutorial1")
+        {
+            gameObject.SetActive(false);
+            Game.instance.itemTutorial2.SetActive(true);
+            return;
+        }
+        
+        
+        
         if(gameObject.name != "Tutorial4")
         {
             Game.instance.isOver = false;

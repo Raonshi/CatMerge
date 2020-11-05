@@ -16,12 +16,15 @@ public class Cat : MonoBehaviour
     public float giftTime;
     public GameObject gift;
 
+    private void Awake()
+    {
+        gift.SetActive(false);
+        giftTime = UnityEngine.Random.Range(300, 601);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        gift.SetActive(false);
-        giftTime = UnityEngine.Random.Range(300, 601);
         array = GameObject.FindGameObjectsWithTag("Target");
         for (int i = 0; i < array.Length; i++)
         {

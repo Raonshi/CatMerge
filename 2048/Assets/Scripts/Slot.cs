@@ -116,7 +116,7 @@ public class Slot : MonoBehaviour
         _y = y;
         _combine = combine;
 
-        Vector3 target = new Vector3((320 * x) - _xPos, (320 * y) - _yPos, 0);
+        Vector3 target = new Vector3((270 * x) - _xPos, (270 * y) - _yPos, 0);
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 60);
         
         

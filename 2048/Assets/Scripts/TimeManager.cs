@@ -37,6 +37,8 @@ public class TimeManager : MonoBehaviour
 
     public void InitTimeManager()
     {
+        Debug.Log("======================TimeManger loaded======================");
+
         DontDestroyOnLoad(gameObject);
 
         //PlayerPrefs의 날짜 문자열을 DateTime형식으로 변환
@@ -65,8 +67,6 @@ public class TimeManager : MonoBehaviour
         {
             closeTime = openTime;
         }
-
-        Debug.Log("TimeManager has loaded");
     }
 
     // Start is called before the first frame update

@@ -39,7 +39,7 @@ public class Main : MonoBehaviour
         tutorial.SetActive(false);
         help.SetActive(false);
 
-        TimeManager.Singleton.InitTimeManager();
+        GameManager.Singleton.InitGameManager();
     }
 
     void Start()
