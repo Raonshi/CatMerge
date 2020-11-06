@@ -29,7 +29,12 @@ public class Cat : MonoBehaviour
         gift.SetActive(false);
 
         //마지막 게임 종료로부터 10분 이상 지났다면 선물 활성화
-        if (TimeManager.Singleton.time.TotalSeconds > maxTime)
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        if (TimeManager.Singleton.time.TotalSeconds > maxTime && GameManager.Singleton.isStart == true)
         {
             gift.SetActive(true);
         }
@@ -37,11 +42,7 @@ public class Cat : MonoBehaviour
         {
             giftTime = UnityEngine.Random.Range(minTime - (float)TimeManager.Singleton.time.TotalSeconds, maxTime - (float)TimeManager.Singleton.time.TotalSeconds);
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
         if (isNew == true)
         {
             giftTime = UnityEngine.Random.Range(minTime, maxTime);
@@ -82,6 +83,7 @@ public class Cat : MonoBehaviour
         if (giftTime <= 0)
         {
             giftTime = 0;
+            Main.instance.isGift = true;
             Gift();
         }
     }

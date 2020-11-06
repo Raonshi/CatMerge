@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class Info : MonoBehaviour
 {
     public Text message;
+    public List<GameObject> button = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -28,6 +29,7 @@ public class Info : MonoBehaviour
 
             case "GiftInfo":
                 message.text = string.Format("고양이가 선물을 찾아왔습니다!");
+                GameManager.Singleton.isStart = false;
                 break;
 
             case "CanNotUseItem":
@@ -37,6 +39,17 @@ public class Info : MonoBehaviour
             case "ItemEmpty":
                 message.text = string.Format("아이템을 모두 소진하였습니다");
                 break;
+
+            case "Retry":
+                button.Clear();
+                button.Add(gameObject.transform.Find("Yes").gameObject);
+                button.Add(gameObject.transform.Find("No").gameObject);
+
+                Game.instance.isOver = true;
+                Game.instance.isClose = true;
+
+                message.text = string.Format("이동 가능한 타일이 없습니다.\n5포인트를 사용하여 타일 1개를 삭제할 수 있습니다.\n(현재 보유 포인트 : {0})\n<color=red>점수는 반영되지 않습니다</color>", GameManager.Singleton.totalPoint);
+                break;
         }
     }
 
@@ -45,14 +58,11 @@ public class Info : MonoBehaviour
         switch (gameObject.name)
         {
             case "GameClose":
-                string closeTime = DateTime.Now.ToString();
-
-                SaveManager.Singleton.SaveTimeJson();
                 SaveManager.Singleton.SaveUserJson();
 
                 //PlayerPrefs.SetString("closeTime", closeTime);
-                EditorApplication.isPlaying = false;
-                //Application.Quit();
+                //EditorApplication.isPlaying = false;
+                Application.Quit();
                 break;
 
             case "GoToMain":
@@ -63,5 +73,31 @@ public class Info : MonoBehaviour
     public void OnClickNo()
     {
         gameObject.SetActive(false);
+    }
+
+    public void OnClickRetry(string buttonname)
+    {
+        switch(buttonname)
+        {
+            case "Yes":
+                if(GameManager.Singleton.totalPoint < 5)
+                {
+                    Game.instance.notEnoughPoint.SetActive(true);
+                    return;
+                }
+
+                Game.instance.isOver = false;
+                GameManager.Singleton.totalPoint -= 5;
+                GameObject obj = Game.instance.slotArray[UnityEngine.Random.Range(0, Game.instance.size), UnityEngine.Random.Range(0, Game.instance.size)];
+                Destroy(obj);
+
+                gameObject.SetActive(false);
+                break;
+
+            case "No":
+                Game.instance.gameOver.SetActive(true);
+                gameObject.SetActive(false);
+                break;
+        }
     }
 }

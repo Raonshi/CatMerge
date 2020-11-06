@@ -195,8 +195,8 @@ MonoBehaviour:
   giftTime: 0
   gift: {fileID: 2074010392804959518}
   giftPoint: 0
-  minTime: 300
-  maxTime: 600
+  minTime: 10
+  maxTime: 30
   isNew: 0
 --- !u!82 &-1533083619456194926
 AudioSource:

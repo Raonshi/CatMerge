@@ -46,6 +46,8 @@ public class Game : MonoBehaviour
     public float lifeTime;
 
     //UI
+    public GameObject retry;
+    public GameObject notEnoughPoint;
     public GameObject gameOver;
     public GameObject close;
     public GameObject tutorial0, tutorial1, tutorial2, tutorial3, tutorial4;
@@ -70,7 +72,7 @@ public class Game : MonoBehaviour
         instance = this;
 
         //시간 초기화
-        maxTime = 10;
+        maxTime = 90;
         time = maxTime;
         lifeTime = 0;
 
@@ -98,6 +100,8 @@ public class Game : MonoBehaviour
         timeText.text = timeSlider.value.ToString();
 
         //알림창 전부 false
+        retry.SetActive(false);
+        notEnoughPoint.SetActive(false);
         gameOver.SetActive(false);
         close.SetActive(false);
 
@@ -444,7 +448,8 @@ public class Game : MonoBehaviour
         //결합 가능한 타일이 없으면 게임 종료
         if (i == 0)
         {
-            gameOver.SetActive(true);
+            retry.SetActive(true);
+            //gameOver.SetActive(true);
         }
     }
 

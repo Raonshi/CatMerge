@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public bool isNew;          //최초 플레이 유무
     public bool isHelp;         //첫 플레이 후 메인화면 설명
 
+    public bool isStart;        //게임 실행 확인
+
     public int catCount;        //보유한 고양이 수
     public int item1Count;      //츄르 보유량
     public int item2Count;      //참치캔 보유량
@@ -56,9 +58,13 @@ public class GameManager : MonoBehaviour
         screenWidth = Screen.width;
         Screen.SetResolution(screenWidth, (screenWidth * 16) / 9, true);
 
+        
+        
         //각종 매니저 생성 및 초기화
         SaveManager.Singleton.InitSaveManager();
         TimeManager.Singleton.InitTimeManager();
+
+        isStart = true;
     }
 
 
@@ -83,6 +89,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateScoreRate();
+
+        SaveManager.Singleton.SaveUserJson();
+        SaveManager.Singleton.SaveItemJson();
     }
 
     public void UpdateScoreRate()

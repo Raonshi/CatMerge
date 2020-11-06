@@ -7,6 +7,8 @@ public class TimeManager : MonoBehaviour
 {
     public string closeString;
     public string openString;
+
+    //메인화면에서 벗어나는 시간
     public DateTime closeTime;
     
     public DateTime openTime;
@@ -57,5 +59,10 @@ public class TimeManager : MonoBehaviour
 
         time = DateTime.Now - closeTime;
         closeString = closeTime.ToString();
+    }
+
+    private void Update()
+    {
+        SaveManager.Singleton.SaveTimeJson();
     }
 }

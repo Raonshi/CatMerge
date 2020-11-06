@@ -27,9 +27,13 @@ public class Main : MonoBehaviour
     //선물 알림창 활성여부
     public bool isGift;
 
+    public static Main instance;
+
     // Start is called before the first frame update
     private void Awake()
     {
+        instance = this;
+
         isGift = true;
 
         close.SetActive(false);
@@ -127,6 +131,16 @@ public class Main : MonoBehaviour
 
     public void OnClickShop()
     {
+        TimeManager.Singleton.closeTime = DateTime.Now;
+
+        TimeManager.Singleton.giftTime.Clear();
+
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
+        {
+            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
+            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
+        }
+
         SceneManager.LoadScene("Shop");
     }
 }

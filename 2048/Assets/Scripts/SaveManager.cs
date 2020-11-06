@@ -61,8 +61,6 @@ public class SaveManager : MonoBehaviour
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
             GameManager.Singleton.catCount,
-            GameManager.Singleton.item1Count,
-            GameManager.Singleton.item2Count,
             GameManager.Singleton.isNew);
        
         //user객체를 json으로 변환
@@ -87,8 +85,6 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
         GameManager.Singleton.catCount = user.catCount;
-        GameManager.Singleton.item1Count = user.item1Count;
-        GameManager.Singleton.item2Count = user.item2Count;
 
         GameManager.Singleton.best = user.best;
         GameManager.Singleton.isNew = user.isNew;
@@ -171,7 +167,12 @@ public class SaveManager : MonoBehaviour
     #region 파일 저장 및 불러오기
     public void SaveData(string data, string fileName)
     {
-        string path = "Assets/Json/" + fileName + ".json";
+        string path = Application.persistentDataPath + "/Save/" + fileName + ".json";
+
+        if(Directory.Exists(Application.persistentDataPath+"/Save") == false)
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/Save");
+        }
 
         StreamWriter writer = new StreamWriter(path);
 
@@ -182,9 +183,9 @@ public class SaveManager : MonoBehaviour
 
     public string LoadData(string fileName)
     {
-        string path = "Assets/Json/" + fileName + ".json";
+        string path = Application.persistentDataPath + "/Save/" + fileName + ".json";
 
-        if(File.Exists(path) == false)
+        if (File.Exists(path) == false)
         {
             return null;
         }
@@ -199,7 +200,7 @@ public class SaveManager : MonoBehaviour
         return data;
     }
    
-    #endregion
+#endregion
 }
 
 public class UserJson
@@ -208,20 +209,16 @@ public class UserJson
     public int best;
     public int totalPoint;
     public int catCount;
-    public int item1Count;
-    public int item2Count;
 
     public bool isNew;
     public bool isHelp;
 
-    public void SetData(int _townLevel, int _best, int _totalPoint, int _catCount, int _item1Count, int _item2Count, bool _isNew)
+    public void SetData(int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew)
     {
         townLevel = _townLevel;
         best = _best;
         totalPoint = _totalPoint;
         catCount = _catCount;
-        item1Count = _item1Count;
-        item2Count = _item2Count;
 
         isNew = _isNew;
     }
