@@ -1705,8 +1705,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: {fileID: 1479107887}
-  buttonList:
-  - {fileID: 211317118}
 --- !u!1 &286469072
 GameObject:
   m_ObjectHideFlags: 0
@@ -5239,7 +5237,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 175661350}
         m_MethodName: OnClickToggle
         m_Mode: 1
         m_Arguments:
@@ -5697,7 +5695,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 92633602}
         m_MethodName: OnClickToggle
         m_Mode: 1
         m_Arguments:
@@ -7340,7 +7338,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: {fileID: 801184540}
-  buttonList: []
 --- !u!1 &1143708171
 GameObject:
   m_ObjectHideFlags: 0
@@ -8643,8 +8640,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: {fileID: 54313348}
-  buttonList:
-  - {fileID: 2113906251}
 --- !u!1 &1342143401
 GameObject:
   m_ObjectHideFlags: 0
@@ -12192,7 +12187,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 860361815}
         m_MethodName: OnClickToggle
         m_Mode: 1
         m_Arguments:
@@ -13076,11 +13071,8 @@ MonoBehaviour:
   size: 4
   xPos: 405
   yPos: 355
-  townLevel: 0
-  scoreRate: 0
   scoreText: {fileID: 1490726879}
   score: 0
-  best: 0
   bestText: {fileID: 527587838}
   point: 0
   recoveryTime: 5
@@ -13094,7 +13086,6 @@ MonoBehaviour:
   timeSlider: {fileID: 884141802}
   timeText: {fileID: 487780203}
   lifeTime: 0
-  screenWidth: 0
   gameOver: {fileID: 391940543}
   close: {fileID: 1137521107}
   tutorial0: {fileID: 860361812}

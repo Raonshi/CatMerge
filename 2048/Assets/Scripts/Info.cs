@@ -8,11 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Info : MonoBehaviour
 {
-    //public GameObject Yes;
-    //public GameObject No;
     public Text message;
-
-    public List<GameObject> buttonList = new List<GameObject>();
 
     private void OnEnable()
     {

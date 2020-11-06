@@ -102,14 +102,31 @@ public class Main : MonoBehaviour
             GameManager.Singleton.isNew = false;
         }
 
-        string closeTime = DateTime.Now.ToString();
 
-        SaveManager.Singleton.SaveTimeJson();
+        //고양이 선물시간 계산을 위해 게임 시작 전 현재 시간을 저장
+        TimeManager.Singleton.closeTime = DateTime.Now;
+
+        //각 고양이들의 선물 시간을 리스트에 저장
+        TimeManager.Singleton.giftTime.Clear();
+
+        for(int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
+        {
+            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
+            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
+        }
+
+
+
         SceneManager.LoadScene("Game");
     }
 
     public void OnClickClose(GameObject obj)
     {
         obj.SetActive(false);
+    }
+
+    public void OnClickShop()
+    {
+        SceneManager.LoadScene("Shop");
     }
 }

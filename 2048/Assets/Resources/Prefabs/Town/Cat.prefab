@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8354112576914630463
 RectTransform:
   m_ObjectHideFlags: 0
@@ -189,12 +189,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5fc2559af85914a8e50eb1320a25f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetList: []
   target: {fileID: 0}
   array: []
   image: {fileID: 1330881627724108158}
   giftTime: 0
   gift: {fileID: 2074010392804959518}
+  giftPoint: 0
+  minTime: 300
+  maxTime: 600
+  isNew: 0
 --- !u!82 &-1533083619456194926
 AudioSource:
   m_ObjectHideFlags: 0

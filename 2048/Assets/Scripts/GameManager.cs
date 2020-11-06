@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public bool isHelp;         //첫 플레이 후 메인화면 설명
 
     public int catCount;        //보유한 고양이 수
+    public int item1Count;      //츄르 보유량
+    public int item2Count;      //참치캔 보유량
 
 
     //해상도
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance;
 
+    //싱글턴 객체 생성
     public static GameManager Singleton
     {
         get
@@ -42,18 +45,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //게임 매니저 초기화
     public void InitGameManager()
     {
         Debug.Log("======================GameManger loaded======================");
 
         DontDestroyOnLoad(gameObject);
 
-        SaveManager.Singleton.InitSaveManager();
-        TimeManager.Singleton.InitTimeManager();
-
         //해상도 조절
         screenWidth = Screen.width;
         Screen.SetResolution(screenWidth, (screenWidth * 16) / 9, true);
+
+        //각종 매니저 생성 및 초기화
+        SaveManager.Singleton.InitSaveManager();
+        TimeManager.Singleton.InitTimeManager();
     }
 
 
@@ -66,8 +71,11 @@ public class GameManager : MonoBehaviour
             totalPoint = 100;
             best = 0;
             catCount = 0;
+            item1Count = 3;
+            item2Count = 3;
 
             SaveManager.Singleton.SaveUserJson();
+            SaveManager.Singleton.SaveItemJson();
         }
     }
 

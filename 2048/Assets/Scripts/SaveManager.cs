@@ -29,12 +29,14 @@ public class SaveManager : MonoBehaviour
     }
 
 
+    //세이브매니저 초기화 및 기존 유저 데이터 로드
     public void InitSaveManager()
     {
         Debug.Log("======================SaveManger loaded======================");
         DontDestroyOnLoad(gameObject);
 
         LoadUserJson();
+        LoadItemJson();
     }
 
     // Start is called before the first frame update
@@ -53,9 +55,17 @@ public class SaveManager : MonoBehaviour
     {
         UserJson user = new UserJson();
         string data;
-
-        user.SetData(GameManager.Singleton.townLevel, GameManager.Singleton.best, GameManager.Singleton.totalPoint,GameManager.Singleton.catCount, GameManager.Singleton.isNew, GameManager.Singleton.isHelp);
+        
+        //json으로 변환할 객체에 데이터를 저장한다.
+        user.SetData(GameManager.Singleton.townLevel,
+            GameManager.Singleton.best,
+            GameManager.Singleton.totalPoint,
+            GameManager.Singleton.catCount,
+            GameManager.Singleton.item1Count,
+            GameManager.Singleton.item2Count,
+            GameManager.Singleton.isNew);
        
+        //user객체를 json으로 변환
         data = user.Save();
 
         SaveData(data, "user");
@@ -77,6 +87,9 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
         GameManager.Singleton.catCount = user.catCount;
+        GameManager.Singleton.item1Count = user.item1Count;
+        GameManager.Singleton.item2Count = user.item2Count;
+
         GameManager.Singleton.best = user.best;
         GameManager.Singleton.isNew = user.isNew;
 
@@ -86,6 +99,41 @@ public class SaveManager : MonoBehaviour
     }
 
 
+    public void SaveItemJson()
+    {
+        ItemJson item = new ItemJson();
+        string data;
+
+        //json으로 변환할 객체에 데이터를 저장한다.
+        item.SetData(GameManager.Singleton.item1Count, GameManager.Singleton.item2Count);
+
+        //item객체를 json으로 저장
+        data = item.Save();
+
+        SaveData(data, "item");
+    }
+
+    public void LoadItemJson()
+    {
+        string json = LoadData("item");
+
+        if (json == null)
+        {
+            GameManager.Singleton.isNew = true;
+            return;
+        }
+
+        ItemJson item = JsonUtility.FromJson<ItemJson>(json);
+
+        GameManager.Singleton.item1Count = item.item1Count;
+        GameManager.Singleton.item2Count = item.item2Count;
+
+        //테스트용 코드
+        //Debug.Log(user.townLevel + " / " + user.best + " / " + user.point );
+    }
+
+
+
     //실행하는 경우
     //1. 게임 종료
     //2. 메인메뉴를 벗어나는 경우
@@ -93,7 +141,7 @@ public class SaveManager : MonoBehaviour
     {
         //실행되는 시점의 시간을 저장
         DateTime time = DateTime.Now;
-        CloseTime close = new CloseTime();
+        TimeJson close = new TimeJson();
         string data;
 
         close.SetData(DateTime.Now);
@@ -108,10 +156,11 @@ public class SaveManager : MonoBehaviour
 
         if(json == null)
         {
+            TimeManager.Singleton.isNew = true;
             return;
         }
 
-        CloseTime close = JsonUtility.FromJson<CloseTime>(json);
+        TimeJson close = JsonUtility.FromJson<TimeJson>(json);
 
         TimeManager.Singleton.closeTime = new DateTime(close.year, close.month, close.day, close.hour, close.minute, close.second);
     }
@@ -159,17 +208,22 @@ public class UserJson
     public int best;
     public int totalPoint;
     public int catCount;
+    public int item1Count;
+    public int item2Count;
+
     public bool isNew;
     public bool isHelp;
 
-    public void SetData(int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isHelp)
+    public void SetData(int _townLevel, int _best, int _totalPoint, int _catCount, int _item1Count, int _item2Count, bool _isNew)
     {
         townLevel = _townLevel;
         best = _best;
         totalPoint = _totalPoint;
         catCount = _catCount;
+        item1Count = _item1Count;
+        item2Count = _item2Count;
+
         isNew = _isNew;
-        isHelp = _isHelp;
     }
 
     public string Save()
@@ -178,7 +232,24 @@ public class UserJson
     }
 }
 
-public class CloseTime
+public class ItemJson
+{
+    public int item1Count;
+    public int item2Count;
+
+    public void SetData(int _item1Count, int _item2Count)
+    {
+        item1Count = _item1Count;
+        item2Count = _item2Count;
+    }
+
+    public string Save()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+public class TimeJson
 {
     public int second;
     public int minute;

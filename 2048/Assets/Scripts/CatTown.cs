@@ -91,6 +91,12 @@ public class CatTown : MonoBehaviour
     {
         catList.Clear();
 
+        GameObject[] array = GameObject.FindGameObjectsWithTag("Cat");
+        for(int j = 0; j < array.Length; j++)
+        {
+            Destroy(array[j]);
+        }
+
         if (isSpawn == false)
         {
             for (int i = 0; i < GameManager.Singleton.catCount; i++)
@@ -98,6 +104,12 @@ public class CatTown : MonoBehaviour
                 GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
                 obj.name = "Cat";
                 obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + Mathf.Pow(2, GameManager.Singleton.townLevel));
+
+                if(TimeManager.Singleton.giftTime.Count != 0)
+                {
+                    obj.GetComponent<Cat>().giftTime = TimeManager.Singleton.giftTime[i];
+                }
+
                 catList.Add(obj);
             }
             isSpawn = true;
@@ -119,9 +131,11 @@ public class CatTown : MonoBehaviour
         isSpawn = false;
 
         GameObject[] array = GameObject.FindGameObjectsWithTag("Cat");
+
+        TimeManager.Singleton.giftTime.Clear();
         for (int i = 0; i < array.Length; i++)
         {
-            Destroy(array[i]);
+            TimeManager.Singleton.giftTime.Add(array[i].GetComponent<Cat>().giftTime);
         }
 
 
@@ -152,6 +166,7 @@ public class CatTown : MonoBehaviour
             GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/Town/Cat"), GameObject.Find("Canvas/BackGround/CatTown/Image").transform);
             obj.name = "Cat";
             obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/"+Mathf.Pow(2,GameManager.Singleton.townLevel));
+            obj.GetComponent<Cat>().isNew = true;
             catList.Add(obj);
 
             GameManager.Singleton.catCount++;

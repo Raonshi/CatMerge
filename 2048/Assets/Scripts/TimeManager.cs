@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-
-    private static TimeManager instance;
-
     public string closeString;
     public string openString;
     public DateTime closeTime;
+    
     public DateTime openTime;
     public TimeSpan time;
+
+    public bool isNew;
+
+    //메인화면 고양이 선물 시간 정보
+    public List<float> giftTime = new List<float>();
+
+
+
+    private static TimeManager instance;
 
     public static TimeManager Singleton
     {
@@ -34,7 +41,7 @@ public class TimeManager : MonoBehaviour
         }
     }
 
-
+    //타임 매니저 초기화 및 마지막 종료 시간을 불러옴
     public void InitTimeManager()
     {
         Debug.Log("======================TimeManger loaded======================");
@@ -42,18 +49,13 @@ public class TimeManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         SaveManager.Singleton.LoadTimeJson();
+
+        if(isNew == true)
+        {
+            closeTime = DateTime.Now;
+        }
+
+        time = DateTime.Now - closeTime;
         closeString = closeTime.ToString();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

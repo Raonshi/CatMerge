@@ -15,21 +15,16 @@ public class Game : MonoBehaviour
     public float xPos;
     public float yPos;
 
-    //점수 배율 조정
-    public int townLevel;   //마을 레벨
-    public float scoreRate;   //마을 레벨에 따른 점수 배율
-
     //현재 점수
     public Text scoreText;
     public int score;
 
     //최고 점수
-    public int best;
     public Text bestText;
 
     //왕고양이 포인트, 시간
-    public int point;
-    public int recoveryTime;
+    public int point;           //1게임에서 획득한 총 포인트
+    public int recoveryTime;    //왕고양이 제거시 얻는 시간
 
     //상태값
     public bool isMove;     //타일이 움직이는 동안 true
@@ -75,7 +70,7 @@ public class Game : MonoBehaviour
         instance = this;
 
         //시간 초기화
-        maxTime = 90;
+        maxTime = 10;
         time = maxTime;
         lifeTime = 0;
 
@@ -86,17 +81,6 @@ public class Game : MonoBehaviour
         isTutorial3 = false;
         isTutorial4 = false;
 
-        //점수 배율 조정
-        townLevel = GameManager.Singleton.townLevel;
-        if(townLevel == 1)
-        {
-            scoreRate = 0;
-        }
-        else
-        {
-            scoreRate = (townLevel * 0.25f);
-        }
-
         //매 게임마다 현재 점수 초기화
         score = 0;
     }
@@ -106,15 +90,12 @@ public class Game : MonoBehaviour
         isOver = false;
 
         //배경은 마을(레벨에 따라 달라짐)
-        bg.sprite = Resources.Load<Sprite>("Images/Towns/Level" + townLevel);
+        bg.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
 
         //게임 시작하자마자 시간을 풀충전해야함
         timeSlider.maxValue = maxTime;
         timeSlider.value = maxTime;
         timeText.text = timeSlider.value.ToString();
-
-        //매 게임마다 최고 점수를 불러옴
-        best = PlayerPrefs.GetInt("bestScore");
 
         //알림창 전부 false
         gameOver.SetActive(false);
@@ -136,7 +117,11 @@ public class Game : MonoBehaviour
         GenerateNumber();
 
         //숫자보기 튜토리얼 처음에 표시
-        tutorial0.SetActive(true);
+        if (PlayerPrefs.HasKey("destroy" + tutorial0.name) == false && isTutorial0 == false)
+        {
+            isTutorial0 = true;
+            tutorial0.SetActive(true);
+        }
     }
 
     private void Update()
@@ -236,11 +221,11 @@ public class Game : MonoBehaviour
 
 
         //현재 점수가 최고점보다 높을 경우에 최고점이 실시간으로 올라간다.
-        if(score > best)
+        if(score > GameManager.Singleton.best)
         {
-            best = score;
+            GameManager.Singleton.best = score;
         }
-        bestText.text = best.ToString();
+        bestText.text = GameManager.Singleton.best.ToString();
 
 
         //고양이 숫자 표시
@@ -328,7 +313,7 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Multiple");
 
             //곱하기 타일 최초 생성이면 튜토리얼 창 활성화
-            if(!PlayerPrefs.HasKey("destroy" + tutorial2.name) && isTutorial2 == false)
+            if(PlayerPrefs.HasKey("destroy" + tutorial2.name) == false && isTutorial2 == false)
             {
                 isTutorial2 = true;
                 tutorial2.SetActive(true);
@@ -652,7 +637,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
 
-            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * scoreRate));
+            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
 
             if(slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {
@@ -770,7 +755,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
 
-            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * scoreRate));
+            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
 
             if (slotArray[x2, y2].GetComponent<Slot>().num == 32)
             {

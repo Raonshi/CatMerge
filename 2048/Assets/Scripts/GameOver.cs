@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    int you, best, point, totalPoint, lifeTime;
+    int you, point, lifeTime;
+
     public Text yourScore;
     public GameObject bestScore;
     public Text pointText;
@@ -25,37 +26,19 @@ public class GameOver : MonoBehaviour
         pointText.text = point.ToString();
         lifeTimeText.text = lifeTime.ToString();
 
-        if (PlayerPrefs.HasKey("bestScore"))
+        if (you == GameManager.Singleton.best)
         {
-            best = PlayerPrefs.GetInt("bestScore");
-
-            if(best < you)
-            {
-                PlayerPrefs.SetInt("bestScore", you);
-                bestScore.SetActive(true);
-            }
-        }
-        else
-        {
-            PlayerPrefs.SetInt("bestScore", you);
+            GameManager.Singleton.best = you;
             bestScore.SetActive(true);
         }
 
-        if(PlayerPrefs.HasKey("point"))
-        {
-            totalPoint = PlayerPrefs.GetInt("point") + point;
-            PlayerPrefs.SetInt("point", totalPoint);
-        }
-        else
-        {
-            totalPoint = point;
-            PlayerPrefs.SetInt("point", totalPoint);
-        }
+        GameManager.Singleton.totalPoint += point;
     }
 
     public void OnClickOK()
     {
         Debug.Log("=====================Game Over===================== \n Your Score : " + Game.instance.score);
+        SaveManager.Singleton.SaveUserJson();
         SceneManager.LoadScene("MainMenu");
     }
 }
