@@ -51,11 +51,10 @@ public class Game : MonoBehaviour
     public GameObject gameOver;
     public GameObject close;
     public GameObject tutorial0, tutorial1, tutorial2, tutorial3;
-    public GameObject itemTutorial1, itemTutorial2;
     public Image bg;
 
     //기타
-    int count;  //현재 생성되어 있는 타일의 수
+    public int count;  //현재 생성되어 있는 타일의 수
     int k;      //타일 움직임 감지용 변수
 
     //싱글턴
@@ -82,7 +81,7 @@ public class Game : MonoBehaviour
         isOver = false;
 
         //배경은 마을(레벨에 따라 달라짐)
-        bg.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
+        bg.sprite = Resources.Load<Sprite>("Images/UI/BG");
 
         //게임 시작하자마자 시간을 풀충전해야함
         timeSlider.maxValue = maxTime;
@@ -96,8 +95,6 @@ public class Game : MonoBehaviour
         close.SetActive(false);
 
         //튜토리얼 창 false
-        itemTutorial1.SetActive(false);
-        itemTutorial2.SetActive(false);
         tutorial1.SetActive(false);
         tutorial2.SetActive(false);
         tutorial3.SetActive(false);
@@ -643,11 +640,9 @@ public class Game : MonoBehaviour
                 {
                     time += recoveryTime;
                 }
-                Transform slotTransform = slotArray[x2, y2].transform;
                 Destroy(slotArray[x2, y2]);
-                Debug.Log(slotTransform.position);
 
-                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"), slotTransform.position, Quaternion.identity);
+                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"));
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
@@ -760,11 +755,10 @@ public class Game : MonoBehaviour
                 {
                     time += recoveryTime;
                 }
-                Transform slotTransform = slotArray[x2, y2].transform;
+                
                 Destroy(slotArray[x2, y2]);
-                Debug.Log(slotTransform.position);
 
-                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"), slotTransform.position, Quaternion.identity);
+                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"));
                 timeRecovery.name = "TimeRecovery";
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);

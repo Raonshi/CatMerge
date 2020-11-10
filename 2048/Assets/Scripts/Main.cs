@@ -156,12 +156,12 @@ public class Main : MonoBehaviour
     {
         //마을 화면 및 최대 고양이 수 초기화
         maxCount = GameManager.Singleton.townLevel + 4;
-        town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
-
+        //town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
+        town.sprite = Resources.Load<Sprite>("Images/Towns/Cat_Town");
 
         //마을 업그레이드 할때는 이미지만 교체
         //Main스크립트 실행시엔 기존 고양이 삭제 안함.
-        if(townUpgrade == true)
+        if (townUpgrade == true)
         {
             for (int i = 0; i < catList.Count; i++)
             {

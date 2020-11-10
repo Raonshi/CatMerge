@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -18,19 +19,12 @@ public class GameManager : MonoBehaviour
     public bool isStart;        //게임 실행 확인
 
     public int catCount;        //보유한 고양이 수
-    public int item1Count;      //츄르 보유량
-    public int item2Count;      //참치캔 보유량
-
-    //랭킹 정보
-    public List<RankSlot> rankList = new List<RankSlot>();
 
     //튜토리얼
     public bool tutorial0;
     public bool tutorial1;
     public bool tutorial2;
     public bool tutorial3;
-    public bool itemTutorial1;
-    public bool itemTutorial2;
 
     //해상도
     public int screenWidth;
@@ -89,18 +83,13 @@ public class GameManager : MonoBehaviour
             totalPoint = 100;
             best = 0;
             catCount = 0;
-            item1Count = 3;
-            item2Count = 3;
 
             tutorial0 = true;
             tutorial1 = true;
             tutorial2 = true;
             tutorial3 = true;
-            itemTutorial1 = true;
-            itemTutorial2 = true;
 
             Main.instance.nicknamePanel.SetActive(true);
-            SaveManager.Singleton.SaveItemJson();
             SaveManager.Singleton.SaveTutorialJson();
         }
     }
@@ -113,7 +102,6 @@ public class GameManager : MonoBehaviour
         //UpdateRankList();
 
         SaveManager.Singleton.SaveUserJson();
-        SaveManager.Singleton.SaveItemJson();
     }
 
     public void UpdateScoreRate()
@@ -125,38 +113,6 @@ public class GameManager : MonoBehaviour
         else
         {
             scoreRate = (townLevel * 0.25f);
-        }
-    }
-
-
-    /*
-     * 랭킹의 점수와 현재 점수 비교
-     * 1. 1위부터 차례대로 비교
-     * ->rankList[0] ~ rankList[14]
-     * 2. 현재 점수 < rankList[n]등 점수 : rankList[n+1]등 점수와 비교
-     * 3. 현재 점수 > rankList[n]등 점수 : ... / rankList[n + 2] = rankList[n + 1] / rankList[n + 1] = rankList[n] / rankList[n] = 현재 점수
-     * -> List.Insert를 사용하면 될거 같음.
-     * 4. 현재 점수 == rankList[n] : rankList[n] = 현재 점수
-     * 5. 각 랭킹에 포함되는 항목
-     * -> 날짜기록 / 점수 / 닉네임
-     */
-    public void CompareScore()
-    {
-        if(rankList.Count == 0)
-        {
-            //랭킹리스트가 비어있으면 랭킹저장
-            SaveManager.Singleton.SaveRankJson();
-        }
-        else
-        {
-            //랭킹리스트가 비어있지 않으면 비교시작
-            int tmp = Game.instance.score;
-            for(int i = 0; i < rankList.Count; i++)
-            {
-                //tmp가 rankList[i]보다 크면 랭킹에 삽입
-
-                //작으면 다음 반복 실행
-            }
         }
     }
 }

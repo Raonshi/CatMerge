@@ -6,10 +6,9 @@ ScriptsOnlyBuild:
     - Game
     - GameOver
     - Info
-    - Item
     - Main
-    - Shop
     - Slot
+    - TimeRecovery
     - Timer
     - Tutorial
     Unity.2D.Animation.Editor.dll:
@@ -40,6 +39,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.Image
+    - UnityEngine.UI.InputField
     - UnityEngine.UI.Outline
     - UnityEngine.UI.RawImage
     - UnityEngine.UI.Slider
@@ -72,39 +72,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11148}
     - Class: 114
-      Script: {instanceID: 11192}
+      Script: {instanceID: 11150}
     - Class: 114
-      Script: {instanceID: 11322}
+      Script: {instanceID: 11152}
     - Class: 114
-      Script: {instanceID: 11484}
+      Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11512}
+      Script: {instanceID: 11306}
     - Class: 114
-      Script: {instanceID: 11636}
+      Script: {instanceID: 11494}
     - Class: 114
-      Script: {instanceID: 11760}
+      Script: {instanceID: 11618}
     - Class: 114
-      Script: {instanceID: 11820}
+      Script: {instanceID: 11742}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 11802}
     - Class: 114
-      Script: {instanceID: 12916}
+      Script: {instanceID: 12190}
     - Class: 114
-      Script: {instanceID: 12950}
+      Script: {instanceID: 12932}
     - Class: 114
-      Script: {instanceID: 13680}
+      Script: {instanceID: 13664}
     - Class: 114
-      Script: {instanceID: 13688}
+      Script: {instanceID: 14176}
     - Class: 114
-      Script: {instanceID: 14192}
+      Script: {instanceID: 14188}
     - Class: 114
-      Script: {instanceID: 14204}
+      Script: {instanceID: 14280}
     - Class: 114
-      Script: {instanceID: 14296}
+      Script: {instanceID: 14300}
     - Class: 114
-      Script: {instanceID: 14316}
-    - Class: 114
-      Script: {instanceID: 14338}
+      Script: {instanceID: 14322}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -149,88 +147,35 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11148}
     - Class: 114
-      Script: {instanceID: 11192}
+      Script: {instanceID: 11150}
     - Class: 114
-      Script: {instanceID: 11484}
+      Script: {instanceID: 11152}
     - Class: 114
-      Script: {instanceID: 11512}
+      Script: {instanceID: 11174}
     - Class: 114
-      Script: {instanceID: 11636}
+      Script: {instanceID: 11270}
     - Class: 114
-      Script: {instanceID: 12208}
+      Script: {instanceID: 11494}
     - Class: 114
-      Script: {instanceID: 12300}
+      Script: {instanceID: 11618}
     - Class: 114
-      Script: {instanceID: 12516}
+      Script: {instanceID: 12190}
     - Class: 114
-      Script: {instanceID: 12916}
+      Script: {instanceID: 12282}
     - Class: 114
-      Script: {instanceID: 13072}
+      Script: {instanceID: 12500}
     - Class: 114
-      Script: {instanceID: 13146}
+      Script: {instanceID: 13056}
     - Class: 114
-      Script: {instanceID: 13680}
+      Script: {instanceID: 13130}
     - Class: 114
-      Script: {instanceID: 14192}
+      Script: {instanceID: 13192}
     - Class: 114
-      Script: {instanceID: 14296}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
-    Assets/Scenes/Shop.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 74
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 91
-      Script: {instanceID: 0}
-    - Class: 95
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
+      Script: {instanceID: 13664}
     - Class: 114
-      Script: {instanceID: 11148}
+      Script: {instanceID: 14176}
     - Class: 114
-      Script: {instanceID: 11192}
-    - Class: 114
-      Script: {instanceID: 11484}
-    - Class: 114
-      Script: {instanceID: 11512}
-    - Class: 114
-      Script: {instanceID: 12208}
-    - Class: 114
-      Script: {instanceID: 12526}
-    - Class: 114
-      Script: {instanceID: 12916}
-    - Class: 114
-      Script: {instanceID: 13680}
-    - Class: 114
-      Script: {instanceID: 14296}
+      Script: {instanceID: 14280}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -250,10 +195,22 @@ ScriptsOnlyBuild:
   scriptHashData:
   - hash:
       serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
+  - hash:
+      serializedVersion: 2
       Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 5f1752ed2092162f016c19510c28a8b9
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Button
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -280,7 +237,13 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
-      Hash: a7f3246e8f54c49cd64209188e818b58
+      Hash: 3016358d5f05e3d07ad09664ee9ff0ac
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TimeRecovery
+  - hash:
+      serializedVersion: 2
+      Hash: 1cee731f09d5bec1d891a758cee9d754
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Tutorial
@@ -308,12 +271,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
-  - hash:
-      serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
   - hash:
       serializedVersion: 2
       Hash: 499fd23433e68e265d153aa6b95d0047
@@ -472,7 +429,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 39e7d5614b0a4b95289dbe495dc6040c
+      Hash: 853697011148dcc7d19150d6254791b1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -532,12 +489,6 @@ ScriptsOnlyBuild:
     className: CatTown
   - hash:
       serializedVersion: 2
-      Hash: 12b6bc92745d4235bb7d904c36a15b30
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Shop
-  - hash:
-      serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -574,12 +525,6 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 5f1752ed2092162f016c19510c28a8b9
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Button
-  - hash:
-      serializedVersion: 2
       Hash: f84d945e5e1ca985698660fc26e9657f
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -592,7 +537,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 1f9280018750a124a9ff1a31dddbdaa1
+      Hash: 68b7a5399935b21378ca35f3d6277062
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Main
@@ -682,12 +627,6 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 10d1beb47d9a6e3d24f3556f177e8ebc
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Item
-  - hash:
-      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -742,7 +681,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: ab6d4d324215882db920097bd637c8b0
+      Hash: 3471c78e59d7b72c7d2738df8f1bd51d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -816,5 +755,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
-  - Assets/Scenes/Shop.unity
   playerPath: C:/Users/HongSunwon/Desktop/Cat_Json.apk

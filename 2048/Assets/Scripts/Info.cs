@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditorInternal;
 
 public class Info : MonoBehaviour
 {
@@ -69,8 +68,8 @@ public class Info : MonoBehaviour
         {
             case "GameClose":
                 SaveManager.Singleton.SaveUserJson();
-                EditorApplication.isPlaying = false;
-                //Application.Quit();
+                //EditorApplication.isPlaying = false;
+                Application.Quit();
                 break;
 
             case "GoToMain":

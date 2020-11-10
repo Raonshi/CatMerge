@@ -37,12 +37,6 @@ public class GameOver : MonoBehaviour
 
     public void OnClickOK()
     {
-        Debug.Log("=====================Game Over===================== \n Your Score : " + Game.instance.score);
-
-        //현재 유저의 점수를 랭킹 점수와 비교
-        GameManager.Singleton.CompareScore();
-
-
         SaveManager.Singleton.SaveUserJson();
         SceneManager.LoadScene("MainMenu");
     }

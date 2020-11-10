@@ -28,7 +28,6 @@ public class Tutorial : MonoBehaviour
                 Game.instance.isOver = false;
                 SaveManager.Singleton.SaveTutorialJson();
                 gameObject.SetActive(false);
-                Game.instance.itemTutorial1.SetActive(true);
                 break;
 
             case "Tutorial1":
@@ -36,7 +35,6 @@ public class Tutorial : MonoBehaviour
                 Game.instance.isOver = false;
                 SaveManager.Singleton.SaveTutorialJson();
                 gameObject.SetActive(false);
-                Game.instance.itemTutorial2.SetActive(true);
                 break;
 
             case "Tutorial2":
@@ -49,20 +47,6 @@ public class Tutorial : MonoBehaviour
             case "Tutorial3":
                 GameManager.Singleton.tutorial3 = isToggle;
 
-                Game.instance.isOver = false;
-                SaveManager.Singleton.SaveTutorialJson();
-                gameObject.SetActive(false);
-                break;
-
-            case "ItemTutorial1":
-                GameManager.Singleton.itemTutorial1 = isToggle;
-                Game.instance.isOver = false;
-                SaveManager.Singleton.SaveTutorialJson();
-                gameObject.SetActive(false);
-                break;
-
-            case "ItemTutorial2":
-                GameManager.Singleton.itemTutorial2 = isToggle;
                 Game.instance.isOver = false;
                 SaveManager.Singleton.SaveTutorialJson();
                 gameObject.SetActive(false);
