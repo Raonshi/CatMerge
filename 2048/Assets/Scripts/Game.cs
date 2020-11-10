@@ -50,12 +50,9 @@ public class Game : MonoBehaviour
     public GameObject notEnoughPoint;
     public GameObject gameOver;
     public GameObject close;
-    public GameObject tutorial0, tutorial1, tutorial2, tutorial3, tutorial4;
+    public GameObject tutorial0, tutorial1, tutorial2, tutorial3;
     public GameObject itemTutorial1, itemTutorial2;
     public Image bg;
-
-    //1게임당 튜토리얼 1번 표시
-    public bool isTutorial0, isTutorial1, isTutorial2, isTutorial3, isTutorial4;
 
     //기타
     int count;  //현재 생성되어 있는 타일의 수
@@ -75,13 +72,6 @@ public class Game : MonoBehaviour
         maxTime = 90;
         time = maxTime;
         lifeTime = 0;
-
-        //튜토리얼 표시 초기화
-        isTutorial0 = false;
-        isTutorial1 = false;
-        isTutorial2 = false;
-        isTutorial3 = false;
-        isTutorial4 = false;
 
         //매 게임마다 현재 점수 초기화
         score = 0;
@@ -111,7 +101,6 @@ public class Game : MonoBehaviour
         tutorial1.SetActive(false);
         tutorial2.SetActive(false);
         tutorial3.SetActive(false);
-        tutorial4.SetActive(false);
 
         //고양이 타일 배열의 크기 지정
         slotArray = new GameObject[size, size];
@@ -121,9 +110,8 @@ public class Game : MonoBehaviour
         GenerateNumber();
 
         //숫자보기 튜토리얼 처음에 표시
-        if (PlayerPrefs.HasKey("destroy" + tutorial0.name) == false && isTutorial0 == false)
+        if (GameManager.Singleton.tutorial0 == true)
         {
-            isTutorial0 = true;
             tutorial0.SetActive(true);
         }
     }
@@ -255,6 +243,10 @@ public class Game : MonoBehaviour
             int tmp = tileSet.transform.childCount;
             for (int i = 0; i < tmp; i++)
             {
+                if(tileSet.transform.GetChild(i).name == "TimeRecovery")
+                {
+                    continue;
+                }
                 Slot slot = tileSet.transform.GetChild(i).GetComponent<Slot>();
                 slot.isNum = false;
             }
@@ -317,9 +309,8 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Multiple");
 
             //곱하기 타일 최초 생성이면 튜토리얼 창 활성화
-            if(PlayerPrefs.HasKey("destroy" + tutorial2.name) == false && isTutorial2 == false)
+            if(GameManager.Singleton.tutorial2 == true)
             {
-                isTutorial2 = true;
                 tutorial2.SetActive(true);
             }
         }
@@ -334,9 +325,8 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Division");
 
             //나누기 타일 최초 생성이면 튜토리얼 창 활성화
-            if (!PlayerPrefs.HasKey("destroy" + tutorial3.name) && isTutorial3 == false)
+            if (GameManager.Singleton.tutorial3 == true)
             {
-                isTutorial3 = true;
                 tutorial3.SetActive(true);
             }
         }
@@ -349,9 +339,8 @@ public class Game : MonoBehaviour
             slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/2");
 
             //숫자 타일 최초 생성이면 튜토리얼 창 활성화
-            if (!PlayerPrefs.HasKey("destroy" + tutorial1.name) && isTutorial1 == false)
+            if (GameManager.Singleton.tutorial1 == true)
             {
-                isTutorial1 = true;
                 tutorial1.SetActive(true);
             }
         }
@@ -644,15 +633,7 @@ public class Game : MonoBehaviour
 
             score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
 
-            if(slotArray[x2, y2].GetComponent<Slot>().num == 32)
-            {
-                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name) && isTutorial4 == false)
-                {
-                    isTutorial4 = true;
-                    tutorial4.SetActive(true);
-                }
-            }
-            else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            if(slotArray[x2, y2].GetComponent<Slot>().num == 64)
             {
                 if (time > maxTime - recoveryTime)
                 {
@@ -662,8 +643,15 @@ public class Game : MonoBehaviour
                 {
                     time += recoveryTime;
                 }
-
+                Transform slotTransform = slotArray[x2, y2].transform;
                 Destroy(slotArray[x2, y2]);
+                Debug.Log(slotTransform.position);
+
+                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"), slotTransform.position, Quaternion.identity);
+                timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
+                timeRecovery.GetComponent<Animator>().SetBool("Create", true);
+
+
                 point++;
             }
             k++;
@@ -762,15 +750,7 @@ public class Game : MonoBehaviour
 
             score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
 
-            if (slotArray[x2, y2].GetComponent<Slot>().num == 32)
-            {
-                if (!PlayerPrefs.HasKey("destroy" + tutorial4.name) && isTutorial4 == false)
-                {
-                    isTutorial4 = true;
-                    tutorial4.SetActive(true);
-                }
-            }
-            else if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
             {
                 if (time > maxTime - recoveryTime)
                 {
@@ -780,8 +760,15 @@ public class Game : MonoBehaviour
                 {
                     time += recoveryTime;
                 }
-
+                Transform slotTransform = slotArray[x2, y2].transform;
                 Destroy(slotArray[x2, y2]);
+                Debug.Log(slotTransform.position);
+
+                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"), slotTransform.position, Quaternion.identity);
+                timeRecovery.name = "TimeRecovery";
+                timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
+                timeRecovery.GetComponent<Animator>().SetBool("Create", true);
+
                 point++;
             }
             k++;

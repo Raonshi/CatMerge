@@ -37,6 +37,8 @@ public class SaveManager : MonoBehaviour
 
         LoadUserJson();
         LoadItemJson();
+        LoadRankJson();
+        LoadTutorialJson();
     }
 
     // Start is called before the first frame update
@@ -57,11 +59,14 @@ public class SaveManager : MonoBehaviour
         string data;
         
         //json으로 변환할 객체에 데이터를 저장한다.
-        user.SetData(GameManager.Singleton.townLevel,
+        user.SetData(
+            GameManager.Singleton.nickname,
+            GameManager.Singleton.townLevel,
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
             GameManager.Singleton.catCount,
-            GameManager.Singleton.isNew);
+            GameManager.Singleton.isNew
+            );
        
         //user객체를 json으로 변환
         data = user.Save();
@@ -82,16 +87,14 @@ public class SaveManager : MonoBehaviour
 
         UserJson user = JsonUtility.FromJson<UserJson>(json);
 
+        GameManager.Singleton.nickname = user.nickname;
+
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
         GameManager.Singleton.catCount = user.catCount;
 
         GameManager.Singleton.best = user.best;
         GameManager.Singleton.isNew = user.isNew;
-
-
-        //테스트용 코드
-        //Debug.Log(user.townLevel + " / " + user.best + " / " + user.point );
     }
 
 
@@ -162,6 +165,100 @@ public class SaveManager : MonoBehaviour
     }
 
 
+    public void SaveRankJson()
+    {
+        //Rank디렉토리가 존재하지 않을 경우 디렉토리를 생성한다.
+        if (Directory.Exists(Application.persistentDataPath + "/Save/Rank") == false)
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/Save/Rank");
+        }
+
+        //Rank디렉토리의 파일 수를 count에 저장
+        int count = Directory.GetFiles(Application.persistentDataPath + "/Save/Rank").Length;
+        RankJson rank = new RankJson();
+        string data;
+
+        //json으로 변환할 객체에 데이터를 저장한다.
+        rank.SetData(
+            DateTime.Now,
+            Game.instance.score,
+            GameManager.Singleton.nickname
+            );
+
+        //user객체를 json으로 변환
+        data = rank.Save();
+
+        SaveData(data, "Rank/rank_" + (count + 1));
+    }
+
+    public void LoadRankJson()
+    {
+        string json = LoadData("Rank/rank_");
+
+        if (json == null)
+        {
+            //랭킹 기록이 없다는 알림창 나와야할듯
+            Debug.Log("랭킹없음");
+            return;
+        }
+
+        UserJson user = JsonUtility.FromJson<UserJson>(json);
+
+        GameManager.Singleton.townLevel = user.townLevel;
+        GameManager.Singleton.totalPoint = user.totalPoint;
+        GameManager.Singleton.catCount = user.catCount;
+
+        GameManager.Singleton.best = user.best;
+        GameManager.Singleton.isNew = user.isNew;
+    }
+
+
+    public void SaveTutorialJson()
+    {
+        TutorialJson tutorial = new TutorialJson();
+        string data;
+
+        //json으로 변환할 객체에 데이터를 저장한다.
+        tutorial.SetData(
+            GameManager.Singleton.tutorial0,
+            GameManager.Singleton.tutorial1,
+            GameManager.Singleton.tutorial2,
+            GameManager.Singleton.tutorial3,
+            GameManager.Singleton.itemTutorial1,
+            GameManager.Singleton.itemTutorial2
+            );
+
+        //user객체를 json으로 변환
+        data = tutorial.Save();
+        SaveData(data, "tutorial");
+    }
+
+    public void LoadTutorialJson()
+    {
+        string json = LoadData("tutorial");
+
+        if (json == null)
+        {
+            return;
+        }
+
+        TutorialJson tutorial = JsonUtility.FromJson<TutorialJson>(json);
+
+        GameManager.Singleton.tutorial0 = tutorial.tutorial0;
+        GameManager.Singleton.tutorial1 = tutorial.tutorial1;
+        GameManager.Singleton.tutorial2 = tutorial.tutorial2;
+        GameManager.Singleton.tutorial3 = tutorial.tutorial3;
+        GameManager.Singleton.itemTutorial1 = tutorial.itemTutorial1;
+        GameManager.Singleton.itemTutorial2 = tutorial.itemTutorial2;
+
+
+        //테스트용 코드
+        //Debug.Log(user.townLevel + " / " + user.best + " / " + user.point );
+    }
+
+
+
+
 
 
     #region 파일 저장 및 불러오기
@@ -203,8 +300,12 @@ public class SaveManager : MonoBehaviour
 #endregion
 }
 
+
+#region Data -> Json
 public class UserJson
 {
+    public string nickname;
+
     public int townLevel;
     public int best;
     public int totalPoint;
@@ -213,8 +314,9 @@ public class UserJson
     public bool isNew;
     public bool isHelp;
 
-    public void SetData(int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew)
+    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew)
     {
+        nickname = _nickname;
         townLevel = _townLevel;
         best = _best;
         totalPoint = _totalPoint;
@@ -270,3 +372,56 @@ public class TimeJson
         return JsonUtility.ToJson(this);
     }
 }
+
+public class RankJson
+{
+    public int day;
+    public int month;
+    public int year;
+
+    public int score;
+    public string nickname;
+
+    public void SetData(DateTime dateTime, int _score, string _nickname)
+    {
+        day = dateTime.Day;
+        month = dateTime.Month;
+        year = dateTime.Year;
+
+        score = _score;
+        nickname = _nickname;
+    }
+
+    public string Save()
+    {
+        return JsonUtility.ToJson(this);
+    }
+}
+
+public class TutorialJson
+{
+    public bool tutorial0;
+    public bool tutorial1;
+    public bool tutorial2;
+    public bool tutorial3;
+    public bool itemTutorial1;
+    public bool itemTutorial2;
+
+    public void SetData(bool _tutorial0, bool _tutorial1, bool _tutorial2, bool _tutorial3, bool _itemTutorial1, bool _itemTutorial2)
+    {
+        tutorial0 = _tutorial0;
+        tutorial1 = _tutorial1;
+        tutorial2 = _tutorial2;
+        tutorial3 = _tutorial3;
+        itemTutorial1 = _itemTutorial1;
+        itemTutorial2 = _itemTutorial2;
+    }
+
+    public string Save()
+    {
+        return JsonUtility.ToJson(this);
+    }
+
+
+}
+#endregion

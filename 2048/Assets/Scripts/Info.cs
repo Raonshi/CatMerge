@@ -4,12 +4,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using UnityEditorInternal;
 
 public class Info : MonoBehaviour
 {
     public Text message;
     public List<GameObject> button = new List<GameObject>();
+    InputField nicknameInput;
 
     private void OnEnable()
     {
@@ -21,6 +22,10 @@ public class Info : MonoBehaviour
 
             case "NotEnoughPoint":
                 message.text = string.Format("포인트가 부족합니다.\n\n게임 플레이를 통해 포인트를 획득할 수 있습니다.");
+                break;
+
+            case "FullCount":
+                message.text = string.Format("최대 소환 한도입니다.");
                 break;
 
             case "GoToMain":
@@ -50,6 +55,11 @@ public class Info : MonoBehaviour
 
                 message.text = string.Format("이동 가능한 타일이 없습니다.\n5포인트를 사용하여 타일 1개를 삭제할 수 있습니다.\n(현재 보유 포인트 : {0})\n<color=red>점수는 반영되지 않습니다</color>", GameManager.Singleton.totalPoint);
                 break;
+
+            case "Input":
+                message.text = string.Format("닉네임을 입력해주세요.");
+                nicknameInput = gameObject.transform.Find("InputField").GetComponent<InputField>();
+                break;
         }
     }
 
@@ -59,28 +69,16 @@ public class Info : MonoBehaviour
         {
             case "GameClose":
                 SaveManager.Singleton.SaveUserJson();
-
-                //PlayerPrefs.SetString("closeTime", closeTime);
-                //EditorApplication.isPlaying = false;
-                Application.Quit();
+                EditorApplication.isPlaying = false;
+                //Application.Quit();
                 break;
 
             case "GoToMain":
                 SceneManager.LoadScene("MainMenu");
                 break;
-        }
-    }
-    public void OnClickNo()
-    {
-        gameObject.SetActive(false);
-    }
 
-    public void OnClickRetry(string buttonname)
-    {
-        switch(buttonname)
-        {
-            case "Yes":
-                if(GameManager.Singleton.totalPoint < 5)
+            case "Retry":
+                if (GameManager.Singleton.totalPoint < 5)
                 {
                     Game.instance.notEnoughPoint.SetActive(true);
                     return;
@@ -93,11 +91,33 @@ public class Info : MonoBehaviour
 
                 gameObject.SetActive(false);
                 break;
-
-            case "No":
+        }
+    }
+    public void OnClickNo()
+    {
+        switch (gameObject.name)
+        {
+            case "Retry":
                 Game.instance.gameOver.SetActive(true);
                 gameObject.SetActive(false);
                 break;
+
+            default:
+                gameObject.SetActive(false);
+                break;
         }
+    }
+
+    public void OnClickCheck()
+    {
+        Debug.Log("준비중인 기능 : 닉네임 중복검사");
+    }
+
+    public void OnClickApply()
+    {
+        GameManager.Singleton.nickname = nicknameInput.text;
+        SaveManager.Singleton.SaveUserJson();
+
+        transform.parent.gameObject.SetActive(false);
     }
 }

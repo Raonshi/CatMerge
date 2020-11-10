@@ -1,25 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    public int destroy;
-
-    private void Awake()
-    {
-        if(PlayerPrefs.HasKey("destroy" + gameObject.name))
-        {
-            destroy = PlayerPrefs.GetInt("destroy" + gameObject.name);
-        }
-        else
-        {
-            destroy = 0;
-        }
-    }
+    public bool isToggle;
+    public Toggle toggle;
 
     void OnEnable()
     {
+        isToggle = false;
         if (gameObject.name != "Tutorial4")
         {
             Game.instance.isOver = true;
@@ -29,31 +20,68 @@ public class Tutorial : MonoBehaviour
 
     public void OnClickOK()
     {
-        if(gameObject.name == "Tutorial0")
+
+        switch(gameObject.name)
         {
-            gameObject.SetActive(false);
-            Game.instance.itemTutorial1.SetActive(true);
-            return;
+            case "Tutorial0":
+                GameManager.Singleton.tutorial0 = isToggle;
+                Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                Game.instance.itemTutorial1.SetActive(true);
+                break;
+
+            case "Tutorial1":
+                GameManager.Singleton.tutorial1 = isToggle;
+                Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                Game.instance.itemTutorial2.SetActive(true);
+                break;
+
+            case "Tutorial2":
+                GameManager.Singleton.tutorial2 = isToggle;
+                Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                break;
+
+            case "Tutorial3":
+                GameManager.Singleton.tutorial3 = isToggle;
+
+                Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                break;
+
+            case "ItemTutorial1":
+                GameManager.Singleton.itemTutorial1 = isToggle;
+                Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                break;
+
+            case "ItemTutorial2":
+                GameManager.Singleton.itemTutorial2 = isToggle;
+                Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                break;
         }
-        else if(gameObject.name == "ItemTutorial1")
-        {
-            gameObject.SetActive(false);
-            Game.instance.itemTutorial2.SetActive(true);
-            return;
-        }
-        
-        
-        
-        if(gameObject.name != "Tutorial4")
-        {
-            Game.instance.isOver = false;
-        }
-        gameObject.SetActive(false);
     }
 
     public void OnClickToggle()
     {
-        destroy = 1;
-        PlayerPrefs.SetInt("destroy" + gameObject.name, destroy);
+        isToggle = !isToggle;
+
+        if (isToggle == true)
+        {
+            toggle.isOn = false;
+        }
+        else
+        {
+            toggle.isOn = true;
+        }
+
     }
 }
