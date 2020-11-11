@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             tutorial2 = true;
             tutorial3 = true;
 
-            Main.instance.nicknamePanel.SetActive(true);
+            SaveManager.Singleton.SaveUserJson();
             SaveManager.Singleton.SaveTutorialJson();
         }
     }

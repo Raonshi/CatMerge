@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 59412d362df585e4f84da6035eb1eb23
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: UhBee QUEEN J
+  fontNames:
+  - UhBee QUEEN J
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: c1ef4835ca9466545b313832c9d9e33a, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

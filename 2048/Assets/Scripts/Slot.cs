@@ -49,37 +49,22 @@ public class Slot : MonoBehaviour
                 break;
 
             case 2:
-                Color color2;
-                ColorUtility.TryParseHtmlString("#FFEA99", out color2);
-                bg.color = color2;
-                numText.text = string.Format("<color=#FFEA99> {0} </color>", num);
+                numText.text = string.Format("<color=#C0C2FE> {0} </color>", num);
                 break;
 
             case 4:
-                Color color3;
-                ColorUtility.TryParseHtmlString("#FFCD3F", out color3);
-                bg.color = color3;
-                numText.text = string.Format("<color=#FFCD3F> {0} </color>", num);
+                numText.text = string.Format("<color=#888BFA> {0} </color>", num);
                 break;
 
             case 8:
-                Color color4;
-                ColorUtility.TryParseHtmlString("#DB9600", out color4);
-                bg.color = color4;
-                numText.text = string.Format("<color=#DB9600> {0} </color>", num);
+                numText.text = string.Format("<color=#464AD4> {0} </color>", num);
                 break;
 
             case 16:
-                Color color5;
-                ColorUtility.TryParseHtmlString("#CAF562", out color5);
-                bg.color = color5;
                 numText.text = string.Format("<color=#CAF562> {0} </color>", num);
                 break;
 
             case 32:
-                Color color6;
-                ColorUtility.TryParseHtmlString("#8ddf01", out color6);
-                bg.color = color6;
                 numText.text = string.Format("<color=#8ddf01> {0} </color>", num);
                 break;
         }

@@ -11,11 +11,9 @@ public class Tutorial : MonoBehaviour
     void OnEnable()
     {
         isToggle = false;
-        if (gameObject.name != "Tutorial4")
-        {
-            Game.instance.isOver = true;
-            Game.instance.isClose = true;
-        }
+
+        Game.instance.isOver = true;
+        Game.instance.isClose = true;
     }
 
     public void OnClickOK()

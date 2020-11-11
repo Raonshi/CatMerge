@@ -11,15 +11,11 @@ public class Main : MonoBehaviour
     public GameObject notEnoughPoint;
     public GameObject fullCount;
     public GameObject giftInfo;
-    public GameObject nicknamePanel;
 
     //메인화면 버튼
     public GameObject startButton;
     public GameObject summonButton;
     public GameObject townUpgradeButton;
-
-    //닉네임
-    public Text nicknameText;
 
     //포인트
     public Text point;
@@ -64,7 +60,6 @@ public class Main : MonoBehaviour
         isGift = true;
         townUpgrade = false;
 
-        nicknamePanel.SetActive(false);
         close.SetActive(false);
         tutorial.SetActive(false);
         help.SetActive(false);
@@ -77,17 +72,22 @@ public class Main : MonoBehaviour
 
     void Start()
     {
-        if(GameManager.Singleton.isNew == true)
+        //게임 최초 실행 시 튜토리얼 보여줌
+        if (GameManager.Singleton.isNew == true)
         {
-            nicknamePanel.SetActive(true);
+            tutorial.SetActive(true);
+            //게임시작 버튼 유도
+
+            summonButton.GetComponent<Button>().interactable = false;
+            townUpgradeButton.GetComponent<Button>().interactable = false;
+
+            return;
         }
         else if(GameManager.Singleton.isHelp == true && GameManager.Singleton.isNew == false)
         {
             help.SetActive(true);
             GameManager.Singleton.isHelp = false;
         }
-
-        nicknameText.text = "닉네임 : " + GameManager.Singleton.nickname;
 
         UpdateCatTown();
         CatSpawn(GameManager.Singleton.catCount, false);
@@ -103,7 +103,7 @@ public class Main : MonoBehaviour
 
         //마을 강화 가격
         townUpgradePrice = GameManager.Singleton.townLevel * 15;
-        townUpgradePriceText.text = "마을 강화\n" + townUpgradePrice.ToString() + "포인트";
+        townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + townUpgradePrice.ToString() + "포인트";
 
         //고양이 소환 가격
         catPrice = (GameManager.Singleton.townLevel * 2) + 3;
@@ -114,19 +114,6 @@ public class Main : MonoBehaviour
         {
             giftInfo.SetActive(true);
             isGift = false;
-        }
-
-
-        //게임 최초 실행 시 튜토리얼 보여줌
-        if (GameManager.Singleton.isNew == true)
-        {
-            tutorial.SetActive(true);
-            //게임시작 버튼 유도
-
-            summonButton.GetComponent<Button>().interactable = false;
-            townUpgradeButton.GetComponent<Button>().interactable = false;
-
-            return;
         }
 
         //게임종료 알림창과 포인트 부족 알림창은 활성화 시 다른 버튼을 누를 수 없다.
@@ -156,8 +143,8 @@ public class Main : MonoBehaviour
     {
         //마을 화면 및 최대 고양이 수 초기화
         maxCount = GameManager.Singleton.townLevel + 4;
-        //town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
-        town.sprite = Resources.Load<Sprite>("Images/Towns/Cat_Town");
+        town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
+        //town.sprite = Resources.Load<Sprite>("Images/Towns/Cat_Town");
 
         //마을 업그레이드 할때는 이미지만 교체
         //Main스크립트 실행시엔 기존 고양이 삭제 안함.

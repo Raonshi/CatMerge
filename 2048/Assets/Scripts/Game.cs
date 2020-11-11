@@ -86,7 +86,7 @@ public class Game : MonoBehaviour
         //게임 시작하자마자 시간을 풀충전해야함
         timeSlider.maxValue = maxTime;
         timeSlider.value = maxTime;
-        timeText.text = timeSlider.value.ToString();
+        timeText.text = Convert.ToInt32(timeSlider.value).ToString();
 
         //알림창 전부 false
         retry.SetActive(false);
@@ -128,7 +128,7 @@ public class Game : MonoBehaviour
             time -= Time.deltaTime;
         }
         timeSlider.value = time;
-        timeText.text = timeSlider.value.ToString();
+        timeText.text = Convert.ToInt32(timeSlider.value).ToString();
 
         //제한시간 동안
         if(time > 0)
@@ -203,6 +203,9 @@ public class Game : MonoBehaviour
             }
             k = 0;
             isStop = false;
+
+            //고양이 숫자 표시
+            EnableNum();
         }
        
         //결합된 고양이의 불 값을 변경
@@ -218,7 +221,7 @@ public class Game : MonoBehaviour
 
 
         //고양이 숫자 표시
-        EnableNum();
+       //EnableNum();
     }
 
     //고양이 숫자 표시
@@ -231,6 +234,10 @@ public class Game : MonoBehaviour
             for (int i = 0; i < tmp; i++)
             {
                 Slot slot = tileSet.transform.GetChild(i).GetComponent<Slot>();
+                if(slot == null)
+                {
+                    continue;
+                }
                 slot.isNum = true;
             }
         }
@@ -245,6 +252,10 @@ public class Game : MonoBehaviour
                     continue;
                 }
                 Slot slot = tileSet.transform.GetChild(i).GetComponent<Slot>();
+                if (slot == null)
+                {
+                    continue;
+                }
                 slot.isNum = false;
             }
         }
