@@ -2,7 +2,6 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - Cat
-    - CatTown
     - Game
     - GameOver
     - Info
@@ -70,39 +69,39 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11148}
-    - Class: 114
       Script: {instanceID: 11150}
     - Class: 114
       Script: {instanceID: 11152}
     - Class: 114
-      Script: {instanceID: 11174}
+      Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11306}
+      Script: {instanceID: 11176}
     - Class: 114
-      Script: {instanceID: 11494}
+      Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 11618}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 11742}
+      Script: {instanceID: 11620}
     - Class: 114
-      Script: {instanceID: 11802}
+      Script: {instanceID: 11744}
     - Class: 114
-      Script: {instanceID: 12190}
+      Script: {instanceID: 11804}
     - Class: 114
-      Script: {instanceID: 12928}
+      Script: {instanceID: 12192}
     - Class: 114
-      Script: {instanceID: 13658}
+      Script: {instanceID: 12930}
     - Class: 114
-      Script: {instanceID: 14168}
+      Script: {instanceID: 13660}
     - Class: 114
-      Script: {instanceID: 14180}
+      Script: {instanceID: 14170}
     - Class: 114
-      Script: {instanceID: 14272}
+      Script: {instanceID: 14182}
     - Class: 114
-      Script: {instanceID: 14292}
+      Script: {instanceID: 14274}
     - Class: 114
-      Script: {instanceID: 14314}
+      Script: {instanceID: 14294}
+    - Class: 114
+      Script: {instanceID: 14316}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -145,37 +144,35 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11148}
-    - Class: 114
       Script: {instanceID: 11150}
     - Class: 114
       Script: {instanceID: 11152}
     - Class: 114
-      Script: {instanceID: 11174}
+      Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11270}
+      Script: {instanceID: 11176}
     - Class: 114
-      Script: {instanceID: 11494}
+      Script: {instanceID: 11272}
     - Class: 114
-      Script: {instanceID: 11618}
+      Script: {instanceID: 11496}
     - Class: 114
-      Script: {instanceID: 12190}
+      Script: {instanceID: 11620}
     - Class: 114
-      Script: {instanceID: 12282}
+      Script: {instanceID: 12192}
     - Class: 114
-      Script: {instanceID: 12498}
+      Script: {instanceID: 12284}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 13052}
     - Class: 114
-      Script: {instanceID: 13124}
+      Script: {instanceID: 13126}
     - Class: 114
-      Script: {instanceID: 13186}
+      Script: {instanceID: 13188}
     - Class: 114
-      Script: {instanceID: 13658}
+      Script: {instanceID: 13660}
     - Class: 114
-      Script: {instanceID: 14168}
+      Script: {instanceID: 14170}
     - Class: 114
-      Script: {instanceID: 14272}
+      Script: {instanceID: 14274}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -483,12 +480,6 @@ ScriptsOnlyBuild:
     className: Cat
   - hash:
       serializedVersion: 2
-      Hash: f55c825c09c46b3dbec582e3c3b06f06
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: CatTown
-  - hash:
-      serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -681,7 +672,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: 3471c78e59d7b72c7d2738df8f1bd51d
+      Hash: 3a835ee2e8e13eb957262c07244ca08a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -755,4 +746,4 @@ ScriptsOnlyBuild:
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
-  playerPath: C:/Users/HongSunwon/Desktop/Cat_Json.apk
+  playerPath: C:/Users/HongSunwon/Desktop/Cat_Merge.apk

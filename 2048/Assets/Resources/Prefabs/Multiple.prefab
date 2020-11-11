@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 64516052009759584}
   m_Layer: 5
   m_Name: Multiple
-  m_TagString: Multiple
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
