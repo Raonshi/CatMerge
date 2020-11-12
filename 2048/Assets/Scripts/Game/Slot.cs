@@ -24,6 +24,14 @@ public class Slot : MonoBehaviour
     private void Awake()
     {
         isCombine = false;
+        if(Game.instance.numEnable.GetComponent<Toggle>().isOn == true)
+        {
+            isNum = false;
+        }
+        else
+        {
+            isNum = true;
+        }
         anim = gameObject.GetComponent<Animator>();
     }
     void Start()

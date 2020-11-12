@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -48,6 +49,8 @@ public class Main : MonoBehaviour
     public Text scoreRateText;
     public float scoreRate;
 
+    //난이도 조절
+
 
     //싱글턴
     public static Main instance;
@@ -96,6 +99,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //텍스트 수치 표시
         point.text = "포인트 : " + GameManager.Singleton.totalPoint;
         scoreRateText.text = "점수배율 : 1 + " + GameManager.Singleton.scoreRate + " 배";
@@ -179,32 +183,12 @@ public class Main : MonoBehaviour
         townUpgrade = false;
     }
 
-
     #region 버튼
+
     public void OnClickStart()
     {
-        if(GameManager.Singleton.isNew == true)
-        {
-            tutorial.SetActive(false);
-            GameManager.Singleton.isNew = false;
-        }
-
-
-        //고양이 선물시간 계산을 위해 게임 시작 전 현재 시간을 저장
-        TimeManager.Singleton.closeTime = DateTime.Now;
-
-        //각 고양이들의 선물 시간을 리스트에 저장
-        TimeManager.Singleton.giftTime.Clear();
-
-        for(int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
-        {
-            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
-            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
-        }
-
-
-
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
+        StartCoroutine(StartingGame());
     }
 
 
@@ -216,6 +200,7 @@ public class Main : MonoBehaviour
 
     public void OnClickTownUpgrade()
     {
+
         if (GameManager.Singleton.totalPoint < townUpgradePrice)
         {
             notEnoughPoint.SetActive(true);
@@ -233,6 +218,7 @@ public class Main : MonoBehaviour
 
     public void OnClickSummonCat()
     {
+
         if (GameManager.Singleton.catCount < maxCount)
         {
             if (GameManager.Singleton.totalPoint < catPrice)
@@ -253,6 +239,36 @@ public class Main : MonoBehaviour
         }
 
         SaveManager.Singleton.SaveUserJson();
+    }
+
+    #endregion
+
+    #region 코루틴
+
+    IEnumerator StartingGame()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        if (GameManager.Singleton.isNew == true)
+        {
+            tutorial.SetActive(false);
+            GameManager.Singleton.isNew = false;
+        }
+
+
+        //고양이 선물시간 계산을 위해 게임 시작 전 현재 시간을 저장
+        TimeManager.Singleton.closeTime = DateTime.Now;
+
+        //각 고양이들의 선물 시간을 리스트에 저장
+        TimeManager.Singleton.giftTime.Clear();
+
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
+        {
+            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
+            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
+        }
+
+        SceneManager.LoadScene("Game");
     }
 
     #endregion

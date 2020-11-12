@@ -20,6 +20,12 @@ public class GameManager : MonoBehaviour
 
     public int catCount;        //보유한 고양이 수
 
+    //숫자 활성화 토글
+    public bool isNum;      //게임 화면에서 숫자 표현 토글을 사용하기 위한 변수
+
+    //난이도 변경 토글
+    public bool isHard;
+
     //튜토리얼
     public bool tutorial0;
     public bool tutorial1;
@@ -88,6 +94,9 @@ public class GameManager : MonoBehaviour
             tutorial1 = true;
             tutorial2 = true;
             tutorial3 = true;
+
+            isNum = false;
+            isHard = false;
 
             SaveManager.Singleton.SaveUserJson();
             SaveManager.Singleton.SaveTutorialJson();

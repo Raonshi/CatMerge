@@ -43,7 +43,7 @@ public class SaveManager : MonoBehaviour
     {
         UserJson user = new UserJson();
         string data;
-        
+
         //json으로 변환할 객체에 데이터를 저장한다.
         user.SetData(
             GameManager.Singleton.nickname,
@@ -51,7 +51,9 @@ public class SaveManager : MonoBehaviour
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
             GameManager.Singleton.catCount,
-            GameManager.Singleton.isNew
+            GameManager.Singleton.isNew,
+            GameManager.Singleton.isNum,
+            GameManager.Singleton.isHard
             );
        
         //user객체를 json으로 변환
@@ -78,9 +80,11 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
         GameManager.Singleton.catCount = user.catCount;
-
         GameManager.Singleton.best = user.best;
+
         GameManager.Singleton.isNew = user.isNew;
+        GameManager.Singleton.isNum = user.isNum;
+        GameManager.Singleton.isHard = user.isHard;
     }
     #endregion
 
@@ -209,9 +213,10 @@ public class UserJson
     public int catCount;
 
     public bool isNew;
-    public bool isHelp;
+    public bool isHard;
+    public bool isNum;
 
-    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew)
+    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, bool _isHard)
     {
         nickname = _nickname;
         townLevel = _townLevel;
@@ -220,6 +225,8 @@ public class UserJson
         catCount = _catCount;
 
         isNew = _isNew;
+        isNum = _isNum;
+        isHard = _isHard;
     }
 
     public string Save()

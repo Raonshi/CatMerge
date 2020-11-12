@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -37,6 +38,15 @@ public class GameOver : MonoBehaviour
 
     public void OnClickOK()
     {
+        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
+
+        StartCoroutine(GoToMain());
+    }
+
+    IEnumerator GoToMain()
+    {
+        yield return new WaitForSeconds(3.0f);
+
         TimeManager.Singleton.time = TimeSpan.FromSeconds(Game.instance.lifeTime);
         SaveManager.Singleton.SaveUserJson();
         SceneManager.LoadScene("MainMenu");

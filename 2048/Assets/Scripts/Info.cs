@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Info : MonoBehaviour
 {
@@ -72,7 +73,8 @@ public class Info : MonoBehaviour
                 break;
 
             case "GoToMain":
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
+                StartCoroutine(GoToMain());
                 break;
 
             case "Retry":
@@ -93,10 +95,16 @@ public class Info : MonoBehaviour
     }
     public void OnClickNo()
     {
+        
         switch (gameObject.name)
         {
             case "Retry":
                 Game.instance.gameOver.SetActive(true);
+                gameObject.SetActive(false);
+                break;
+
+            case "GoToMain":
+                Game.instance.isMove = false;
                 gameObject.SetActive(false);
                 break;
 
@@ -118,4 +126,14 @@ public class Info : MonoBehaviour
 
         transform.parent.gameObject.SetActive(false);
     }
+
+    IEnumerator GoToMain()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        TimeManager.Singleton.time = TimeSpan.FromSeconds(Game.instance.lifeTime);
+        SaveManager.Singleton.SaveUserJson();
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

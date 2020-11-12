@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -31,7 +33,6 @@ public class Game : MonoBehaviour
     public bool isStop;     //타일이 정지하는 순간 true, 이후 바로 false
     public bool isOver;     //게임 오버시 고양이 타일 이동 금지
     public bool isClose;    //튜토리얼 창 닫을 때 고양이 움직이지 못하도록 하기 위함. 
-    public bool isNum;      //게임 화면에서 숫자 표현 토글을 사용하기 위한 변수
 
     //터치 좌표
     Vector2 startPos, endPos, gap;
@@ -45,12 +46,16 @@ public class Game : MonoBehaviour
     //생존 시간
     public float lifeTime;
 
+    //하드모드 타이머
+    public float hardTime;
+
     //UI
     public GameObject retry;
     public GameObject notEnoughPoint;
     public GameObject gameOver;
     public GameObject close;
     public GameObject tutorial0, tutorial1, tutorial2, tutorial3;
+    public GameObject numEnable;
 
     //기타
     public int count;  //현재 생성되어 있는 타일의 수
@@ -67,7 +72,7 @@ public class Game : MonoBehaviour
         instance = this;
 
         //시간 초기화
-        maxTime = 90;
+        maxTime = 30;
         time = maxTime;
         lifeTime = 0;
 
@@ -78,6 +83,16 @@ public class Game : MonoBehaviour
     void Start()
     {
         isOver = false;
+
+        //숫자 보기 안보기 토글값 불러옴
+        if(GameManager.Singleton.isNum == true)
+        {
+            numEnable.GetComponent<Toggle>().isOn = true;
+        }
+        else
+        {
+            numEnable.GetComponent<Toggle>().isOn = false;
+        }
 
         //게임 시작하자마자 시간을 풀충전해야함
         timeSlider.maxValue = maxTime;
@@ -122,9 +137,6 @@ public class Game : MonoBehaviour
             return;
         }
 
-        timeSlider.value = time;
-        timeText.text = Convert.ToInt32(timeSlider.value).ToString();
-
         //게임 내에 존재하는 고양이의 수를 센다.
         count = GameObject.Find("Canvas/TileSet").transform.childCount;
 
@@ -132,13 +144,25 @@ public class Game : MonoBehaviour
         if (time > 0)
         {
             lifeTime += Time.deltaTime;
+            hardTime += Time.deltaTime;
         }
         //제한시간이 다 되면
-        else if(time <= 0)
+        else if (time <= 0)
         {
             time = 0;
             gameOver.SetActive(true);
         }
+
+        //hardTime이 20초 될때마다 블럭을 막는다.
+        if(hardTime >= 20 && GameManager.Singleton.isHard == true && count < 16)
+        {
+            Block();
+
+            hardTime = 0;
+        }
+
+        timeSlider.value = time;
+        timeText.text = Convert.ToInt32(timeSlider.value).ToString();
 
         //점수를 체크한다.
         ScoreCheck();
@@ -215,10 +239,17 @@ public class Game : MonoBehaviour
         bestText.text = GameManager.Singleton.best.ToString();
     }
 
-    //고양이 숫자 표시
+
+
+
+
+    #region 기능
+
+    //고양이 숫자 보기 / 안보기 -> true : 숫자 안보임      false : 숫자 보임
     public void EnableNum()
     {
-        if (isNum == true)
+
+        if (GameManager.Singleton.isNum == false)
         {
             GameObject tileSet = GameObject.Find("Canvas/TileSet");
             int tmp = tileSet.transform.childCount;
@@ -579,12 +610,12 @@ public class Game : MonoBehaviour
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
             //만약 두 타일 모두 특수타일이면 이동 될 좌표의 타일 결합 상태를 true로 한다.
-            if (slotArray[x1, y1].name == "Multiple" && (slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple"))
+            if (slotArray[x1, y1].name == "Multiple" && (slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Block"))
             {
                 slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                 return;
             }
-            else if (slotArray[x2, y2].name == "Multiple" && (slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple"))
+            else if (slotArray[x2, y2].name == "Multiple" && (slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Block"))
             {
                 slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                 return;
@@ -657,12 +688,12 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Division" || slotArray[x2, y2].name == "Division") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
-            if (slotArray[x1, y1].name == "Division" && (slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division"))
+            if (slotArray[x1, y1].name == "Division" && (slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Block"))
             {
                 slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                 return;
             }
-            else if (slotArray[x2, y2].name == "Division" && (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division"))
+            else if (slotArray[x2, y2].name == "Division" && (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Block"))
             {
                 slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                 return;
@@ -711,6 +742,15 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
             k++;
+        }
+        //블로킹 블럭
+        else if(slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Block" || slotArray[x2, y2].name == "Block") &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        {
+
+            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+            k++;
+            return;
         }
         //일반 결합
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == slotArray[x2, y2].GetComponent<Slot>().num &&
@@ -765,11 +805,14 @@ public class Game : MonoBehaviour
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
                 point++;
+
+                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
+
             }
             k++;
         }
         //특수블럭 간 결합 못하도록 함
-        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 0 && slotArray[x2, y2].GetComponent<Slot>().num == 0 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
@@ -777,16 +820,44 @@ public class Game : MonoBehaviour
         }
     }
 
+    //타일 막아버림
+    public void Block()
+    {
+        int x;
+        int y;
+
+        while (true)
+        {
+            x = UnityEngine.Random.Range(0, size);
+            y = UnityEngine.Random.Range(0, size);
+
+            if (slotArray[x, y] == null)
+            {
+                break;
+            }
+        }
+
+        GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
+        slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+        slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
+        slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
+
+        slotArray[x, y].gameObject.name = obj.name;
+        slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
+        slotArray[x, y].transform.rotation = Quaternion.identity;
+    }
+
+    #endregion
 
     public void OnClickNumber()
     {
-        if(isNum == true)
+        if(numEnable.GetComponent<Toggle>().isOn == true)
         {
-            isNum = false;
+            GameManager.Singleton.isNum = true;
         }
         else
         {
-            isNum = true;
+            GameManager.Singleton.isNum = false;
         }
         EnableNum();
     }
@@ -796,5 +867,22 @@ public class Game : MonoBehaviour
     {
         close.SetActive(true);
     }
+
+
+    #region 코루틴
+
+    IEnumerator Complete64(Vector2 position)
+    {
+        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/CompleteEffect"), GameObject.Find("Canvas").transform);
+        obj.name = "Tile";
+        obj.transform.localPosition = position;
+        obj.transform.rotation = Quaternion.identity;
+
+        yield return new WaitForSeconds(1.5f);
+
+        Destroy(obj);
+    }
+
+    #endregion
 }
 
