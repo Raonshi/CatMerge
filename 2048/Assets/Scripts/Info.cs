@@ -33,7 +33,6 @@ public class Info : MonoBehaviour
 
             case "GiftInfo":
                 message.text = string.Format("고양이가 선물을 찾아왔습니다!");
-                GameManager.Singleton.isStart = false;
                 break;
 
             case "CanNotUseItem":

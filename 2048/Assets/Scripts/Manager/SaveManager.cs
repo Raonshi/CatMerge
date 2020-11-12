@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -39,18 +37,8 @@ public class SaveManager : MonoBehaviour
         LoadTutorialJson();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    #region 유저 정보
     public void SaveUserJson()
     {
         UserJson user = new UserJson();
@@ -94,8 +82,9 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.best = user.best;
         GameManager.Singleton.isNew = user.isNew;
     }
+    #endregion
 
-
+    #region 종료 시간
     //실행하는 경우
     //1. 게임 종료
     //2. 메인메뉴를 벗어나는 경우
@@ -126,10 +115,9 @@ public class SaveManager : MonoBehaviour
 
         TimeManager.Singleton.closeTime = new DateTime(close.year, close.month, close.day, close.hour, close.minute, close.second);
     }
+    #endregion
 
-
-
-
+    #region 튜토리얼
     public void SaveTutorialJson()
     {
         TutorialJson tutorial = new TutorialJson();
@@ -164,7 +152,7 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.tutorial2 = tutorial.tutorial2;
         GameManager.Singleton.tutorial3 = tutorial.tutorial3;
     }
-
+    #endregion
 
 
 

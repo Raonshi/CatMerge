@@ -14,12 +14,8 @@ public class Timer : MonoBehaviour
         timer = gameObject.GetComponent<Slider>();
         anim = Icon.GetComponent<Animator>();
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
+
     void Update()
     {
         if(timer.value > 10)

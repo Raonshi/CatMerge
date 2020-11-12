@@ -11,6 +11,7 @@ public class Tutorial : MonoBehaviour
     void OnEnable()
     {
         isToggle = false;
+        toggle.isOn = true;
 
         Game.instance.isOver = true;
         Game.instance.isClose = true;
@@ -54,16 +55,14 @@ public class Tutorial : MonoBehaviour
 
     public void OnClickToggle()
     {
-        isToggle = !isToggle;
-
-        if (isToggle == true)
+        
+        if(toggle.isOn == true)
         {
-            toggle.isOn = false;
+            isToggle = false;
         }
         else
         {
-            toggle.isOn = true;
+            isToggle = true;
         }
-
     }
 }

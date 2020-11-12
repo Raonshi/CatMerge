@@ -27,26 +27,26 @@ public class Cat : MonoBehaviour
     private void Awake()
     {
         gift.SetActive(false);
-
-        //마지막 게임 종료로부터 10분 이상 지났다면 선물 활성화
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        if (TimeManager.Singleton.time.TotalSeconds > maxTime && GameManager.Singleton.isStart == true)
-        {
-            gift.SetActive(true);
-        }
-        else
-        {
-            giftTime = UnityEngine.Random.Range(minTime - (float)TimeManager.Singleton.time.TotalSeconds, maxTime - (float)TimeManager.Singleton.time.TotalSeconds);
-        }
-
         if (isNew == true)
         {
             giftTime = UnityEngine.Random.Range(minTime, maxTime);
             isNew = false;
+        }
+        else if(isNew == false)
+        {
+            if (TimeManager.Singleton.time.TotalSeconds > maxTime && GameManager.Singleton.isStart == true)
+            {
+                gift.SetActive(true);
+                GameManager.Singleton.isStart = false;
+            }
+            else
+            {
+                giftTime = UnityEngine.Random.Range(minTime - (float)TimeManager.Singleton.time.TotalSeconds, maxTime - (float)TimeManager.Singleton.time.TotalSeconds);
+            }
         }
 
         array = GameObject.FindGameObjectsWithTag("Target");
@@ -57,9 +57,6 @@ public class Cat : MonoBehaviour
     }
 
 
-
-
-    // Update is called once per frame
     void Update()
     {
         giftTime -= Time.deltaTime;

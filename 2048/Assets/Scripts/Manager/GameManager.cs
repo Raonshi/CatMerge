@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public bool isNew;          //최초 플레이 유무
     public bool isHelp;         //첫 플레이 후 메인화면 설명
 
-    public bool isStart;        //게임 실행 확인
+    public bool isStart;        //게임 실행 확인                                true : 게임 실행됨                         /   false : 게임 실행 후 false로 변함
 
     public int catCount;        //보유한 고양이 수
 
@@ -98,8 +98,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateScoreRate();
-
-        //UpdateRankList();
 
         SaveManager.Singleton.SaveUserJson();
     }

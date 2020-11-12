@@ -111,13 +111,6 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        /*
-        if (isOver == true)
-        {
-            isMove = true;
-            return;
-        }
-        */
         //패널 화면이 없으면 시간이 흘러간다.
         if (GameObject.FindGameObjectsWithTag("InfoPanel").Length == 0)
         {
@@ -306,7 +299,7 @@ public class Game : MonoBehaviour
         GameObject obj;
 
         //x2고양이 생성
-        if (i >= 0 && i < 5)
+        if ((i >= 0 && i < 5) && score >= 5000)
         {
             //곱하기 생성
             obj = Resources.Load("Prefabs/Multiple") as GameObject;
@@ -322,7 +315,7 @@ public class Game : MonoBehaviour
         }
 
         //%2고양이 생성
-        else if (i >= 5 && i < 10)
+        else if ((i >= 5 && i < 10) && score >= 10000)
         {
             //나누기 생성
             obj = Resources.Load("Prefabs/Division") as GameObject;

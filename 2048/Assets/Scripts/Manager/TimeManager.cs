@@ -12,6 +12,7 @@ public class TimeManager : MonoBehaviour
     public DateTime closeTime;
     
     public DateTime openTime;
+    [SerializeField]
     public TimeSpan time;
 
     public bool isNew;

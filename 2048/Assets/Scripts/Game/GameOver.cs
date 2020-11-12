@@ -37,6 +37,7 @@ public class GameOver : MonoBehaviour
 
     public void OnClickOK()
     {
+        TimeManager.Singleton.time = TimeSpan.FromSeconds(Game.instance.lifeTime);
         SaveManager.Singleton.SaveUserJson();
         SceneManager.LoadScene("MainMenu");
     }

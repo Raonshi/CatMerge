@@ -71,11 +71,8 @@ public class Slot : MonoBehaviour
 
         _xPos = GameObject.Find("Game").GetComponent<Game>().xPos;
         _yPos = GameObject.Find("Game").GetComponent<Game>().yPos;
-
-        //생성 애니메이션 재생
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(isNum == true)

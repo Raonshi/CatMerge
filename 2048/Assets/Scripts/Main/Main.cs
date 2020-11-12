@@ -158,7 +158,7 @@ public class Main : MonoBehaviour
     }
 
     //고양이 생성
-    //실행 조건 : 게임 시작할 때, 고양이 구매 버튼을 눌렀을 때
+    //실행 조건 : 메인화면 시작할 때, 고양이 구매 버튼을 눌렀을 때
     public void CatSpawn(int count, bool isNew)
     {
         for (int i = 0; i < count; i++)
@@ -214,21 +214,6 @@ public class Main : MonoBehaviour
     }
 
 
-    public void OnClickShop()
-    {
-        TimeManager.Singleton.closeTime = DateTime.Now;
-        TimeManager.Singleton.giftTime.Clear();
-
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
-        {
-            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
-            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
-        }
-
-        SceneManager.LoadScene("Shop");
-    }
-
-
     public void OnClickTownUpgrade()
     {
         if (GameManager.Singleton.totalPoint < townUpgradePrice)
@@ -268,23 +253,6 @@ public class Main : MonoBehaviour
         }
 
         SaveManager.Singleton.SaveUserJson();
-    }
-
-    
-    public void OnClickRanking()
-    {
-        TimeManager.Singleton.closeTime = DateTime.Now;
-        TimeManager.Singleton.giftTime.Clear();
-
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
-        {
-            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
-            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
-        }
-
-        SaveManager.Singleton.SaveUserJson();
-
-        SceneManager.LoadScene("Ranking");
     }
 
     #endregion
