@@ -29,6 +29,27 @@ public class Difficult : MonoBehaviour
             Color color;
             block.SetActive(false);
             text.fontSize = 70;
+            switch (GameManager.Singleton.difficulty)
+            {
+                case GameManager.Difficulty.Easy:
+                    ColorUtility.TryParseHtmlString("#98E05A", out color);
+                    buttonImage.color = color;
+                    text.text = "쉬움";
+                    break;
+
+                case GameManager.Difficulty.Normal:
+                    ColorUtility.TryParseHtmlString("#98E05A", out color);
+                    buttonImage.color = color;
+                    text.text = "보통";
+                    break;
+
+                case GameManager.Difficulty.Hard:
+                    ColorUtility.TryParseHtmlString("#FF4B38", out color);
+                    buttonImage.color = color;
+                    text.text = "어려움";
+                    break;
+            }
+            /*
             if(GameManager.Singleton.isHard == true)
             {
                 ColorUtility.TryParseHtmlString("#FF4B38", out color);
@@ -41,12 +62,28 @@ public class Difficult : MonoBehaviour
                 buttonImage.color = color;
                 text.text = "보통";
             }
+            */
         }
     }
 
 
     public void OnClickDifficulty()
     {
-        GameManager.Singleton.isHard = !GameManager.Singleton.isHard;
+        //GameManager.Singleton.isHard = !GameManager.Singleton.isHard;
+        switch(GameManager.Singleton.difficulty)
+        {
+            case GameManager.Difficulty.Easy:
+                GameManager.Singleton.difficulty = GameManager.Difficulty.Normal ;
+                break;
+
+            case GameManager.Difficulty.Normal:
+                GameManager.Singleton.difficulty = GameManager.Difficulty.Hard;
+                break;
+
+            case GameManager.Difficulty.Hard:
+                GameManager.Singleton.difficulty = GameManager.Difficulty.Easy;
+                break;
+        }
+    
     }
 }

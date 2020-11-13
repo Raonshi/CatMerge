@@ -33,6 +33,7 @@ public class Game : MonoBehaviour
     public bool isStop;     //타일이 정지하는 순간 true, 이후 바로 false
     public bool isOver;     //게임 오버시 고양이 타일 이동 금지
     public bool isClose;    //튜토리얼 창 닫을 때 고양이 움직이지 못하도록 하기 위함. 
+    public bool isHalf;
 
     //터치 좌표
     Vector2 startPos, endPos, gap;
@@ -46,8 +47,9 @@ public class Game : MonoBehaviour
     //생존 시간
     public float lifeTime;
 
-    //하드모드 타이머
+    //노말, 하드모드
     public float hardTime;
+    int blockCount;
 
     //UI
     public GameObject retry;
@@ -56,6 +58,7 @@ public class Game : MonoBehaviour
     public GameObject close;
     public GameObject tutorial0, tutorial1, tutorial2, tutorial3;
     public GameObject numEnable;
+    public GameObject halfTime;
 
     //기타
     public int count;  //현재 생성되어 있는 타일의 수
@@ -72,7 +75,7 @@ public class Game : MonoBehaviour
         instance = this;
 
         //시간 초기화
-        maxTime = 30;
+        maxTime = 90;
         time = maxTime;
         lifeTime = 0;
 
@@ -83,6 +86,7 @@ public class Game : MonoBehaviour
     void Start()
     {
         isOver = false;
+        isHalf = true;
 
         //숫자 보기 안보기 토글값 불러옴
         if(GameManager.Singleton.isNum == true)
@@ -145,6 +149,13 @@ public class Game : MonoBehaviour
         {
             lifeTime += Time.deltaTime;
             hardTime += Time.deltaTime;
+
+            //1초 동안 시간 절반 지남음을 표시
+            if(time >= (maxTime / 2) - 1 && time <= maxTime / 2 && isHalf == true)
+            {
+                isHalf = false;
+                halfTime.SetActive(true);
+            }
         }
         //제한시간이 다 되면
         else if (time <= 0)
@@ -154,7 +165,7 @@ public class Game : MonoBehaviour
         }
 
         //hardTime이 20초 될때마다 블럭을 막는다.
-        if(hardTime >= 20 && GameManager.Singleton.isHard == true && count < 16)
+        if(hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard) && count < 16)
         {
             Block();
 
@@ -170,32 +181,6 @@ public class Game : MonoBehaviour
         //이동 중이 아닌 경우
         if(isMove == false)
         {
-#if UNITY_EDITOR
-            if(Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                Move("up");
-                isStop = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                Move("down");
-                isStop = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                Move("right");
-                isStop = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                Move("left");
-                isStop = true;
-            }
-            else if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                OnClickExit();
-            }
-#endif
             Touch();
         }
 
@@ -475,7 +460,7 @@ public class Game : MonoBehaviour
     public void Touch()
     {
         //터치 시작점 좌표
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             startPos = Input.mousePosition;
         }
@@ -598,6 +583,11 @@ public class Game : MonoBehaviour
         //일반 이동
         if (slotArray[x2, y2] == null && slotArray[x1, y1] != null)
         {
+            if(slotArray[x1, y1].name == "Block")
+            {
+                k++;
+                return;
+            }
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
@@ -743,15 +733,6 @@ public class Game : MonoBehaviour
             slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
             k++;
         }
-        //블로킹 블럭
-        else if(slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Block" || slotArray[x2, y2].name == "Block") &&
-            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
-        {
-
-            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-            k++;
-            return;
-        }
         //일반 결합
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == slotArray[x2, y2].GetComponent<Slot>().num &&
             slotArray[x1, y1].GetComponent<Slot>().num != 1 && slotArray[x2, y2].GetComponent<Slot>().num != 1 &&
@@ -823,28 +804,60 @@ public class Game : MonoBehaviour
     //타일 막아버림
     public void Block()
     {
+        if(blockCount == 4)
+        {
+            return;
+        }
         int x;
         int y;
 
-        while (true)
+        //노말모드는 블럭 모서리에만 생성
+        if(GameManager.Singleton.difficulty == GameManager.Difficulty.Normal)
         {
-            x = UnityEngine.Random.Range(0, size);
-            y = UnityEngine.Random.Range(0, size);
+            int[] array = new int[2] { 0, 3 };
 
-            if (slotArray[x, y] == null)
+            while (true)
             {
-                break;
+                x = array[UnityEngine.Random.Range(0, 2)];
+                y = array[UnityEngine.Random.Range(0, 2)];
+
+                if (slotArray[x, y] == null)
+                {
+                    break;
+                }
             }
+            GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
+            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
+            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
+
+            slotArray[x, y].gameObject.name = obj.name;
+            slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
+            slotArray[x, y].transform.rotation = Quaternion.identity;
         }
+        //하드모드는 블럭 랜덤 생성
+        else if(GameManager.Singleton.difficulty == GameManager.Difficulty.Hard)
+        {
+            while (true)
+            {
+                x = UnityEngine.Random.Range(0, size);
+                y = UnityEngine.Random.Range(0, size);
 
-        GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
-        slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-        slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
-        slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
+                if (slotArray[x, y] == null)
+                {
+                    break;
+                }
+            }
+            GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
+            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
+            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
 
-        slotArray[x, y].gameObject.name = obj.name;
-        slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
-        slotArray[x, y].transform.rotation = Quaternion.identity;
+            slotArray[x, y].gameObject.name = obj.name;
+            slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
+            slotArray[x, y].transform.rotation = Quaternion.identity;
+        }
+        blockCount++;
     }
 
     #endregion

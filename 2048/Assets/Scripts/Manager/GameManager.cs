@@ -26,6 +26,16 @@ public class GameManager : MonoBehaviour
     //난이도 변경 토글
     public bool isHard;
 
+    public enum Difficulty
+    {
+        Easy,
+        Normal,
+        Hard,
+    }
+
+    public Difficulty difficulty;
+
+
     //튜토리얼
     public bool tutorial0;
     public bool tutorial1;

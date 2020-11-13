@@ -104,7 +104,7 @@ public class Info : MonoBehaviour
                 break;
 
             case "GoToMain":
-                Game.instance.isMove = false;
+                Game.instance.isClose = true;
                 gameObject.SetActive(false);
                 break;
 

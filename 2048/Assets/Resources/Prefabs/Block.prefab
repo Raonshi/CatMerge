@@ -104,7 +104,7 @@ MonoBehaviour:
   numImage: {fileID: 779818228019463197}
   numText: {fileID: 7058160466713229537}
   num: 1
-  isCombine: 0
+  isCombine: 1
   isNew: 0
   isBomb: 0
   isNum: 0

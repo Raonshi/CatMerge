@@ -53,7 +53,8 @@ public class SaveManager : MonoBehaviour
             GameManager.Singleton.catCount,
             GameManager.Singleton.isNew,
             GameManager.Singleton.isNum,
-            GameManager.Singleton.isHard
+            //GameManager.Singleton.isHard
+            GameManager.Singleton.difficulty
             );
        
         //user객체를 json으로 변환
@@ -84,7 +85,9 @@ public class SaveManager : MonoBehaviour
 
         GameManager.Singleton.isNew = user.isNew;
         GameManager.Singleton.isNum = user.isNum;
-        GameManager.Singleton.isHard = user.isHard;
+        //GameManager.Singleton.isHard = user.isHard;
+        GameManager.Singleton.difficulty = user.difficulty;
+    
     }
     #endregion
 
@@ -213,10 +216,12 @@ public class UserJson
     public int catCount;
 
     public bool isNew;
-    public bool isHard;
+    //public bool isHard;
     public bool isNum;
 
-    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, bool _isHard)
+    public GameManager.Difficulty difficulty;
+
+    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
     {
         nickname = _nickname;
         townLevel = _townLevel;
@@ -226,7 +231,10 @@ public class UserJson
 
         isNew = _isNew;
         isNum = _isNum;
-        isHard = _isHard;
+        //isHard = _isHard;
+
+        difficulty = _difficulty;
+        
     }
 
     public string Save()

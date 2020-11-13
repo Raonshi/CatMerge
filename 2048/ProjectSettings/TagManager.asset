@@ -11,6 +11,7 @@ TagManager:
   - Division
   - Tutorial
   - InfoPanel
+  - UI
   layers:
   - Default
   - TransparentFX
