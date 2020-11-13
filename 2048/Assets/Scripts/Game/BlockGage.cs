@@ -19,7 +19,7 @@ public class BlockGage : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.Singleton.difficulty == GameManager.Difficulty.Easy)
+        if(GameManager.Singleton.difficulty == GameManager.Difficulty.Easy || Game.instance.blockCount >= 4)
         {
             time = 0;
         }

@@ -49,7 +49,7 @@ public class Game : MonoBehaviour
 
     //노말, 하드모드
     public float hardTime;
-    int blockCount;
+    public int blockCount;
 
     //UI
     public GameObject retry;

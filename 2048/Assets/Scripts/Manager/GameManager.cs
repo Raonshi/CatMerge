@@ -109,6 +109,8 @@ public class GameManager : MonoBehaviour
             isNum = false;
             isHard = false;
 
+            difficulty = Difficulty.Easy;
+
             SaveManager.Singleton.SaveUserJson();
             SaveManager.Singleton.SaveTutorialJson();
         }
@@ -130,7 +132,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            scoreRate = (townLevel * 0.25f);
+            scoreRate = (townLevel * 0.25f) + ((float)difficulty / 2);
         }
     }
 
