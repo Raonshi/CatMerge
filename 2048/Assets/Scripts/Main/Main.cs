@@ -49,8 +49,6 @@ public class Main : MonoBehaviour
     public Text scoreRateText;
     public float scoreRate;
 
-    //난이도 조절
-
 
     //싱글턴
     public static Main instance;
@@ -187,7 +185,7 @@ public class Main : MonoBehaviour
 
     public void OnClickStart()
     {
-        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
+        //SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
         StartCoroutine(StartingGame());
     }
 
@@ -247,6 +245,9 @@ public class Main : MonoBehaviour
 
     IEnumerator StartingGame()
     {
+
+        GameManager.Singleton.Loading();
+        
         yield return new WaitForSeconds(3.0f);
 
         if (GameManager.Singleton.isNew == true)

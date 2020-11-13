@@ -38,7 +38,7 @@ public class Difficult : MonoBehaviour
                     break;
 
                 case GameManager.Difficulty.Normal:
-                    ColorUtility.TryParseHtmlString("#98E05A", out color);
+                    ColorUtility.TryParseHtmlString("#FA8748", out color);
                     buttonImage.color = color;
                     text.text = "보통";
                     break;

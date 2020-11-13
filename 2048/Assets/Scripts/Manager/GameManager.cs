@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -131,5 +132,11 @@ public class GameManager : MonoBehaviour
         {
             scoreRate = (townLevel * 0.25f);
         }
+    }
+
+
+    public void Loading()
+    {
+        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Concurrent;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,6 +72,7 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
+
         instance = this;
 
         //시간 초기화
@@ -165,7 +166,7 @@ public class Game : MonoBehaviour
         }
 
         //hardTime이 20초 될때마다 블럭을 막는다.
-        if(hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard) && count < 16)
+        if(hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard))
         {
             Block();
 
@@ -668,7 +669,8 @@ public class Game : MonoBehaviour
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
-
+                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
+                
                 point++;
             }
             k++;
@@ -795,6 +797,11 @@ public class Game : MonoBehaviour
         //특수블럭 간 결합 못하도록 함
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            if (slotArray[x1, y1].name == "Block" || slotArray[x2, y2].name == "Block")
+            {
+                k++;
+                return;
+            }
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
@@ -808,23 +815,66 @@ public class Game : MonoBehaviour
         {
             return;
         }
-        int x;
-        int y;
+        int x = 0;
+        int y = 0;
 
         //노말모드는 블럭 모서리에만 생성
         if(GameManager.Singleton.difficulty == GameManager.Difficulty.Normal)
         {
             int[] array = new int[2] { 0, 3 };
+            GameObject[] slot = new GameObject[4];
+            bool exit = false;
 
-            while (true)
+            //4 귀퉁이의 빈공간을 검사
+            for(int i = 0; i < array.Length; i++)
             {
-                x = array[UnityEngine.Random.Range(0, 2)];
-                y = array[UnityEngine.Random.Range(0, 2)];
+                for(int j = 0; j < array.Length;j++)
+                {
+                    x = array[i];
+                    y = array[j];
 
-                if (slotArray[x, y] == null)
+                    if (slotArray[x, y] == null)
+                    {
+                        exit = true;
+                        break;
+                    }
+                }
+                //빈공간이 있다면 이중루프 탈출
+                if(exit == true)
                 {
                     break;
                 }
+            }
+
+            //빈공간이 없을 경우
+            //Block이 아닌 칸에 생성
+            if(exit == false)
+            {
+                for(int i = 0; i < array.Length; i++)
+                {
+                    for(int j = 0; j < array.Length; j++)
+                    {
+                        x = array[i];
+                        y = array[j];
+
+                        if (slotArray[x, y].name != "Block")
+                        {
+                            Destroy(slotArray[x, y]);
+                            exit = true;
+                            break;
+                        }
+                    }
+                    if (exit == true)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if(exit == false)
+            {
+                Debug.Log("Can not Create X-Block");
+                return;
             }
             GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
             slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
@@ -838,7 +888,58 @@ public class Game : MonoBehaviour
         //하드모드는 블럭 랜덤 생성
         else if(GameManager.Singleton.difficulty == GameManager.Difficulty.Hard)
         {
+            int tmp = 0;
+
+            List<GameObject> list = new List<GameObject>();
+
             while (true)
+            {
+
+                x = UnityEngine.Random.Range(0, size);
+                y = UnityEngine.Random.Range(0, size);
+                
+                if(list.Count >= 16)
+                {
+                    Destroy(slotArray[x, y]);
+                    break;
+                }
+                
+                
+                //빈 타일이 존재하거나 모든 타일의 중복검사를 끝냈을 경우
+                if (slotArray[x, y] == null)
+                {
+                    break;
+                }
+                //slotArray[x, y]가 null이 아니라면
+                else
+                {
+                    if(list.Count == 0)
+                    {
+                        list.Add(slotArray[x, y]);
+                    }
+                    else
+                    {
+                        bool duplicate = false;
+                        for(int i = 0; i < list.Count; i++)
+                        {
+                            if(slotArray[x, y] == list[i])
+                            {
+                                duplicate = true;
+                                break;
+                            }
+                        }
+                        //중복값이 아니라면 list에 추가
+                        if(duplicate == false)
+                        {
+                            list.Add(slotArray[x, y]);
+                        }
+                    }
+                }
+
+            }
+
+            /*
+            while (tmp < 100)
             {
                 x = UnityEngine.Random.Range(0, size);
                 y = UnityEngine.Random.Range(0, size);
@@ -847,7 +948,27 @@ public class Game : MonoBehaviour
                 {
                     break;
                 }
+                tmp++;
             }
+            if(tmp >= 100)
+            {
+                tmp = 0;
+                
+                while(tmp < 100)
+                {
+                    x = UnityEngine.Random.Range(0, size);
+                    y = UnityEngine.Random.Range(0, size);
+
+                    if (slotArray[x, y].name != "Block")
+                    {
+                        break;
+                    }
+                    tmp++;
+                }
+
+                return;
+            }
+            */
             GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
             slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
             slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);

@@ -1,12 +1,18 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - BlockGage
     - Cat
+    - CompleteEffet
+    - Difficult
     - Game
     - GameOver
+    - HalfTime
     - Info
+    - Loading
     - Main
     - Slot
+    - TileImage
     - TimeRecovery
     - Timer
     - Tutorial
@@ -23,8 +29,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -35,10 +43,10 @@ ScriptsOnlyBuild:
     - UnityEngine.EventSystems.StandaloneInputModule
     - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.ContentSizeFitter
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.GridLayoutGroup
     - UnityEngine.UI.Image
-    - UnityEngine.UI.InputField
     - UnityEngine.UI.Outline
     - UnityEngine.UI.RawImage
     - UnityEngine.UI.Slider
@@ -57,6 +65,10 @@ ScriptsOnlyBuild:
     - Class: 28
       Script: {instanceID: 0}
     - Class: 48
+      Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 65
       Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
@@ -79,29 +91,84 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11308}
     - Class: 114
-      Script: {instanceID: 11496}
+      Script: {instanceID: 11422}
     - Class: 114
-      Script: {instanceID: 11620}
+      Script: {instanceID: 11498}
     - Class: 114
-      Script: {instanceID: 11744}
+      Script: {instanceID: 11624}
     - Class: 114
-      Script: {instanceID: 11804}
+      Script: {instanceID: 11748}
     - Class: 114
-      Script: {instanceID: 12192}
+      Script: {instanceID: 11808}
     - Class: 114
-      Script: {instanceID: 12928}
+      Script: {instanceID: 11910}
     - Class: 114
-      Script: {instanceID: 13658}
+      Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 14168}
+      Script: {instanceID: 12934}
     - Class: 114
-      Script: {instanceID: 14180}
+      Script: {instanceID: 13666}
     - Class: 114
-      Script: {instanceID: 14272}
+      Script: {instanceID: 14176}
     - Class: 114
-      Script: {instanceID: 14292}
+      Script: {instanceID: 14188}
     - Class: 114
-      Script: {instanceID: 14314}
+      Script: {instanceID: 14280}
+    - Class: 114
+      Script: {instanceID: 14300}
+    - Class: 114
+      Script: {instanceID: 14322}
+    - Class: 114
+      Script: {instanceID: 75792}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Loading.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11150}
+    - Class: 114
+      Script: {instanceID: 11152}
+    - Class: 114
+      Script: {instanceID: 11176}
+    - Class: 114
+      Script: {instanceID: 11516}
+    - Class: 114
+      Script: {instanceID: 11698}
+    - Class: 114
+      Script: {instanceID: 12198}
+    - Class: 114
+      Script: {instanceID: 13666}
+    - Class: 114
+      Script: {instanceID: 14176}
+    - Class: 114
+      Script: {instanceID: 14280}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -154,25 +221,27 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11272}
     - Class: 114
-      Script: {instanceID: 11496}
+      Script: {instanceID: 11498}
     - Class: 114
-      Script: {instanceID: 11620}
+      Script: {instanceID: 11624}
     - Class: 114
-      Script: {instanceID: 12192}
+      Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 12284}
+      Script: {instanceID: 12290}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 12964}
     - Class: 114
-      Script: {instanceID: 13124}
+      Script: {instanceID: 13058}
     - Class: 114
-      Script: {instanceID: 13186}
+      Script: {instanceID: 13132}
     - Class: 114
-      Script: {instanceID: 13658}
+      Script: {instanceID: 13666}
     - Class: 114
-      Script: {instanceID: 14168}
+      Script: {instanceID: 14176}
     - Class: 114
-      Script: {instanceID: 14272}
+      Script: {instanceID: 14280}
+    - Class: 114
+      Script: {instanceID: 14388}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -264,6 +333,12 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HalfTime
+  - hash:
+      serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -292,6 +367,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: c97713a43e56f3137cd704ccea475dcf
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Loading
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -408,6 +489,12 @@ ScriptsOnlyBuild:
     className: PixelPerfectCamera
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: TileImage
+  - hash:
+      serializedVersion: 2
       Hash: 5ab533713adae59372fb3e10a585c186
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -426,7 +513,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 853697011148dcc7d19150d6254791b1
+      Hash: a98fb651c1e91c44293b2fedef281270
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -520,6 +607,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: RawImage
+  - hash:
+      serializedVersion: 2
+      Hash: 775e0bc18109fa664199de37f2080018
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Difficult
   - hash:
       serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
@@ -672,7 +765,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: 3a835ee2e8e13eb957262c07244ca08a
+      Hash: da71817431843fa13b9c49edee3f134c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -742,8 +835,21 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: eefa399571fc566c30cbdd163202c5d5
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CompleteEffet
+  - hash:
+      serializedVersion: 2
+      Hash: 79f1e4d923cfc803b34c05ae2cb73dac
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BlockGage
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
+  - Assets/Scenes/Loading.unity
   playerPath: C:/Users/HongSunwon/Desktop/Cat_Merge.apk
