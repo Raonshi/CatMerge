@@ -14,6 +14,8 @@ public class Info : MonoBehaviour
 
     private void OnEnable()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Popup"));
+
         switch (gameObject.name)
         {
             case "GameClose":
@@ -64,6 +66,8 @@ public class Info : MonoBehaviour
 
     public void OnClickYes()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
         switch (gameObject.name)
         {
             case "GameClose":
@@ -95,7 +99,8 @@ public class Info : MonoBehaviour
     }
     public void OnClickNo()
     {
-        
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
         switch (gameObject.name)
         {
             case "Retry":
@@ -112,19 +117,6 @@ public class Info : MonoBehaviour
                 gameObject.SetActive(false);
                 break;
         }
-    }
-
-    public void OnClickCheck()
-    {
-        Debug.Log("준비중인 기능 : 닉네임 중복검사");
-    }
-
-    public void OnClickApply()
-    {
-        GameManager.Singleton.nickname = nicknameInput.text;
-        SaveManager.Singleton.SaveUserJson();
-
-        transform.parent.gameObject.SetActive(false);
     }
 
     IEnumerator GoToMain()

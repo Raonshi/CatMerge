@@ -10,6 +10,8 @@ public class Tutorial : MonoBehaviour
 
     void OnEnable()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Popup"));
+
         isToggle = false;
         toggle.isOn = true;
 

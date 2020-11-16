@@ -8,7 +8,6 @@ public class Difficult : MonoBehaviour
     public Text text;
     public Image buttonImage;
     public Button button;
-    public GameObject block;
 
     // Start is called before the first frame update
     void Start()
@@ -20,14 +19,14 @@ public class Difficult : MonoBehaviour
     {
         if(GameManager.Singleton.townLevel < 3)
         {
-            block.SetActive(true);
+            
+            buttonImage.color = Color.grey;
             text.fontSize = 40;
             text.text = "마을 Lv3 이상\n해금";
         }
         else
         {
             Color color;
-            block.SetActive(false);
             text.fontSize = 70;
             switch (GameManager.Singleton.difficulty)
             {
@@ -69,8 +68,15 @@ public class Difficult : MonoBehaviour
 
     public void OnClickDifficulty()
     {
-        //GameManager.Singleton.isHard = !GameManager.Singleton.isHard;
-        switch(GameManager.Singleton.difficulty)
+        if(GameManager.Singleton.townLevel < 3)
+        {
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Disable"));
+
+            return;
+        }
+
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+        switch (GameManager.Singleton.difficulty)
         {
             case GameManager.Difficulty.Easy:
                 GameManager.Singleton.difficulty = GameManager.Difficulty.Normal ;

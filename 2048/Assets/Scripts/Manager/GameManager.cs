@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
         {
             nickname = "Cat";
             townLevel = 1;
-            totalPoint = 100;
+            totalPoint = 300;
             best = 0;
             catCount = 0;
 

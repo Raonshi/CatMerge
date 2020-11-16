@@ -18,6 +18,8 @@ public class Loading : MonoBehaviour
     {
         isTyping = false;
         message = "로 딩 중 . . .";
+
+        SoundManager.Singleton.SoundInit();
     }
 
     // Update is called once per frame

@@ -15,6 +15,11 @@ public class GameOver : MonoBehaviour
 
     private void OnEnable()
     {
+        SoundManager.Singleton.SoundInit();
+
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Game"));
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Popup"));
+
         you = Game.instance.score;
         point = Game.instance.point;
         lifeTime = Convert.ToInt32(Game.instance.lifeTime);
@@ -38,6 +43,7 @@ public class GameOver : MonoBehaviour
 
     public void OnClickOK()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
 
         StartCoroutine(GoToMain());

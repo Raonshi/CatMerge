@@ -86,6 +86,9 @@ public class Game : MonoBehaviour
 
     void Start()
     {
+        //게임 씬 bgm재생
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Game"));
+
         isOver = false;
         isHalf = true;
 
@@ -360,6 +363,8 @@ public class Game : MonoBehaviour
                 tutorial1.SetActive(true);
             }
         }
+
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
 
         slotArray[x, y].gameObject.name = obj.name;
         slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
@@ -669,6 +674,8 @@ public class Game : MonoBehaviour
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
+                SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
+
                 StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
                 
                 point++;
@@ -787,6 +794,9 @@ public class Game : MonoBehaviour
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
+                //SoundManager.Singleton.PlaySFX(SoundManager.Singleton.sfxAudio, Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
+                SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
+
                 point++;
 
                 StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
@@ -884,12 +894,12 @@ public class Game : MonoBehaviour
             slotArray[x, y].gameObject.name = obj.name;
             slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
             slotArray[x, y].transform.rotation = Quaternion.identity;
+
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
         }
         //하드모드는 블럭 랜덤 생성
         else if(GameManager.Singleton.difficulty == GameManager.Difficulty.Hard)
         {
-            int tmp = 0;
-
             List<GameObject> list = new List<GameObject>();
 
             while (true)
@@ -937,38 +947,6 @@ public class Game : MonoBehaviour
                 }
 
             }
-
-            /*
-            while (tmp < 100)
-            {
-                x = UnityEngine.Random.Range(0, size);
-                y = UnityEngine.Random.Range(0, size);
-
-                if (slotArray[x, y] == null)
-                {
-                    break;
-                }
-                tmp++;
-            }
-            if(tmp >= 100)
-            {
-                tmp = 0;
-                
-                while(tmp < 100)
-                {
-                    x = UnityEngine.Random.Range(0, size);
-                    y = UnityEngine.Random.Range(0, size);
-
-                    if (slotArray[x, y].name != "Block")
-                    {
-                        break;
-                    }
-                    tmp++;
-                }
-
-                return;
-            }
-            */
             GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
             slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
             slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
@@ -977,6 +955,8 @@ public class Game : MonoBehaviour
             slotArray[x, y].gameObject.name = obj.name;
             slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
             slotArray[x, y].transform.rotation = Quaternion.identity;
+
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
         }
         blockCount++;
     }

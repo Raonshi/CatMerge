@@ -69,10 +69,19 @@ public class Main : MonoBehaviour
         {
             GameManager.Singleton.InitGameManager();
         }
+        
+        if(GameObject.Find("SoundManager") == false)
+        {
+            SoundManager.Singleton.InitSoundManager();
+        }
     }
 
     void Start()
     {
+        //메인 씬 bgm재생
+        //SoundManager.Singleton.PlayBGM(SoundManager.Singleton.bgmAudio ,Resources.Load<AudioClip>("Sounds/BGM_Main"));
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Main"));
+
         //게임 최초 실행 시 튜토리얼 보여줌
         if (GameManager.Singleton.isNew == true)
         {
@@ -104,8 +113,16 @@ public class Main : MonoBehaviour
         catCount.text = "고양이 : " + GameManager.Singleton.catCount + " / " + maxCount;
 
         //마을 강화 가격
-        townUpgradePrice = GameManager.Singleton.townLevel * 15;
-        townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + townUpgradePrice.ToString() + "포인트";
+        if(GameManager.Singleton.townLevel < 5)
+        {
+            townUpgradePrice = GameManager.Singleton.townLevel * 15;
+            townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + townUpgradePrice.ToString() + "포인트";
+        }
+        else
+        {
+            townUpgradeButton.GetComponent<Button>().image.color = Color.grey;
+            townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + "최대수치";
+        }
 
         //고양이 소환 가격
         catPrice = (GameManager.Singleton.townLevel * 2) + 3;
@@ -185,7 +202,7 @@ public class Main : MonoBehaviour
 
     public void OnClickStart()
     {
-        //SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         StartCoroutine(StartingGame());
     }
 
@@ -198,6 +215,14 @@ public class Main : MonoBehaviour
 
     public void OnClickTownUpgrade()
     {
+        if(GameManager.Singleton.townLevel >= 5)
+        {
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Disable"));
+            return;
+        }
+
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
 
         if (GameManager.Singleton.totalPoint < townUpgradePrice)
         {
@@ -216,7 +241,7 @@ public class Main : MonoBehaviour
 
     public void OnClickSummonCat()
     {
-
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         if (GameManager.Singleton.catCount < maxCount)
         {
             if (GameManager.Singleton.totalPoint < catPrice)
@@ -227,6 +252,8 @@ public class Main : MonoBehaviour
             GameManager.Singleton.totalPoint -= catPrice;
 
             CatSpawn(1, true);
+
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_CatSummon"));
 
             GameManager.Singleton.catCount++;
         }
@@ -245,7 +272,6 @@ public class Main : MonoBehaviour
 
     IEnumerator StartingGame()
     {
-
         GameManager.Singleton.Loading();
         
         yield return new WaitForSeconds(3.0f);

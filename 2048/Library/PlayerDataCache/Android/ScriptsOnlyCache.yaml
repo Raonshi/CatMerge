@@ -29,10 +29,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -105,21 +103,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 12934}
+      Script: {instanceID: 12786}
     - Class: 114
-      Script: {instanceID: 13666}
+      Script: {instanceID: 12936}
     - Class: 114
-      Script: {instanceID: 14176}
+      Script: {instanceID: 13668}
     - Class: 114
-      Script: {instanceID: 14188}
+      Script: {instanceID: 14178}
     - Class: 114
-      Script: {instanceID: 14280}
+      Script: {instanceID: 14190}
     - Class: 114
-      Script: {instanceID: 14300}
+      Script: {instanceID: 14282}
     - Class: 114
-      Script: {instanceID: 14322}
+      Script: {instanceID: 14302}
     - Class: 114
-      Script: {instanceID: 75792}
+      Script: {instanceID: 14324}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -164,11 +162,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12198}
     - Class: 114
-      Script: {instanceID: 13666}
+      Script: {instanceID: 13668}
     - Class: 114
-      Script: {instanceID: 14176}
+      Script: {instanceID: 14178}
     - Class: 114
-      Script: {instanceID: 14280}
+      Script: {instanceID: 14282}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -204,6 +202,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 82
       Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -229,19 +229,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12290}
     - Class: 114
-      Script: {instanceID: 12964}
+      Script: {instanceID: 12966}
     - Class: 114
-      Script: {instanceID: 13058}
+      Script: {instanceID: 13060}
     - Class: 114
-      Script: {instanceID: 13132}
+      Script: {instanceID: 13134}
     - Class: 114
-      Script: {instanceID: 13666}
+      Script: {instanceID: 13668}
     - Class: 114
-      Script: {instanceID: 14176}
+      Script: {instanceID: 14178}
     - Class: 114
-      Script: {instanceID: 14280}
+      Script: {instanceID: 14282}
     - Class: 114
-      Script: {instanceID: 14388}
+      Script: {instanceID: 14390}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -597,6 +597,12 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
+      Hash: 79f1e4d923cfc803b34c05ae2cb73dac
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BlockGage
+  - hash:
+      serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -609,7 +615,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 775e0bc18109fa664199de37f2080018
+      Hash: 535f0b3122a2c61efda210375e2744b9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Difficult
@@ -765,7 +771,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: da71817431843fa13b9c49edee3f134c
+      Hash: c04e3e426e36275770e885b559395b59
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -843,10 +849,16 @@ ScriptsOnlyBuild:
     className: CompleteEffet
   - hash:
       serializedVersion: 2
-      Hash: 79f1e4d923cfc803b34c05ae2cb73dac
+      Hash: 0d5222cd95672430f3ea534d98b1c1f5
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: BlockGage
+    className: SoundManager
+  - hash:
+      serializedVersion: 2
+      Hash: d2808b08c3c9238cf5cf40fe61852773
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SoundManager_Test
   platform: 13
   scenePathNames:
   - Assets/Scenes/MainMenu.unity

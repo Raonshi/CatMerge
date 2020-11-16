@@ -112,4 +112,9 @@ public class Cat : MonoBehaviour
         gift.SetActive(false);
         giftTime = UnityEngine.Random.Range(minTime, maxTime);
     }
+
+    public void OnClickCat()
+    {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_CatSummon"));
+    }
 }
