@@ -10,6 +10,8 @@ public class SoundManager : MonoBehaviour
 
     private static SoundManager instance;
 
+    bool bgm, sfx;
+
     public static SoundManager Singleton
     {
         get
@@ -32,6 +34,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
     public void InitSoundManager()
     {
         for (int i = 0; i < audioSourceCount; i++)
@@ -42,6 +45,78 @@ public class SoundManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
     }
+
+
+    private void Update()
+    {
+
+    }
+
+
+    public void BgmMute()
+    {
+        if (bgm == false)
+        {
+            for (int i = 0; i < audio.Count; i++)
+            {
+                if(audio[i].clip == null)
+                {
+                    continue;
+                }
+                else if (audio[i].clip.name.Contains("BGM_") == true)
+                {
+                    audio[i].mute = true;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < audio.Count; i++)
+            {
+                if (audio[i].clip == null)
+                {
+                    continue;
+                }
+                else if (audio[i].clip.name.Contains("BGM_") == true)
+                {
+                    audio[i].mute = false;
+                }
+            }
+        }
+    }
+
+    public void SfxMute()
+    {
+        if (sfx == false)
+        {
+            for (int i = 0; i < audio.Count; i++)
+            {
+                if (audio[i].clip == null)
+                {
+                    continue;
+                }
+                else if (audio[i].clip.name.Contains("SFX_") == true)
+                {
+                    audio[i].mute = true;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < audio.Count; i++)
+            {
+                if (audio[i].clip == null)
+                {
+                    continue;
+                }
+                else if (audio[i].clip.name.Contains("SFX_") == true)
+                {
+                    audio[i].mute = false;
+                }
+            }
+        }
+    }
+
 
     public void SoundInit()
     {

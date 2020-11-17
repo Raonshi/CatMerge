@@ -24,9 +24,6 @@ public class GameManager : MonoBehaviour
     //숫자 활성화 토글
     public bool isNum;      //게임 화면에서 숫자 표현 토글을 사용하기 위한 변수
 
-    //난이도 변경 토글
-    public bool isHard;
-
     //난이도 구분
     public enum Difficulty
     {
@@ -49,6 +46,11 @@ public class GameManager : MonoBehaviour
     //해상도
     public int screenWidth;
 
+    //사운드 옵션
+    public bool bgm;
+    public bool sfx;
+
+    //싱글턴
     private static GameManager instance;
 
     //싱글턴 객체 생성
@@ -98,25 +100,29 @@ public class GameManager : MonoBehaviour
         //최초 실행인 경우
         if(isNew == true)
         {
+            //user.json setting
             nickname = "Cat";
             townLevel = 1;
             totalPoint = 100;
             best = 0;
             catCount = 0;
+            isNum = false;
+            difficulty = Difficulty.Easy;
 
+            //tutorial.json setting
             tutorial0 = true;
             tutorial1 = true;
             tutorial2 = true;
             tutorial3 = true;
             tutorial4 = true;
 
-            isNum = false;
-            isHard = true;
-
-            difficulty = Difficulty.Easy;
+            //option.json
+            bgm = true;
+            sfx = true;
 
             SaveManager.Singleton.SaveUserJson();
             SaveManager.Singleton.SaveTutorialJson();
+            SaveManager.Singleton.SaveOptionJson();
         }
     }
 
@@ -126,6 +132,8 @@ public class GameManager : MonoBehaviour
         UpdateScoreRate();
 
         SaveManager.Singleton.SaveUserJson();
+
+        
     }
 
     public void UpdateScoreRate()

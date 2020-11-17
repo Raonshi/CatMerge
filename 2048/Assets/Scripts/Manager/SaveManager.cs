@@ -35,6 +35,7 @@ public class SaveManager : MonoBehaviour
 
         LoadUserJson();
         LoadTutorialJson();
+        LoadOptionJson();
     }
 
 
@@ -53,7 +54,6 @@ public class SaveManager : MonoBehaviour
             GameManager.Singleton.catCount,
             GameManager.Singleton.isNew,
             GameManager.Singleton.isNum,
-            //GameManager.Singleton.isHard
             GameManager.Singleton.difficulty
             );
        
@@ -85,7 +85,6 @@ public class SaveManager : MonoBehaviour
 
         GameManager.Singleton.isNew = user.isNew;
         GameManager.Singleton.isNum = user.isNum;
-        //GameManager.Singleton.isHard = user.isHard;
         GameManager.Singleton.difficulty = user.difficulty;
     
     }
@@ -161,6 +160,39 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.tutorial3 = tutorial.tutorial3;
         GameManager.Singleton.tutorial4 = tutorial.tutorial4;
     }
+
+
+    public void SaveOptionJson()
+    {
+        OptionJson option = new OptionJson();
+        string data;
+
+        //json으로 변환할 객체에 데이터를 저장한다.
+        option.SetData(
+            GameManager.Singleton.bgm,
+            GameManager.Singleton.sfx
+            );
+
+        //user객체를 json으로 변환
+        data = option.Save();
+        SaveData(data, "option");
+    }
+
+    public void LoadOptionJson()
+    {
+        string json = LoadData("option");
+
+        if (json == null)
+        {
+            return;
+        }
+
+        OptionJson option = JsonUtility.FromJson<OptionJson>(json);
+
+        GameManager.Singleton.bgm = option.bgm;
+        GameManager.Singleton.sfx = option.sfx;
+    }
+
     #endregion
 
 
@@ -218,7 +250,6 @@ public class UserJson
     public int catCount;
 
     public bool isNew;
-    //public bool isHard;
     public bool isNum;
 
     public GameManager.Difficulty difficulty;
@@ -233,7 +264,6 @@ public class UserJson
 
         isNew = _isNew;
         isNum = _isNum;
-        //isHard = _isHard;
 
         difficulty = _difficulty;
         
@@ -292,7 +322,23 @@ public class TutorialJson
     {
         return JsonUtility.ToJson(this);
     }
+}
 
 
+public class OptionJson
+{
+    public bool bgm;
+    public bool sfx;
+
+    public void SetData(bool _bgm, bool _sfx)
+    {
+        bgm = _bgm;
+        sfx = _sfx;
+    }
+
+    public string Save()
+    {
+        return JsonUtility.ToJson(this);
+    }
 }
 #endregion

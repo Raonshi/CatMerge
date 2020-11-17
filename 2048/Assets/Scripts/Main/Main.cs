@@ -26,6 +26,7 @@ public class Main : MonoBehaviour
 
     //도움말
     public GameObject help;
+    public GameObject tutorial4;
 
     //선물 알림창 활성여부
     public bool isGift;
@@ -49,8 +50,8 @@ public class Main : MonoBehaviour
     public Text scoreRateText;
     public float scoreRate;
 
-    //난이도 도움말
-    public GameObject tutorial4;
+    //옵션
+    public GameObject option;
 
 
     //싱글턴
@@ -67,6 +68,7 @@ public class Main : MonoBehaviour
         tutorial.SetActive(false);
         help.SetActive(false);
         tutorial4.SetActive(false);
+        option.SetActive(false);
 
         if(GameObject.Find("GameManager") == false)
         {
@@ -275,6 +277,11 @@ public class Main : MonoBehaviour
         }
 
         SaveManager.Singleton.SaveUserJson();
+    }
+
+    public void OnClickOption()
+    {
+        option.SetActive(true);
     }
 
     #endregion
