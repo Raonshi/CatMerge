@@ -7,7 +7,6 @@ public class SoundManager : MonoBehaviour
 {
     public List<AudioSource> audio = new List<AudioSource>();
     public int audioSourceCount = 5;
-    //public AudioSource[] audio = new AudioSource[5];
 
     private static SoundManager instance;
 
@@ -38,23 +37,10 @@ public class SoundManager : MonoBehaviour
         for (int i = 0; i < audioSourceCount; i++)
         {
             audio.Add(gameObject.AddComponent<AudioSource>());
-            //audio[i] = gameObject.AddComponent<AudioSource>();
             audio[i].Stop();
         }
 
         DontDestroyOnLoad(gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void SoundInit()

@@ -135,7 +135,8 @@ public class SaveManager : MonoBehaviour
             GameManager.Singleton.tutorial0,
             GameManager.Singleton.tutorial1,
             GameManager.Singleton.tutorial2,
-            GameManager.Singleton.tutorial3
+            GameManager.Singleton.tutorial3,
+            GameManager.Singleton.tutorial4
             );
 
         //user객체를 json으로 변환
@@ -158,6 +159,7 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.tutorial1 = tutorial.tutorial1;
         GameManager.Singleton.tutorial2 = tutorial.tutorial2;
         GameManager.Singleton.tutorial3 = tutorial.tutorial3;
+        GameManager.Singleton.tutorial4 = tutorial.tutorial4;
     }
     #endregion
 
@@ -275,13 +277,15 @@ public class TutorialJson
     public bool tutorial1;
     public bool tutorial2;
     public bool tutorial3;
+    public bool tutorial4;
 
-    public void SetData(bool _tutorial0, bool _tutorial1, bool _tutorial2, bool _tutorial3)
+    public void SetData(bool _tutorial0, bool _tutorial1, bool _tutorial2, bool _tutorial3, bool _tutorial4)
     {
         tutorial0 = _tutorial0;
         tutorial1 = _tutorial1;
         tutorial2 = _tutorial2;
         tutorial3 = _tutorial3;
+        tutorial4 = _tutorial4;
     }
 
     public string Save()

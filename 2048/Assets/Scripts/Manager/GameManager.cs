@@ -27,21 +27,24 @@ public class GameManager : MonoBehaviour
     //난이도 변경 토글
     public bool isHard;
 
+    //난이도 구분
     public enum Difficulty
     {
         Easy,
         Normal,
         Hard,
     }
-
     public Difficulty difficulty;
 
+    //로딩
+    public string nextScene;
 
     //튜토리얼
     public bool tutorial0;
     public bool tutorial1;
     public bool tutorial2;
     public bool tutorial3;
+    public bool tutorial4;
 
     //해상도
     public int screenWidth;
@@ -97,7 +100,7 @@ public class GameManager : MonoBehaviour
         {
             nickname = "Cat";
             townLevel = 1;
-            totalPoint = 300;
+            totalPoint = 100;
             best = 0;
             catCount = 0;
 
@@ -105,9 +108,10 @@ public class GameManager : MonoBehaviour
             tutorial1 = true;
             tutorial2 = true;
             tutorial3 = true;
+            tutorial4 = true;
 
             isNum = false;
-            isHard = false;
+            isHard = true;
 
             difficulty = Difficulty.Easy;
 
@@ -134,6 +138,15 @@ public class GameManager : MonoBehaviour
         {
             scoreRate = (townLevel * 0.25f) + ((float)difficulty / 2);
         }
+    }
+
+
+    public void LoadNextScene(string sceneName)
+    {
+        nextScene = sceneName;
+
+        SceneManager.LoadScene("Loading");
+
     }
 
 

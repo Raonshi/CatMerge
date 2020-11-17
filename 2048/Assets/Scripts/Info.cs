@@ -77,8 +77,9 @@ public class Info : MonoBehaviour
                 break;
 
             case "GoToMain":
-                SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
-                StartCoroutine(GoToMain());
+                TimeManager.Singleton.time = TimeSpan.FromSeconds(Game.instance.lifeTime);
+                SaveManager.Singleton.SaveUserJson();
+                GameManager.Singleton.LoadNextScene("Main");
                 break;
 
             case "Retry":
@@ -117,15 +118,6 @@ public class Info : MonoBehaviour
                 gameObject.SetActive(false);
                 break;
         }
-    }
-
-    IEnumerator GoToMain()
-    {
-        yield return new WaitForSeconds(3.0f);
-
-        TimeManager.Singleton.time = TimeSpan.FromSeconds(Game.instance.lifeTime);
-        SaveManager.Singleton.SaveUserJson();
-        SceneManager.LoadScene("MainMenu");
     }
 
 }

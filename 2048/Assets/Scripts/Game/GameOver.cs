@@ -44,9 +44,9 @@ public class GameOver : MonoBehaviour
     public void OnClickOK()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
-        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
-
-        StartCoroutine(GoToMain());
+        TimeManager.Singleton.time = TimeSpan.FromSeconds(Game.instance.lifeTime);
+        SaveManager.Singleton.SaveUserJson();
+        GameManager.Singleton.LoadNextScene("Main");
     }
 
     IEnumerator GoToMain()

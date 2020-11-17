@@ -21,7 +21,6 @@ public class Tutorial : MonoBehaviour
 
     public void OnClickOK()
     {
-
         switch(gameObject.name)
         {
             case "Tutorial0":
@@ -49,6 +48,13 @@ public class Tutorial : MonoBehaviour
                 GameManager.Singleton.tutorial3 = isToggle;
 
                 Game.instance.isOver = false;
+                SaveManager.Singleton.SaveTutorialJson();
+                gameObject.SetActive(false);
+                break;
+
+            case "Tutorial4":
+                GameManager.Singleton.tutorial4 = isToggle;
+
                 SaveManager.Singleton.SaveTutorialJson();
                 gameObject.SetActive(false);
                 break;

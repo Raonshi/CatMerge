@@ -48,20 +48,6 @@ public class Difficult : MonoBehaviour
                     text.text = "어려움";
                     break;
             }
-            /*
-            if(GameManager.Singleton.isHard == true)
-            {
-                ColorUtility.TryParseHtmlString("#FF4B38", out color);
-                buttonImage.color = color;
-                text.text = "어려움";
-            }
-            else
-            {
-                ColorUtility.TryParseHtmlString("#98E05A", out color);
-                buttonImage.color = color;
-                text.text = "보통";
-            }
-            */
         }
     }
 

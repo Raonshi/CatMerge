@@ -49,11 +49,13 @@ public class Main : MonoBehaviour
     public Text scoreRateText;
     public float scoreRate;
 
+    //난이도 도움말
+    public GameObject tutorial4;
+
 
     //싱글턴
     public static Main instance;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         instance = this;
@@ -64,6 +66,7 @@ public class Main : MonoBehaviour
         close.SetActive(false);
         tutorial.SetActive(false);
         help.SetActive(false);
+        tutorial4.SetActive(false);
 
         if(GameObject.Find("GameManager") == false)
         {
@@ -79,7 +82,6 @@ public class Main : MonoBehaviour
     void Start()
     {
         //메인 씬 bgm재생
-        //SoundManager.Singleton.PlayBGM(SoundManager.Singleton.bgmAudio ,Resources.Load<AudioClip>("Sounds/BGM_Main"));
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Main"));
 
         //게임 최초 실행 시 튜토리얼 보여줌
@@ -106,6 +108,11 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Singleton.tutorial4 == true && GameManager.Singleton.townLevel >= 3 && GameManager.Singleton.isNew == false && GameManager.Singleton.isHelp == false)
+        {
+            tutorial4.SetActive(true);
+        }
+
 
         //텍스트 수치 표시
         point.text = "포인트 : " + GameManager.Singleton.totalPoint;
@@ -203,12 +210,16 @@ public class Main : MonoBehaviour
     public void OnClickStart()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
-        StartCoroutine(StartingGame());
+
+        GameManager.Singleton.isNew = false;
+
+        GameManager.Singleton.LoadNextScene("Game");
     }
 
 
     public void OnClickClose(GameObject obj)
     {
+        GameManager.Singleton.isHelp = false;
         obj.SetActive(false);
     }
 
@@ -264,40 +275,6 @@ public class Main : MonoBehaviour
         }
 
         SaveManager.Singleton.SaveUserJson();
-    }
-
-    #endregion
-
-    #region 코루틴
-
-    IEnumerator StartingGame()
-    {
-        yield return null;
-
-        GameManager.Singleton.Loading();
-        
-        yield return new WaitForSeconds(3.0f);
-
-        if (GameManager.Singleton.isNew == true)
-        {
-            tutorial.SetActive(false);
-            GameManager.Singleton.isNew = false;
-        }
-
-
-        //고양이 선물시간 계산을 위해 게임 시작 전 현재 시간을 저장
-        TimeManager.Singleton.closeTime = DateTime.Now;
-
-        //각 고양이들의 선물 시간을 리스트에 저장
-        TimeManager.Singleton.giftTime.Clear();
-
-        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Cat").Length; i++)
-        {
-            GameObject obj = GameObject.FindGameObjectsWithTag("Cat")[i];
-            TimeManager.Singleton.giftTime.Add(obj.GetComponent<Cat>().giftTime);
-        }
-
-        SceneManager.LoadScene("Game");
     }
 
     #endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Loading : MonoBehaviour
 {
@@ -11,35 +12,37 @@ public class Loading : MonoBehaviour
 
     string message;
 
-    bool isTyping;
-
-
     void Start()
     {
-        isTyping = false;
         message = "로 딩 중 . . .";
 
         SoundManager.Singleton.SoundInit();
+
+        StartCoroutine(LoadNextScene());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator LoadNextScene()
     {
-        if(isTyping == false)
-        {
-            isTyping = true;
-            StartCoroutine(Typing(speed));
-        }
-    }
+        AsyncOperation async = SceneManager.LoadSceneAsync(GameManager.Singleton.nextScene);
 
-    IEnumerator Typing(float speed)
-    {
-        for (int i = 0; i < message.Length; i++)
-        {
-            loading.text = message.Substring(0, i + 1);
-            yield return new WaitForSeconds(speed);
-        }
+        async.allowSceneActivation = false;
 
-        isTyping = false;
+        while(async.isDone == false)
+        {
+            //로딩 진행중일때
+            if(async.progress < 0.9f)
+            {
+                Debug.Log("Loading : " + async.progress);
+
+                loading.text = message;
+
+            }
+            //로딩이 끝나면
+            else
+            {
+                async.allowSceneActivation = true;
+                yield break;
+            }
+        }
     }
 }

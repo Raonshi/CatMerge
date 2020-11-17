@@ -75,6 +75,10 @@ public class Game : MonoBehaviour
 
         instance = this;
 
+        isMove = false;
+        isStop = false;
+
+
         //시간 초기화
         maxTime = 90;
         time = maxTime;
@@ -492,13 +496,12 @@ public class Game : MonoBehaviour
             if (gap.x > 150)
             {
                 Move("right");
-                isStop = true;
             }
             else if (gap.x < -150)
             {
                 Move("left");
-                isStop = true;
             }
+            isStop = true;
         }
         //up, down
         else if(x < y)
@@ -506,13 +509,12 @@ public class Game : MonoBehaviour
             if (gap.y > 150)
             {
                 Move("up");
-                isStop = true;
             }
             else if (gap.y < -150)
             {
                 Move("down");
-                isStop = true;
             }
+            isStop = true;
         }
     }
 
@@ -794,7 +796,6 @@ public class Game : MonoBehaviour
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
-                //SoundManager.Singleton.PlaySFX(SoundManager.Singleton.sfxAudio, Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
                 SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
 
                 point++;
