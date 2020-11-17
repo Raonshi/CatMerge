@@ -272,6 +272,8 @@ public class Main : MonoBehaviour
 
     IEnumerator StartingGame()
     {
+        yield return null;
+
         GameManager.Singleton.Loading();
         
         yield return new WaitForSeconds(3.0f);

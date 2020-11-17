@@ -965,7 +965,9 @@ public class Game : MonoBehaviour
 
     public void OnClickNumber()
     {
-        if(numEnable.GetComponent<Toggle>().isOn == true)
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
+        if (numEnable.GetComponent<Toggle>().isOn == true)
         {
             GameManager.Singleton.isNum = true;
         }
@@ -979,6 +981,8 @@ public class Game : MonoBehaviour
 
     public void OnClickExit()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
         close.SetActive(true);
     }
 

@@ -79,6 +79,7 @@ public class SoundManager : MonoBehaviour
                     if (clip.name.Contains("BGM") == true)
                     {
                         audio[i].clip = clip;
+                        audio[i].volume = 0.5f;
                         audio[i].time = 0;
                         audio[i].loop = true;
                     }
@@ -104,6 +105,7 @@ public class SoundManager : MonoBehaviour
 
                 if(clip.name.Contains("BGM") == true)
                 {
+                    audio[i].volume = 0.5f;
                     audio[i].loop = true;
                 }
                 else if(clip.name.Contains("SFX") == true)
