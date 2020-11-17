@@ -12,6 +12,7 @@ ScriptsOnlyBuild:
     - Loading
     - Main
     - Slot
+    - Spawner
     - TileImage
     - TimeRecovery
     - Timer
@@ -29,8 +30,10 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -118,6 +121,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14304}
     - Class: 114
       Script: {instanceID: 14326}
+    - Class: 114
+      Script: {instanceID: 82980}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -221,6 +226,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11272}
     - Class: 114
+      Script: {instanceID: 11308}
+    - Class: 114
       Script: {instanceID: 11498}
     - Class: 114
       Script: {instanceID: 11624}
@@ -228,6 +235,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12198}
     - Class: 114
       Script: {instanceID: 12290}
+    - Class: 114
+      Script: {instanceID: 12938}
     - Class: 114
       Script: {instanceID: 12968}
     - Class: 114
@@ -240,6 +249,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14180}
     - Class: 114
       Script: {instanceID: 14284}
+    - Class: 114
+      Script: {instanceID: 14304}
     - Class: 114
       Script: {instanceID: 14392}
     - Class: 115
@@ -513,7 +524,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: a8cf42168b0037362d36d07b5b67b9fd
+      Hash: 1059ba00730165c415b955586f6b22a8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -633,7 +644,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: de3f6b4e79dfec5e19e0cf6e77bd4e63
+      Hash: fa289f54fe23a90388fec214695115a6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Main
@@ -859,9 +870,15 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SoundManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Spawner
   platform: 13
   scenePathNames:
   - Assets/Scenes/Main.unity
   - Assets/Scenes/Game.unity
   - Assets/Scenes/Loading.unity
-  playerPath: C:/Users/HongSunwon/Desktop/Cat_Merge.apk
+  playerPath: C:/Users/HongSunwon/Desktop/Cat_Merge_edit.apk

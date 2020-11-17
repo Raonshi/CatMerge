@@ -33,7 +33,7 @@ public class Game : MonoBehaviour
     public bool isStop;     //타일이 정지하는 순간 true, 이후 바로 false
     public bool isOver;     //게임 오버시 고양이 타일 이동 금지
     public bool isClose;    //튜토리얼 창 닫을 때 고양이 움직이지 못하도록 하기 위함. 
-    public bool isHalf;
+    public bool isHalf;     //남은 시간 절반
 
     //터치 좌표
     Vector2 startPos, endPos, gap;
@@ -72,7 +72,6 @@ public class Game : MonoBehaviour
 
     private void Awake()
     {
-
         instance = this;
 
         isMove = false;
@@ -126,14 +125,14 @@ public class Game : MonoBehaviour
         slotArray = new GameObject[size, size];
 
         //고양이 타일 2개 랜덤 생성
-        GenerateNumber();
-        GenerateNumber();
+        Spawner.instance.TileSpawn();
+        Spawner.instance.TileSpawn();
 
-        //숫자보기 튜토리얼 처음에 표시
         if (GameManager.Singleton.tutorial0 == true)
         {
             tutorial0.SetActive(true);
         }
+
     }
 
     private void Update()
@@ -175,8 +174,7 @@ public class Game : MonoBehaviour
         //hardTime이 20초 될때마다 블럭을 막는다.
         if(hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard))
         {
-            Block();
-
+            Spawner.instance.BlockSpawn();
             hardTime = 0;
         }
 
@@ -205,7 +203,7 @@ public class Game : MonoBehaviour
             //이동되거나 결합된 타일을 확인.
             if (k != 0)
             {
-                GenerateNumber();
+                Spawner.instance.TileSpawn();
             }
 
             //고양이 수가 16이상이면 타일을 검사한다.
@@ -233,11 +231,7 @@ public class Game : MonoBehaviour
     }
 
 
-
-
-
     #region 기능
-
     //고양이 숫자 보기 / 안보기 -> true : 숫자 안보임      false : 숫자 보임
     public void EnableNum()
     {
@@ -290,89 +284,6 @@ public class Game : MonoBehaviour
                 slotArray[x, y].GetComponent<Slot>().isCombine = false;
             }
         }
-    }
-
-    //새로운 고양이를 생성
-    public void GenerateNumber()
-    {
-        //고양이 타일이 16이상이면 생성하지 않는다.
-        if(count >= 16)
-        {
-            return;
-        }
-
-        int x;  //타일의 x좌표
-        int y;  //타일의 y좌표
-        int i;  //생성될 고양이 타일의 확률
-
-        //타일의 빈공간 검사
-        while(true)
-        {
-            x = UnityEngine.Random.Range(0, size);
-            y = UnityEngine.Random.Range(0, size);
-
-            if(slotArray[x, y] == null)
-            {
-                break;
-            }
-        }
-
-        //확률 랜덤
-        i = UnityEngine.Random.Range(0, 100);
-
-        GameObject obj;
-
-        //x2고양이 생성
-        if ((i >= 0 && i < 5) && score >= 5000)
-        {
-            //곱하기 생성
-            obj = Resources.Load("Prefabs/Multiple") as GameObject;
-            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
-            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Multiple");
-
-            //곱하기 타일 최초 생성이면 튜토리얼 창 활성화
-            if(GameManager.Singleton.tutorial2 == true)
-            {
-                tutorial2.SetActive(true);
-            }
-        }
-
-        //%2고양이 생성
-        else if ((i >= 5 && i < 10) && score >= 10000)
-        {
-            //나누기 생성
-            obj = Resources.Load("Prefabs/Division") as GameObject;
-            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
-            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Division");
-
-            //나누기 타일 최초 생성이면 튜토리얼 창 활성화
-            if (GameManager.Singleton.tutorial3 == true)
-            {
-                tutorial3.SetActive(true);
-            }
-        }
-        //일반 고양이 생성
-        else
-        {
-            obj = Resources.Load("Prefabs/Tile") as GameObject;
-            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
-            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/2");
-
-            //숫자 타일 최초 생성이면 튜토리얼 창 활성화
-            if (GameManager.Singleton.tutorial1 == true)
-            {
-                tutorial1.SetActive(true);
-            }
-        }
-
-        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
-
-        slotArray[x, y].gameObject.name = obj.name;
-        slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
-        slotArray[x, y].transform.rotation = Quaternion.identity;
     }
 
     //점수 체크
@@ -622,7 +533,7 @@ public class Game : MonoBehaviour
             isMove = true;
 
             //타일 프리팹 생성 >> 특수타일은 결합으로 생성되지 않으므로 Tile로 고정
-            GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
             
             //변수 i에 이동될 타일의 num값을 입력
             int i = 1;
@@ -637,31 +548,14 @@ public class Game : MonoBehaviour
 
             //화면상 이동 >> 이동 후 두 좌표의 오브젝트를 제거
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
-            Destroy(slotArray[x2, y2]);
-            count--;
+
             slotArray[x1, y1] = null;
+            count--;
 
-            //게임오브젝트를 생성
-            slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x2, y2].gameObject.name = obj.name;
-
-            //생성되는 게임 오브젝트는 기존 타일의 진화형태이다.
-            slotArray[x2, y2].GetComponent<Slot>().num = i * 2;
-
-            //스프라이트 변경
-            slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
-            
-            //위치 및 로테이션 초기화
-            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
-            slotArray[x2, y2].transform.rotation = Quaternion.identity;
-
-            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-            slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
-
-            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
-
-            if(slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            if (i * 2 >= 64)
             {
+                score += ((i * 2) * 10) + Convert.ToInt32((i * 2) * 10 * GameManager.Singleton.scoreRate);
+
                 if (time > maxTime - recoveryTime)
                 {
                     time = maxTime;
@@ -670,17 +564,40 @@ public class Game : MonoBehaviour
                 {
                     time += recoveryTime;
                 }
-                Destroy(slotArray[x2, y2]);
 
                 GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"));
-                timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
+                timeRecovery.name = "TimeRecovery";
+                timeRecovery.transform.SetParent(GameObject.Find("Canvas").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
                 SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
 
-                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
-                
                 point++;
+
+                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
+                DestroyImmediate(slotArray[x2, y2]);
+            }
+            else
+            {
+                Destroy(slotArray[x2, y2]);
+                //게임오브젝트를 생성
+                slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+                slotArray[x2, y2].gameObject.name = obj.name;
+
+                //생성되는 게임 오브젝트는 기존 타일의 진화형태이다.
+                slotArray[x2, y2].GetComponent<Slot>().num = i * 2;
+
+                //스프라이트 변경
+                slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+
+                //위치 및 로테이션 초기화
+                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+                slotArray[x2, y2].transform.rotation = Quaternion.identity;
+
+                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+
+                score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
             }
             k++;
             
@@ -702,7 +619,7 @@ public class Game : MonoBehaviour
 
             isMove = true;
 
-            GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
             int i = 1;
 
             if (slotArray[x1, y1].name == "Division")
@@ -751,7 +668,7 @@ public class Game : MonoBehaviour
         {
             isMove = true;
 
-            GameObject obj = Resources.Load("Prefabs/Tile") as GameObject;
+            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
             int i, j;
 
             i = slotArray[x1, y1].GetComponent<Slot>().num;
@@ -759,27 +676,13 @@ public class Game : MonoBehaviour
 
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
 
-            Destroy(slotArray[x2, y2]);
+            slotArray[x1, y1] = null;
             count--;
 
-            slotArray[x1, y1] = null;
-
-            slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x2, y2].gameObject.name = obj.name;
-            slotArray[x2, y2].GetComponent<Slot>().num = j + i;
-
-            slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
-
-            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
-            slotArray[x2, y2].transform.rotation = Quaternion.identity;
-
-            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-            slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
-
-            score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
-
-            if (slotArray[x2, y2].GetComponent<Slot>().num == 64)
+            if(i + j >= 64)
             {
+                score += ((i + j) * 10) + Convert.ToInt32((i + j) * 10 * GameManager.Singleton.scoreRate);
+
                 if (time > maxTime - recoveryTime)
                 {
                     time = maxTime;
@@ -788,12 +691,10 @@ public class Game : MonoBehaviour
                 {
                     time += recoveryTime;
                 }
-                
-                Destroy(slotArray[x2, y2]);
 
                 GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"));
                 timeRecovery.name = "TimeRecovery";
-                timeRecovery.transform.SetParent(GameObject.Find("Canvas/TileSet").transform);
+                timeRecovery.transform.SetParent(GameObject.Find("Canvas").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
 
                 SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
@@ -801,7 +702,25 @@ public class Game : MonoBehaviour
                 point++;
 
                 StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
+                DestroyImmediate(slotArray[x2, y2]);
+            }
+            else
+            {
+                Destroy(slotArray[x2, y2]);
 
+                slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
+                slotArray[x2, y2].gameObject.name = obj.name;
+                slotArray[x2, y2].GetComponent<Slot>().num = j + i;
+
+                slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+
+                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+                slotArray[x2, y2].transform.rotation = Quaternion.identity;
+
+                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+
+                score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
             }
             k++;
         }
@@ -818,150 +737,6 @@ public class Game : MonoBehaviour
             slotArray[x1, y1] = null;
         }
     }
-
-    //타일 막아버림
-    public void Block()
-    {
-        if(blockCount == 4)
-        {
-            return;
-        }
-        int x = 0;
-        int y = 0;
-
-        //노말모드는 블럭 모서리에만 생성
-        if(GameManager.Singleton.difficulty == GameManager.Difficulty.Normal)
-        {
-            int[] array = new int[2] { 0, 3 };
-            GameObject[] slot = new GameObject[4];
-            bool exit = false;
-
-            //4 귀퉁이의 빈공간을 검사
-            for(int i = 0; i < array.Length; i++)
-            {
-                for(int j = 0; j < array.Length;j++)
-                {
-                    x = array[i];
-                    y = array[j];
-
-                    if (slotArray[x, y] == null)
-                    {
-                        exit = true;
-                        break;
-                    }
-                }
-                //빈공간이 있다면 이중루프 탈출
-                if(exit == true)
-                {
-                    break;
-                }
-            }
-
-            //빈공간이 없을 경우
-            //Block이 아닌 칸에 생성
-            if(exit == false)
-            {
-                for(int i = 0; i < array.Length; i++)
-                {
-                    for(int j = 0; j < array.Length; j++)
-                    {
-                        x = array[i];
-                        y = array[j];
-
-                        if (slotArray[x, y].name != "Block")
-                        {
-                            Destroy(slotArray[x, y]);
-                            exit = true;
-                            break;
-                        }
-                    }
-                    if (exit == true)
-                    {
-                        break;
-                    }
-                }
-            }
-
-            if(exit == false)
-            {
-                Debug.Log("Can not Create X-Block");
-                return;
-            }
-            GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
-            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
-            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
-
-            slotArray[x, y].gameObject.name = obj.name;
-            slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
-            slotArray[x, y].transform.rotation = Quaternion.identity;
-
-            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
-        }
-        //하드모드는 블럭 랜덤 생성
-        else if(GameManager.Singleton.difficulty == GameManager.Difficulty.Hard)
-        {
-            List<GameObject> list = new List<GameObject>();
-
-            while (true)
-            {
-
-                x = UnityEngine.Random.Range(0, size);
-                y = UnityEngine.Random.Range(0, size);
-                
-                if(list.Count >= 16)
-                {
-                    Destroy(slotArray[x, y]);
-                    break;
-                }
-                
-                
-                //빈 타일이 존재하거나 모든 타일의 중복검사를 끝냈을 경우
-                if (slotArray[x, y] == null)
-                {
-                    break;
-                }
-                //slotArray[x, y]가 null이 아니라면
-                else
-                {
-                    if(list.Count == 0)
-                    {
-                        list.Add(slotArray[x, y]);
-                    }
-                    else
-                    {
-                        bool duplicate = false;
-                        for(int i = 0; i < list.Count; i++)
-                        {
-                            if(slotArray[x, y] == list[i])
-                            {
-                                duplicate = true;
-                                break;
-                            }
-                        }
-                        //중복값이 아니라면 list에 추가
-                        if(duplicate == false)
-                        {
-                            list.Add(slotArray[x, y]);
-                        }
-                    }
-                }
-
-            }
-            GameObject obj = Resources.Load("Prefabs/Block") as GameObject;
-            slotArray[x, y] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-            slotArray[x, y].GetComponent<Slot>().anim.SetBool("isNew", true);
-            slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
-
-            slotArray[x, y].gameObject.name = obj.name;
-            slotArray[x, y].transform.localPosition = new Vector2((x * 270) - xPos, (y * 270) - yPos);
-            slotArray[x, y].transform.rotation = Quaternion.identity;
-
-            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
-        }
-        blockCount++;
-    }
-
     #endregion
 
     public void OnClickNumber()
