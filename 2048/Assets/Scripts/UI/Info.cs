@@ -19,7 +19,14 @@ public class Info : MonoBehaviour
         switch (gameObject.name)
         {
             case "GameClose":
-                message.text = string.Format("<color=red>게임을 종료하면 고양이가 선물을 잃어버리게 됩니다!</color>\n게임을 종료하시겠습니까?");
+                if(SceneManager.GetActiveScene().name == "Title")
+                {
+                    message.text = string.Format("게임을 종료하시겠습니까?");
+                }
+                else if(SceneManager.GetActiveScene().name == "Main")
+                {
+                    message.text = string.Format("<color=red>게임을 종료하면 고양이가 선물을 잃어버리게 됩니다!</color>\n게임을 종료하시겠습니까?");
+                }
                 break;
 
             case "NotEnoughPoint":
