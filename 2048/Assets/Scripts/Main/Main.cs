@@ -69,16 +69,6 @@ public class Main : MonoBehaviour
         help.SetActive(false);
         tutorial4.SetActive(false);
         option.SetActive(false);
-
-        if(GameObject.Find("GameManager") == false)
-        {
-            GameManager.Singleton.InitGameManager();
-        }
-        
-        if(GameObject.Find("SoundManager") == false)
-        {
-            SoundManager.Singleton.InitSoundManager();
-        }
     }
 
     void Start()

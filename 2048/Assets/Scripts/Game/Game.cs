@@ -158,7 +158,7 @@ public class Game : MonoBehaviour
             hardTime += Time.deltaTime;
 
             //1초 동안 시간 절반 지남음을 표시
-            if(time >= (maxTime / 2) - 1 && time <= maxTime / 2 && isHalf == true)
+            if(time >= (maxTime * 0.5f) - 1 && time <= maxTime * 0.5f && isHalf == true)
             {
                 isHalf = false;
                 halfTime.SetActive(true);
@@ -504,7 +504,6 @@ public class Game : MonoBehaviour
         {
             if(slotArray[x1, y1].name == "Block")
             {
-                k++;
                 return;
             }
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
@@ -650,7 +649,7 @@ public class Game : MonoBehaviour
 
             slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
             slotArray[x2, y2].gameObject.name = obj.name;
-            slotArray[x2, y2].GetComponent<Slot>().num = i / 2;
+            slotArray[x2, y2].GetComponent<Slot>().num = Convert.ToInt32(i * 0.5f);
 
             slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
 

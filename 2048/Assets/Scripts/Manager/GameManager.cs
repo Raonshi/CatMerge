@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
         //각종 매니저 생성 및 초기화
         SaveManager.Singleton.InitSaveManager();
         TimeManager.Singleton.InitTimeManager();
+        SoundManager.Singleton.InitSoundManager();
 
         isStart = true;
     }
@@ -144,7 +145,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            scoreRate = (townLevel * 0.25f) + ((float)difficulty / 2);
+            scoreRate = (townLevel * 0.25f) + ((float)difficulty * 0.5f);
         }
     }
 
@@ -155,11 +156,5 @@ public class GameManager : MonoBehaviour
 
         SceneManager.LoadScene("Loading");
 
-    }
-
-
-    public void Loading()
-    {
-        SceneManager.LoadScene("Loading", LoadSceneMode.Additive);
     }
 }

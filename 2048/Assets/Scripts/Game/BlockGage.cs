@@ -29,6 +29,6 @@ public class BlockGage : MonoBehaviour
             anim.SetFloat("Time", time);
         }
 
-        image.fillAmount = time / 20;
+        image.fillAmount = time * 0.05f;
     }
 }
