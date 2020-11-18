@@ -327,10 +327,10 @@ public class TutorialJson
 
 public class OptionJson
 {
-    public bool bgm;
-    public bool sfx;
+    public float bgm;
+    public float sfx;
 
-    public void SetData(bool _bgm, bool _sfx)
+    public void SetData(float _bgm, float _sfx)
     {
         bgm = _bgm;
         sfx = _sfx;

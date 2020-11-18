@@ -6,56 +6,37 @@ using UnityEngine.UI;
 public class OptionPanel : MonoBehaviour
 {
 
-    public Toggle bgmToggle;
-    public Toggle sfxToggle;
+    public GameObject bgm;
+    public GameObject sfx;
 
+    Slider bgmSlider;
+    Slider sfxSlider;
 
-    private void OnEnable()
+    
+
+    private void Start()
     {
-        bgmToggle.isOn = GameManager.Singleton.bgm;
-        sfxToggle.isOn = GameManager.Singleton.sfx;
+        bgmSlider = bgm.GetComponentInChildren<Slider>();
+        sfxSlider = sfx.GetComponentInChildren<Slider>();
+
+        bgmSlider.value = GameManager.Singleton.bgm;
+        sfxSlider.value = GameManager.Singleton.sfx;
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameManager.Singleton.bgm = bgmSlider.value;
+        GameManager.Singleton.sfx = sfxSlider.value;
 
+        SaveManager.Singleton.SaveOptionJson();
     }
 
 
 
     public void OnClickClose()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         gameObject.SetActive(false);
-    }
-
-    public void OnToggleBGM()
-    {
-        if(bgmToggle.isOn == true)
-        {
-            GameManager.Singleton.bgm = true;
-        }
-        else
-        {
-            GameManager.Singleton.bgm = false;
-        }
-        SaveManager.Singleton.SaveOptionJson();
-
-        SoundManager.Singleton.BgmMute();
-    }
-
-    public void OnToggleSFX()
-    {
-        if (sfxToggle.isOn == true)
-        {
-            GameManager.Singleton.sfx = true;
-        }
-        else
-        {
-            GameManager.Singleton.sfx = false;
-        }
-        SaveManager.Singleton.SaveOptionJson();
-
-        SoundManager.Singleton.SfxMute();
     }
 }

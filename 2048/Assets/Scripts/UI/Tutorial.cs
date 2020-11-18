@@ -21,7 +21,10 @@ public class Tutorial : MonoBehaviour
 
     public void OnClickOK()
     {
-        switch(gameObject.name)
+
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
+        switch (gameObject.name)
         {
             case "Tutorial0":
                 GameManager.Singleton.tutorial0 = isToggle;
@@ -63,8 +66,9 @@ public class Tutorial : MonoBehaviour
 
     public void OnClickToggle()
     {
-        
-        if(toggle.isOn == true)
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
+        if (toggle.isOn == true)
         {
             isToggle = false;
         }

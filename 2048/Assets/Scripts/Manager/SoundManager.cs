@@ -8,9 +8,8 @@ public class SoundManager : MonoBehaviour
     public List<AudioSource> audio = new List<AudioSource>();
     public int audioSourceCount = 5;
 
-    private static SoundManager instance;
 
-    bool bgm, sfx;
+    private static SoundManager instance;
 
     public static SoundManager Singleton
     {
@@ -49,70 +48,25 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-
+        VolumeControl();
     }
 
-
-    public void BgmMute()
+    public void VolumeControl()
     {
-        if (bgm == false)
+        for(int i = 0; i < audio.Count; i++)
         {
-            for (int i = 0; i < audio.Count; i++)
+            if(audio[i].clip == null)
             {
-                if(audio[i].clip == null)
-                {
-                    continue;
-                }
-                else if (audio[i].clip.name.Contains("BGM_") == true)
-                {
-                    audio[i].mute = true;
-                }
+                continue;
             }
-        }
-        else
-        {
-            for (int i = 0; i < audio.Count; i++)
-            {
-                if (audio[i].clip == null)
-                {
-                    continue;
-                }
-                else if (audio[i].clip.name.Contains("BGM_") == true)
-                {
-                    audio[i].mute = false;
-                }
-            }
-        }
-    }
 
-    public void SfxMute()
-    {
-        if (sfx == false)
-        {
-            for (int i = 0; i < audio.Count; i++)
+            else if(audio[i].clip.name.Contains("BGM_") == true)
             {
-                if (audio[i].clip == null)
-                {
-                    continue;
-                }
-                else if (audio[i].clip.name.Contains("SFX_") == true)
-                {
-                    audio[i].mute = true;
-                }
+                audio[i].volume = GameManager.Singleton.bgm;
             }
-        }
-        else
-        {
-            for (int i = 0; i < audio.Count; i++)
+            else if(audio[i].clip.name.Contains("SFX_") == true)
             {
-                if (audio[i].clip == null)
-                {
-                    continue;
-                }
-                else if (audio[i].clip.name.Contains("SFX_") == true)
-                {
-                    audio[i].mute = false;
-                }
+                audio[i].volume = GameManager.Singleton.sfx;
             }
         }
     }

@@ -221,6 +221,7 @@ public class Main : MonoBehaviour
 
     public void OnClickClose(GameObject obj)
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         GameManager.Singleton.isHelp = false;
         obj.SetActive(false);
     }
@@ -281,6 +282,7 @@ public class Main : MonoBehaviour
 
     public void OnClickOption()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         option.SetActive(true);
     }
 

@@ -47,8 +47,8 @@ public class GameManager : MonoBehaviour
     public int screenWidth;
 
     //사운드 옵션
-    public bool bgm;
-    public bool sfx;
+    public float bgm;
+    public float sfx;
 
     //싱글턴
     private static GameManager instance;
@@ -117,8 +117,8 @@ public class GameManager : MonoBehaviour
             tutorial4 = true;
 
             //option.json
-            bgm = true;
-            sfx = true;
+            bgm = 0.5f;
+            sfx = 0.5f;
 
             SaveManager.Singleton.SaveUserJson();
             SaveManager.Singleton.SaveTutorialJson();
