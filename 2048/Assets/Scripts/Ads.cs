@@ -58,7 +58,7 @@ public class Ads : MonoBehaviour
 
         AdRequest adRequest = new AdRequest.Builder()
             .AddTestDevice(AdRequest.TestDeviceSimulator)
-            .AddTestDevice("0123456789ABCDEF0123456789ABCDEF")
+            .AddTestDevice("03207E138A9B5E8CB3BD14BA72CA86BC")
             .Build();
 
         // Load a banner ad.

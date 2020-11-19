@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 152434996}
   m_Layer: 5
   m_Name: OptionPanel
-  m_TagString: UI
+  m_TagString: InfoPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8568,7 +8568,6 @@ GameObject:
   - component: {fileID: 1342761481}
   - component: {fileID: 1342761480}
   - component: {fileID: 1342761479}
-  - component: {fileID: 1342761482}
   m_Layer: 5
   m_Name: Close
   m_TagString: UI
@@ -8686,19 +8685,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342761477}
   m_CullTransparentMesh: 0
---- !u!65 &1342761482
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342761477}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 100, y: 100, z: 100}
-  m_Center: {x: -50, y: -50, z: 0}
 --- !u!1 &1347434576
 GameObject:
   m_ObjectHideFlags: 0
@@ -12530,7 +12516,6 @@ GameObject:
   - component: {fileID: 2021595763}
   - component: {fileID: 2021595762}
   - component: {fileID: 2021595761}
-  - component: {fileID: 2021595760}
   m_Layer: 5
   m_Name: Option
   m_TagString: UI
@@ -12557,19 +12542,6 @@ RectTransform:
   m_AnchoredPosition: {x: 250, y: -110}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
---- !u!65 &2021595760
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2021595758}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 100, y: 100, z: 100}
-  m_Center: {x: 50, y: -50, z: 0}
 --- !u!114 &2021595761
 MonoBehaviour:
   m_ObjectHideFlags: 0

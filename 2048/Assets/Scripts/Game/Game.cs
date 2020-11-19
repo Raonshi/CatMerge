@@ -767,6 +767,8 @@ public class Game : MonoBehaviour
 
     public void OnClickOption()
     {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Popup"));
+
         optionPanel.SetActive(true);
     }
 
