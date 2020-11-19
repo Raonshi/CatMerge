@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":79.03572845458985,"y":361.8979187011719,"z":-2345.201171875},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":450.4049072265625,"orthographic":true}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":true,"pivot":{"x":474.3147888183594,"y":1300.277587890625,"z":-1148.75},"rotation":{"x":0.0,"y":0.0,"z":0.0,"w":1.0},"size":1363.4864501953125,"orthographic":true}
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼

@@ -3,13 +3,30 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Cat
     - CompleteEffet
+<<<<<<< HEAD
     - GoogleAdsManager
+=======
+    - Difficult
+    - Game
+    - GameOver
+    - HalfTime
+    - Info
+    - Loading
+    - Main
+    - OptionPanel
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     - Slot
     - TimeRecovery
+<<<<<<< HEAD
     GoogleMobileAds.Editor.dll:
     - GoogleMobileAds.Editor.GoogleMobileAdsSettings
     GoogleMobileAds.dll:
     - GoogleMobileAds.Common.MobileAdsEventExecutor
+=======
+    - Timer
+    - Title
+    - Tutorial
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
@@ -40,7 +57,224 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Outline
     - UnityEngine.UI.Text
   sceneClasses:
+<<<<<<< HEAD
     Assets/Scenes/TEST.unity:
+=======
+    Assets/Scenes/Game.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11150}
+    - Class: 114
+      Script: {instanceID: 11152}
+    - Class: 114
+      Script: {instanceID: 11154}
+    - Class: 114
+      Script: {instanceID: 11176}
+    - Class: 114
+      Script: {instanceID: 11308}
+    - Class: 114
+      Script: {instanceID: 11422}
+    - Class: 114
+      Script: {instanceID: 11498}
+    - Class: 114
+      Script: {instanceID: 11624}
+    - Class: 114
+      Script: {instanceID: 11748}
+    - Class: 114
+      Script: {instanceID: 11808}
+    - Class: 114
+      Script: {instanceID: 11910}
+    - Class: 114
+      Script: {instanceID: 12198}
+    - Class: 114
+      Script: {instanceID: 12790}
+    - Class: 114
+      Script: {instanceID: 12940}
+    - Class: 114
+      Script: {instanceID: 13672}
+    - Class: 114
+      Script: {instanceID: 13752}
+    - Class: 114
+      Script: {instanceID: 14184}
+    - Class: 114
+      Script: {instanceID: 14196}
+    - Class: 114
+      Script: {instanceID: 14288}
+    - Class: 114
+      Script: {instanceID: 14308}
+    - Class: 114
+      Script: {instanceID: 14330}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Loading.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11150}
+    - Class: 114
+      Script: {instanceID: 11152}
+    - Class: 114
+      Script: {instanceID: 11176}
+    - Class: 114
+      Script: {instanceID: 11516}
+    - Class: 114
+      Script: {instanceID: 11698}
+    - Class: 114
+      Script: {instanceID: 12198}
+    - Class: 114
+      Script: {instanceID: 13672}
+    - Class: 114
+      Script: {instanceID: 14184}
+    - Class: 114
+      Script: {instanceID: 14288}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/Main.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 65
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 84
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11150}
+    - Class: 114
+      Script: {instanceID: 11152}
+    - Class: 114
+      Script: {instanceID: 11154}
+    - Class: 114
+      Script: {instanceID: 11176}
+    - Class: 114
+      Script: {instanceID: 11308}
+    - Class: 114
+      Script: {instanceID: 11498}
+    - Class: 114
+      Script: {instanceID: 11624}
+    - Class: 114
+      Script: {instanceID: 12198}
+    - Class: 114
+      Script: {instanceID: 12692}
+    - Class: 114
+      Script: {instanceID: 12940}
+    - Class: 114
+      Script: {instanceID: 12970}
+    - Class: 114
+      Script: {instanceID: 13064}
+    - Class: 114
+      Script: {instanceID: 13672}
+    - Class: 114
+      Script: {instanceID: 14288}
+    - Class: 114
+      Script: {instanceID: 14308}
+    - Class: 114
+      Script: {instanceID: 14330}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    - Class: 328
+      Script: {instanceID: 0}
+    - Class: 329
+      Script: {instanceID: 0}
+    Assets/Scenes/Title.unity:
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -54,8 +288,6 @@ ScriptsOnlyBuild:
     - Class: 48
       Script: {instanceID: 0}
     - Class: 74
-      Script: {instanceID: 0}
-    - Class: 81
       Script: {instanceID: 0}
     - Class: 82
       Script: {instanceID: 0}
@@ -82,9 +314,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12452}
     - Class: 114
+<<<<<<< HEAD
       Script: {instanceID: 12548}
     - Class: 114
       Script: {instanceID: 12724}
+=======
+      Script: {instanceID: 13138}
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     - Class: 114
       Script: {instanceID: 13194}
     - Class: 114
@@ -94,9 +330,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14672}
     - Class: 114
+<<<<<<< HEAD
       Script: {instanceID: 14788}
     - Class: 114
       Script: {instanceID: 14904}
+=======
+      Script: {instanceID: 42398}
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -556,12 +796,6 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
-      Hash: ddab70b494ebdf61987ebffd5aad3173
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Title
-  - hash:
-      serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -694,7 +928,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: ef4007ff2c9d0e5e854ee84aaf226ca4
+      Hash: c04e3e426e36275770e885b559395b59
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -776,6 +1010,15 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SoundManager
+<<<<<<< HEAD
+=======
+  - hash:
+      serializedVersion: 2
+      Hash: 55468db752bb93732c323fde22138898
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Title
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
   platform: 13
   scenePathNames:
   - Assets/Scenes/TEST.unity

@@ -59,7 +59,6 @@ public class Game : MonoBehaviour
     public GameObject tutorial0, tutorial1, tutorial2, tutorial3;
     public GameObject numEnable;
     public GameObject halfTime;
-    public GameObject optionPanel;
 
     //기타
     public int count;  //현재 생성되어 있는 타일의 수
@@ -116,9 +115,6 @@ public class Game : MonoBehaviour
         notEnoughPoint.SetActive(false);
         gameOver.SetActive(false);
         close.SetActive(false);
-
-        //옵션창 false
-        optionPanel.SetActive(false);
 
         //튜토리얼 창 false
         tutorial1.SetActive(false);
@@ -763,11 +759,6 @@ public class Game : MonoBehaviour
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
 
         close.SetActive(true);
-    }
-
-    public void OnClickOption()
-    {
-        optionPanel.SetActive(true);
     }
 
 

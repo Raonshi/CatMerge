@@ -107,7 +107,11 @@ public class Slot : MonoBehaviour
         _combine = combine;
 
         Vector3 target = new Vector3((270 * x) - _xPos, (270 * y) - _yPos, 0);
+<<<<<<< HEAD
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 5000 * Time.deltaTime);
+=======
+        transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 60);
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
         
         
         if (transform.localPosition == target)
