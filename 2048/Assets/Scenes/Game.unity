@@ -862,7 +862,7 @@ GameObject:
   - component: {fileID: 152434996}
   m_Layer: 5
   m_Name: OptionPanel
-  m_TagString: UI
+  m_TagString: InfoPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
