@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 10}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 504
     height: 671
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 22}
@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 637
     height: 276
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 23}
   m_Panes:
   - {fileID: 23}
@@ -97,10 +97,14 @@ MonoBehaviour:
     y: 671
     width: 1642
     height: 276
-  m_MinSize: {x: 333, y: 271}
-  m_MaxSize: {x: 14003, y: 10021}
+  m_MinSize: {x: 331, y: 271}
+  m_MaxSize: {x: 14001, y: 10021}
   vertical: 0
-  controlID: 111
+<<<<<<< HEAD
+  controlID: 137
+=======
+  controlID: 159
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -120,8 +124,8 @@ MonoBehaviour:
     y: 0
     width: 366
     height: 671
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -147,10 +151,16 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 876, y: 492}
-  m_MaxSize: {x: 18003, y: 14042}
+  m_MinSize: {x: 881, y: 492}
+<<<<<<< HEAD
+  m_MaxSize: {x: 18002, y: 14042}
   vertical: 1
-  controlID: 86
+  controlID: 174
+=======
+  m_MaxSize: {x: 18004, y: 14042}
+  vertical: 1
+  controlID: 196
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -172,10 +182,16 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 947
-  m_MinSize: {x: 876, y: 492}
-  m_MaxSize: {x: 18003, y: 14042}
+  m_MinSize: {x: 881, y: 492}
+<<<<<<< HEAD
+  m_MaxSize: {x: 18002, y: 14042}
   vertical: 0
-  controlID: 87
+  controlID: 175
+=======
+  m_MaxSize: {x: 18004, y: 14042}
+  vertical: 0
+  controlID: 197
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -195,8 +211,8 @@ MonoBehaviour:
     y: 0
     width: 278
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -317,10 +333,14 @@ MonoBehaviour:
     y: 0
     width: 1642
     height: 947
-  m_MinSize: {x: 601, y: 492}
+  m_MinSize: {x: 605, y: 492}
+<<<<<<< HEAD
+  m_MaxSize: {x: 14001, y: 14042}
+=======
   m_MaxSize: {x: 14003, y: 14042}
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
   vertical: 1
-  controlID: 88
+  controlID: 66
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -343,10 +363,10 @@ MonoBehaviour:
     y: 0
     width: 1642
     height: 671
-  m_MinSize: {x: 601, y: 221}
-  m_MaxSize: {x: 12001, y: 4021}
+  m_MinSize: {x: 605, y: 221}
+  m_MaxSize: {x: 12005, y: 4021}
   vertical: 0
-  controlID: 89
+  controlID: 67
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -366,8 +386,8 @@ MonoBehaviour:
     y: 0
     width: 772
     height: 671
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -439,7 +459,6 @@ MonoBehaviour:
     - {fileID: -5687895761685832632, guid: fe32ec8a98ccc1b44a7399b40ba7476e, type: 2}
     - {fileID: -9013434563807233041, guid: fb4d34ad9adffe74889ad08d7ce135a3, type: 2}
     - {fileID: -1256396201511033085, guid: a7a9ae3e620685c4585a7879217a3a4b, type: 2}
-    - {fileID: 6948751732002716717, guid: 901ab2eb315f7e94abf740637240e694, type: 2}
     m_ValueSerializationHelper:
     - e00: 0.5833333
       e01: 0
@@ -617,27 +636,11 @@ MonoBehaviour:
       e31: 0
       e32: 0
       e33: 1
-    - e00: 1
-      e01: 0
-      e02: 0
-      e03: 0
-      e10: 0
-      e11: 1
-      e12: 0
-      e13: 0
-      e20: 0
-      e21: 0
-      e22: 1
-      e23: 0
-      e30: 0
-      e31: 0
-      e32: 0
-      e33: 1
   m_PreviewAnimator: {fileID: 0}
-  m_AnimatorController: {fileID: 9100000, guid: 901ab2eb315f7e94abf740637240e694,
+  m_AnimatorController: {fileID: 9100000, guid: a7a9ae3e620685c4585a7879217a3a4b,
     type: 2}
   m_BreadCrumbs:
-  - m_Target: {fileID: 6948751732002716717, guid: 901ab2eb315f7e94abf740637240e694,
+  - m_Target: {fileID: -1256396201511033085, guid: a7a9ae3e620685c4585a7879217a3a4b,
       type: 2}
     m_ScrollPosition: {x: 0, y: 0}
   stateMachineGraph: {fileID: 0}
@@ -690,20 +693,35 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+<<<<<<< HEAD
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts
+=======
+    - Assets/Scripts/Game
+  m_ViewMode: 1
+  m_StartGridSize: 64
+  m_LastFolders:
+  - Assets/Scripts/Game
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\2048\2048
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 85}
-    m_SelectedIDs: 223a0000
-    m_LastClickedID: 14882
-    m_ExpandedIDs: 00000000043a0000063a0000083a00000a3a00000c3a00000e3a000000ca9a3b
+<<<<<<< HEAD
+    scrollPos: {x: 0, y: 117}
+    m_SelectedIDs: 203c0000
+    m_LastClickedID: 15392
+    m_ExpandedIDs: 00000000fa3b0000fc3b0000fe3b0000003c0000023c0000043c0000063c0000823f000000ca9a3b
+=======
+    scrollPos: {x: 0, y: 201}
+    m_SelectedIDs: 4a3d0000
+    m_LastClickedID: 15690
+    m_ExpandedIDs: 000000002a3d00002c3d00002e3d0000303d0000323d0000343d00003e3d0000403d000000ca9a3b
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -731,7 +749,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000043a0000063a0000083a00000a3a00000c3a00000e3a0000
+<<<<<<< HEAD
+    m_ExpandedIDs: 00000000fa3b0000fc3b0000fe3b0000003c0000023c0000043c0000063c0000
+=======
+    m_ExpandedIDs: 000000002a3d00002c3d00002e3d0000303d0000323d0000343d0000
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -758,7 +780,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000c23f0000e6dcffff103b00000c3b0000d63a000054380000cc410000eec9ffff02360000f44300000e42000036420000e03e0000c83e000044490000604900008e3a00007ab70000feb6000042b7000016b70000a23b000000000000624e0200cee70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -854,23 +876,27 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: b4310000
       m_LastClickedID: 0
-      m_ExpandedIDs: 1608ffff2a08ffffda08ffffee08ffff0e09ffff1209ffff060bffff000fffff8a12ffff6413ffff9c13ffffb013ffff6014ffff7414ffff9414ffff9814ffffde60ffff7461ffffa47effff0089ffff1489ffffc489ffffd889fffff889fffffc89ffff6ac4ffff7ec4ffff2ec5ffff42c5ffff62c5ffff66c5ffff06caffff42caffff82caffffbecaffff04cbffff18cbffffc8cbffffdccbfffffccbffff00ccffff9af9ffff98faffffb4faffff60fbfffff4ffffffd03d0000645f0000a46400007a6600007e680000a47a0000a87a0000ea970000f0970000a6ba0000acba0000f4ba0000fef40000b4fc0000bc060100
+<<<<<<< HEAD
+      m_ExpandedIDs: 42f6ffff58f6ffff38f7ffff60fbffff38420000
+=======
+      m_ExpandedIDs: 2473ffff3873ffffe873fffffc73ffff1c74ffff2074ffffa08affffbc8affff2692ffff5492ffff5493ffffba93ffff1a94ffffc094ffff6eb7ffff82f9ffff60fbfffff4ffffff703a0000344400008e440000284500004e450000544500007c460000c8460000c69b0000b69d0000de9e00008e9f000018a00000dca10000b0a3000064a5000080a50000
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: TargetPoint
-        m_OriginalName: TargetPoint
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: -4794
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 4
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 5}
       m_SearchString: 
@@ -916,9 +942,15 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 223.10767, y: 1366.085, z: -2048.453}
+<<<<<<< HEAD
+    m_Target: {x: 79.03573, y: 361.89792, z: -2345.2012}
     speed: 2
-    m_Value: {x: 278.40286, y: 1378.1403, z: -2042.1969}
+    m_Value: {x: 79.03573, y: 361.89792, z: -2345.2012}
+=======
+    m_Target: {x: 474.3148, y: 1300.2776, z: -1148.75}
+    speed: 2
+    m_Value: {x: 474.3148, y: 1300.2776, z: -1148.75}
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -968,9 +1000,15 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1450.6615
+<<<<<<< HEAD
+    m_Target: 450.4049
     speed: 2
-    m_Value: 1388.1929
+    m_Value: 450.4049
+=======
+    m_Target: 1363.4865
+    speed: 2
+    m_Value: 1363.4865
+>>>>>>> parent of ffd8a4b6... 20201118 commit - 타이틀 화면 애니메이션 / 게임 화면 내 옵션 버튼
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1029,7 +1067,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 1440, y: 2560}
+  m_TargetSize: {x: 354, y: 629}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -1038,16 +1076,16 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 08000000000000000000000009000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 0800000000000000000000000d000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -720
-    m_HBaseRangeMax: 720
-    m_VBaseRangeMin: -1280
-    m_VBaseRangeMax: 1280
+    m_HBaseRangeMin: -177
+    m_HBaseRangeMax: 177
+    m_VBaseRangeMin: -314.5
+    m_VBaseRangeMax: 314.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -1067,7 +1105,7 @@ MonoBehaviour:
       y: 21
       width: 502
       height: 629
-    m_Scale: {x: 0.24570313, y: 0.24570313}
+    m_Scale: {x: 1, y: 1}
     m_Translation: {x: 251, y: 314.5}
     m_MarginLeft: 0
     m_MarginRight: 0
@@ -1075,12 +1113,12 @@ MonoBehaviour:
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1021.558
-      y: -1280
-      width: 2043.116
-      height: 2560
+      x: -251
+      y: -314.5
+      width: 502
+      height: 629
     m_MinimalGUI: 1
-  m_defaultScale: 0.24570313
+  m_defaultScale: 1
   m_LastWindowPixelSize: {x: 502, y: 650}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1

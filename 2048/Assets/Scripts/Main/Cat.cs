@@ -24,8 +24,6 @@ public class Cat : MonoBehaviour
     //신규 생성한 고양이 체크
     public bool isNew;
 
-    float moveSpeed;
-
     private void Awake()
     {
         gift.SetActive(false);
@@ -33,7 +31,6 @@ public class Cat : MonoBehaviour
 
     void Start()
     {
-        moveSpeed = UnityEngine.Random.Range(50.0f, 100.0f);
         if (isNew == true)
         {
             giftTime = UnityEngine.Random.Range(minTime, maxTime);
@@ -72,7 +69,6 @@ public class Cat : MonoBehaviour
         {
             if(Vector3.Distance(transform.localPosition, target.localPosition) <= 1)
             {
-                moveSpeed = UnityEngine.Random.Range(50.0f, 100.0f);
                 target = targetList[UnityEngine.Random.Range(0, targetList.Count)];
             }
             else
@@ -91,7 +87,7 @@ public class Cat : MonoBehaviour
 
     void Move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target.position, 0.5f);
     }
 
     public void Gift()
