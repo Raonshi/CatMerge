@@ -12400,6 +12400,7 @@ MonoBehaviour:
   isOver: 0
   isClose: 0
   isHalf: 0
+  status: 0
   maxTime: 0
   time: 0
   timeSlider: {fileID: 884141802}

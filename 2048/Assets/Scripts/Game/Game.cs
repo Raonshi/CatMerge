@@ -31,9 +31,9 @@ public class Game : MonoBehaviour
     //상태값
     public bool isMove;     //타일이 움직이는 동안 true
     public bool isStop;     //타일이 정지하는 순간 true, 이후 바로 false
-    public bool isOver;     //게임 오버시 고양이 타일 이동 금지
     public bool isClose;    //튜토리얼 창 닫을 때 고양이 움직이지 못하도록 하기 위함. 
     public bool isHalf;     //남은 시간 절반
+
 
     //터치 좌표
     Vector2 startPos, endPos, gap;
@@ -92,8 +92,6 @@ public class Game : MonoBehaviour
     {
         //게임 씬 bgm재생
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Game"));
-
-        isOver = false;
         isHalf = true;
 
         //숫자 보기 안보기 토글값 불러옴
@@ -136,44 +134,34 @@ public class Game : MonoBehaviour
         {
             tutorial0.SetActive(true);
         }
-
     }
 
     private void Update()
     {
-        //패널 화면이 없으면 시간이 흘러간다.
-        if (GameObject.FindGameObjectsWithTag("InfoPanel").Length == 0)
-        {
-            time -= Time.deltaTime;
-        }
-        else if(GameObject.FindGameObjectsWithTag("InfoPanel").Length != 0)
+        //패널이 생성되어 있을 경우 시간이 흐르지 않는다.
+        if (GameObject.FindGameObjectsWithTag("InfoPanel").Length != 0)
         {
             isMove = true;
             return;
         }
 
-        //게임 내에 존재하는 고양이의 수를 센다.
-        count = GameObject.Find("Canvas/TileSet").transform.childCount;
+        time -= Time.deltaTime;
+        timeSlider.value = time;
+        timeText.text = Convert.ToInt32(timeSlider.value).ToString();
 
-        //제한시간 동안
-        if (time > 0)
-        {
-            lifeTime += Time.deltaTime;
-            hardTime += Time.deltaTime;
-
-            //1초 동안 시간 절반 지남음을 표시
-            if(time >= (maxTime * 0.5f) - 1 && time <= maxTime * 0.5f && isHalf == true)
-            {
-                isHalf = false;
-                halfTime.SetActive(true);
-            }
-        }
-        //제한시간이 다 되면
-        else if (time <= 0)
+        if (time <= 0)
         {
             time = 0;
             gameOver.SetActive(true);
+            return;
         }
+        else if(time <= maxTime * 0.5f && isHalf == true)
+        {
+            isHalf = false;
+            halfTime.SetActive(true);
+        }
+        lifeTime += Time.deltaTime;
+        hardTime += Time.deltaTime;
 
         //hardTime이 20초 될때마다 블럭을 막는다.
         if(hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard))
@@ -182,14 +170,13 @@ public class Game : MonoBehaviour
             hardTime = 0;
         }
 
-        timeSlider.value = time;
-        timeText.text = Convert.ToInt32(timeSlider.value).ToString();
-
         //점수를 체크한다.
         ScoreCheck();
+        //게임 내에 존재하는 고양이의 수를 센다.
+        CountTile();
         
         //이동 중이 아닌 경우
-        if(isMove == false)
+        if (isMove == false)
         {
             Touch();
         }
@@ -216,22 +203,12 @@ public class Game : MonoBehaviour
                 TileCheck();
             }
             k = 0;
-            isStop = false;
 
-            //고양이 숫자 표시
-            EnableNum();
+            isStop = false;
         }
        
         //결합된 고양이의 불 값을 변경
         InitCombine();
-
-
-        //현재 점수가 최고점보다 높을 경우에 최고점이 실시간으로 올라간다.
-        if(score > GameManager.Singleton.best)
-        {
-            GameManager.Singleton.best = score;
-        }
-        bestText.text = GameManager.Singleton.best.ToString();
     }
 
 
@@ -274,6 +251,25 @@ public class Game : MonoBehaviour
         }
     }
 
+
+    public void CountTile()
+    {
+        int tmp = 0;
+        for (int x = 0; x < size; x++)
+        {
+            for(int y = 0; y < size; y++)
+            {
+                if(slotArray[x, y] != null)
+                {
+                    tmp++;
+                }
+            }
+        }
+
+        count = tmp;
+    }
+
+
     //결합된 고양이의 불 값을 변경
     public void InitCombine()
     {
@@ -299,7 +295,12 @@ public class Game : MonoBehaviour
         }
         else
         {
+            if (score > GameManager.Singleton.best)
+            {
+                GameManager.Singleton.best = score;
+            }
             scoreText.text = score.ToString();
+            bestText.text = GameManager.Singleton.best.ToString();
         }
     }
 
@@ -452,7 +453,6 @@ public class Game : MonoBehaviour
                         }
                     }
                 }
-                isMove = false;
                 break;
 
             case "down":
@@ -497,6 +497,7 @@ public class Game : MonoBehaviour
 
         //초기화
         gap = Vector2.zero;
+
         isMove = false;
     }
 
@@ -521,39 +522,36 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Multiple" || slotArray[x2, y2].name == "Multiple") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            int i = 0;
             //만약 두 타일 모두 특수타일이면 이동 될 좌표의 타일 결합 상태를 true로 한다.
-            if (slotArray[x1, y1].name == "Multiple" && (slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Block"))
+            if (slotArray[x1, y1].name == "Multiple")
             {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
+                if (slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Block")
+                {
+                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    return;
+                }
+                i = slotArray[x2, y2].GetComponent<Slot>().num;
             }
-            else if (slotArray[x2, y2].name == "Multiple" && (slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Block"))
+            else if (slotArray[x2, y2].name == "Multiple")
             {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
+                if(slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Block")
+                {
+                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    return;
+                }
+                i = slotArray[x1, y1].GetComponent<Slot>().num;
             }
 
             isMove = true;
 
             //타일 프리팹 생성 >> 특수타일은 결합으로 생성되지 않으므로 Tile로 고정
             GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
-            
-            //변수 i에 이동될 타일의 num값을 입력
-            int i = 1;
-            if (slotArray[x1, y1].name == "Multiple")
-            {
-                i = slotArray[x2, y2].GetComponent<Slot>().num;
-            }
-            else if (slotArray[x2, y2].name == "Multiple")
-            {
-                i = slotArray[x1, y1].GetComponent<Slot>().num;
-            }
 
             //화면상 이동 >> 이동 후 두 좌표의 오브젝트를 제거
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
 
             slotArray[x1, y1] = null;
-            count--;
 
             if (i * 2 >= 64)
             {
@@ -583,24 +581,27 @@ public class Game : MonoBehaviour
             else
             {
                 Destroy(slotArray[x2, y2]);
+
                 //게임오브젝트를 생성
                 slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
                 slotArray[x2, y2].gameObject.name = obj.name;
 
+                Slot slot = slotArray[x2, y2].GetComponent<Slot>();
+
                 //생성되는 게임 오브젝트는 기존 타일의 진화형태이다.
-                slotArray[x2, y2].GetComponent<Slot>().num = i * 2;
+                slot.num = i * 2;
 
                 //스프라이트 변경
-                slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+                slot.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot.num);
 
                 //위치 및 로테이션 초기화
-                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
-                slotArray[x2, y2].transform.rotation = Quaternion.identity;
+                slot.transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+                slot.transform.rotation = Quaternion.identity;
 
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+                slot.isCombine = true;
+                slot.anim.SetBool("isCombine", true);
 
-                score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
+                score += (slot.num * 10) + Convert.ToInt32((slot.num * 10 * GameManager.Singleton.scoreRate));
             }
             k++;
             
@@ -609,25 +610,11 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Division" || slotArray[x2, y2].name == "Division") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
-            if (slotArray[x1, y1].name == "Division" && (slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Block"))
-            {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
-            }
-            else if (slotArray[x2, y2].name == "Division" && (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Block"))
-            {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
-            }
-
-            isMove = true;
-
-            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
-            int i = 1;
+            int i = 0;
 
             if (slotArray[x1, y1].name == "Division")
             {
-                if(slotArray[x2, y2].GetComponent<Slot>().num == 2)
+                if(slotArray[x2, y2].GetComponent<Slot>().num == 2 || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Block")
                 {
                     slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                     return;
@@ -636,7 +623,7 @@ public class Game : MonoBehaviour
             }
             else if (slotArray[x2, y2].name == "Division")
             {
-                if (slotArray[x1, y1].GetComponent<Slot>().num == 2)
+                if(slotArray[x1,y1].GetComponent<Slot>().num == 2 || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Block")
                 {
                     slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                     return;
@@ -644,10 +631,13 @@ public class Game : MonoBehaviour
                 i = slotArray[x1, y1].GetComponent<Slot>().num;
             }
 
+            isMove = true;
+
+            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
+
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
 
             Destroy(slotArray[x2, y2]);
-            count--;
 
             slotArray[x1, y1] = null;
 
@@ -672,15 +662,13 @@ public class Game : MonoBehaviour
             isMove = true;
 
             GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
-            int i, j;
 
-            i = slotArray[x1, y1].GetComponent<Slot>().num;
-            j = slotArray[x2, y2].GetComponent<Slot>().num;
+            int i = slotArray[x1, y1].GetComponent<Slot>().num;
+            int j = slotArray[x2, y2].GetComponent<Slot>().num;
 
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
 
             slotArray[x1, y1] = null;
-            count--;
 
             if(i + j >= 64)
             {
@@ -713,22 +701,26 @@ public class Game : MonoBehaviour
 
                 slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
                 slotArray[x2, y2].gameObject.name = obj.name;
-                slotArray[x2, y2].GetComponent<Slot>().num = j + i;
 
-                slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+                Slot slot = slotArray[x2, y2].GetComponent<Slot>();
 
-                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
-                slotArray[x2, y2].transform.rotation = Quaternion.identity;
+                slot.num = j + i;
 
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+                slot.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot.num);
 
-                score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
+                slot.transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+                slot.transform.rotation = Quaternion.identity;
+
+                slot.isCombine = true;
+                slot.anim.SetBool("isCombine", true);
+
+                score += (slot.num * 10) + Convert.ToInt32((slot.num * 10 * GameManager.Singleton.scoreRate));
             }
             k++;
         }
         //특수블럭 간 결합 못하도록 함
-        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
             if (slotArray[x1, y1].name == "Block" || slotArray[x2, y2].name == "Block")
             {
@@ -739,6 +731,7 @@ public class Game : MonoBehaviour
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
         }
+        
     }
     #endregion
 
