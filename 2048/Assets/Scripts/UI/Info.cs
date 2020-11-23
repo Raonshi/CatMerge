@@ -58,7 +58,7 @@ public class Info : MonoBehaviour
                 button.Add(gameObject.transform.Find("Yes").gameObject);
                 button.Add(gameObject.transform.Find("No").gameObject);
 
-                //Game.instance.isOver = true;
+                Game.instance.isOver = true;
                 Game.instance.isClose = true;
 
                 message.text = string.Format("이동 가능한 타일이 없습니다.\n5포인트를 사용하여 타일 1개를 삭제할 수 있습니다.\n(현재 보유 포인트 : {0})\n<color=red>점수는 반영되지 않습니다</color>", GameManager.Singleton.totalPoint);
@@ -96,7 +96,7 @@ public class Info : MonoBehaviour
                     return;
                 }
 
-                Game.instance.isClose = false;
+                Game.instance.isOver = false;
                 GameManager.Singleton.totalPoint -= 5;
                 GameObject obj = Game.instance.slotArray[UnityEngine.Random.Range(0, Game.instance.size), UnityEngine.Random.Range(0, Game.instance.size)];
                 Destroy(obj);

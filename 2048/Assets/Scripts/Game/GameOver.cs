@@ -24,6 +24,8 @@ public class GameOver : MonoBehaviour
         point = Game.instance.point;
         lifeTime = Convert.ToInt32(Game.instance.lifeTime);
 
+        Game.instance.isOver = true;
+
         bestScore.SetActive(false);
 
         yourScore.text = you.ToString();

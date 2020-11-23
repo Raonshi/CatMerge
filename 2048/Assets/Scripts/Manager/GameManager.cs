@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour
 {
     //사용자 정보 : user.json에 저장
     public string nickname;     //사용자 닉네임
-    public string version;
-
     public int townLevel;       //마을 레벨
     public float scoreRate;     //마을 레벨에 따른 점수 배율
 
@@ -79,7 +77,6 @@ public class GameManager : MonoBehaviour
     //게임 매니저 초기화
     public void InitGameManager()
     {
-
         Debug.Log("======================GameManger loaded======================");
 
         DontDestroyOnLoad(gameObject);
@@ -94,7 +91,6 @@ public class GameManager : MonoBehaviour
         SaveManager.Singleton.InitSaveManager();
         TimeManager.Singleton.InitTimeManager();
         SoundManager.Singleton.InitSoundManager();
-        //WebManager.Singleton.InitWebManager();
 
         isStart = true;
     }
@@ -107,7 +103,6 @@ public class GameManager : MonoBehaviour
         {
             //user.json setting
             nickname = "Cat";
-            version = Application.version;
             townLevel = 1;
             totalPoint = 100;
             best = 0;
@@ -130,11 +125,6 @@ public class GameManager : MonoBehaviour
             SaveManager.Singleton.SaveTutorialJson();
             SaveManager.Singleton.SaveOptionJson();
         }
-
-        Debug.Log(version);
-
-        //앱 버전 체크
-        VersionCheck();
     }
 
     // Update is called once per frame
@@ -158,25 +148,6 @@ public class GameManager : MonoBehaviour
             scoreRate = (townLevel * 0.25f) + ((float)difficulty * 0.5f);
         }
     }
-
-
-    public void VersionCheck()
-    {
-
-        string currentVersion = version;
-        string newVersion = Application.version;
-
-        if(currentVersion == newVersion)
-        {
-            Debug.Log("Don't need Update");
-            return;
-        }
-        else
-        {
-            Debug.Log("Update Now!");
-        }
-    }
-
 
 
     public void LoadNextScene(string sceneName)

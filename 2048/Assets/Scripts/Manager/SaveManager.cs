@@ -48,7 +48,6 @@ public class SaveManager : MonoBehaviour
         //json으로 변환할 객체에 데이터를 저장한다.
         user.SetData(
             GameManager.Singleton.nickname,
-            GameManager.Singleton.version,
             GameManager.Singleton.townLevel,
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
@@ -78,7 +77,6 @@ public class SaveManager : MonoBehaviour
         UserJson user = JsonUtility.FromJson<UserJson>(json);
 
         GameManager.Singleton.nickname = user.nickname;
-        GameManager.Singleton.version = user.version;
 
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
@@ -245,7 +243,6 @@ public class SaveManager : MonoBehaviour
 public class UserJson
 {
     public string nickname;
-    public string version;
 
     public int townLevel;
     public int best;
@@ -257,10 +254,9 @@ public class UserJson
 
     public GameManager.Difficulty difficulty;
 
-    public void SetData(string _nickname, string _version,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
+    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
     {
         nickname = _nickname;
-        version = _version;
         townLevel = _townLevel;
         best = _best;
         totalPoint = _totalPoint;
@@ -345,11 +341,4 @@ public class OptionJson
         return JsonUtility.ToJson(this);
     }
 }
-
-
-public class RankJson
-{
-
-}
-
 #endregion
