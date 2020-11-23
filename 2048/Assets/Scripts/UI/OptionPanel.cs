@@ -24,11 +24,6 @@ public class OptionPanel : MonoBehaviour
         sfxSlider.value = GameManager.Singleton.sfx;
     }
 
-    private void OnEnable()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -42,7 +37,10 @@ public class OptionPanel : MonoBehaviour
 
     public void OnClickClose()
     {
-        Game.instance.isClose = true;
+        if(SceneManager.GetActiveScene().name == "Game")
+        {
+            Game.instance.isClose = true;
+        }
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         gameObject.SetActive(false);
     }

@@ -68,6 +68,10 @@ public class Info : MonoBehaviour
                 message.text = string.Format("닉네임을 입력해주세요.");
                 nicknameInput = gameObject.transform.Find("InputField").GetComponent<InputField>();
                 break;
+
+            case "AdGiftPanel":
+                message.text = string.Format("광고를 시청하면 더 많은 보상을 얻을 수 있습니다.\n시청하겠습니까?");
+                break;
         }
     }
 
@@ -103,6 +107,17 @@ public class Info : MonoBehaviour
 
                 gameObject.SetActive(false);
                 break;
+
+            case "AdGiftPanel":
+                Debug.Log("광고를 시청하였습니다.");
+                SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
+
+                GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * 2;
+                SaveManager.Singleton.SaveUserJson();
+
+                gameObject.SetActive(false);
+
+                break;
         }
     }
     public void OnClickNo()
@@ -119,6 +134,17 @@ public class Info : MonoBehaviour
             case "GoToMain":
                 Game.instance.isClose = true;
                 gameObject.SetActive(false);
+                break;
+
+            case "AdGiftPanel":
+
+                SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
+
+                GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel;
+                SaveManager.Singleton.SaveUserJson();
+
+                gameObject.SetActive(false);
+
                 break;
 
             default:

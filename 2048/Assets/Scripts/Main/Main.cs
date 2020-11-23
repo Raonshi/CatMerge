@@ -12,6 +12,7 @@ public class Main : MonoBehaviour
     public GameObject notEnoughPoint;
     public GameObject fullCount;
     public GameObject giftInfo;
+    public GameObject adGiftPanel;
 
     //메인화면 버튼
     public GameObject startButton;
@@ -69,6 +70,7 @@ public class Main : MonoBehaviour
         help.SetActive(false);
         tutorial4.SetActive(false);
         option.SetActive(false);
+        adGiftPanel.SetActive(false);
     }
 
     void Start()

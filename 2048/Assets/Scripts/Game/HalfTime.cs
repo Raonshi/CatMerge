@@ -15,7 +15,7 @@ public class HalfTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(rigidbody.position.y <= 1280)
+        if(rigidbody.position.y <= Screen.height * 0.5f)
         {
             rigidbody.velocity = Vector3.zero;
             return;

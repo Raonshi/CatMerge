@@ -521,33 +521,32 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Multiple" || slotArray[x2, y2].name == "Multiple") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            int i = 1;
+
             //만약 두 타일 모두 특수타일이면 이동 될 좌표의 타일 결합 상태를 true로 한다.
-            if (slotArray[x1, y1].name == "Multiple" && (slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Block"))
+            if (slotArray[x1, y1].name == "Multiple")
             {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
+                if(slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Block")
+                {
+                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    return;
+                }
+                i = slotArray[x2, y2].GetComponent<Slot>().num;
             }
-            else if (slotArray[x2, y2].name == "Multiple" && (slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Block"))
+            else if (slotArray[x2, y2].name == "Multiple")
             {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
+                if(slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Block")
+                {
+                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    return;
+                }
+                i = slotArray[x1, y1].GetComponent<Slot>().num;
             }
 
             isMove = true;
 
             //타일 프리팹 생성 >> 특수타일은 결합으로 생성되지 않으므로 Tile로 고정
             GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
-            
-            //변수 i에 이동될 타일의 num값을 입력
-            int i = 1;
-            if (slotArray[x1, y1].name == "Multiple")
-            {
-                i = slotArray[x2, y2].GetComponent<Slot>().num;
-            }
-            else if (slotArray[x2, y2].name == "Multiple")
-            {
-                i = slotArray[x1, y1].GetComponent<Slot>().num;
-            }
 
             //화면상 이동 >> 이동 후 두 좌표의 오브젝트를 제거
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
@@ -609,25 +608,11 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Division" || slotArray[x2, y2].name == "Division") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
-            if (slotArray[x1, y1].name == "Division" && (slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Block"))
-            {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
-            }
-            else if (slotArray[x2, y2].name == "Division" && (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Block"))
-            {
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                return;
-            }
-
-            isMove = true;
-
-            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
             int i = 1;
 
             if (slotArray[x1, y1].name == "Division")
             {
-                if(slotArray[x2, y2].GetComponent<Slot>().num == 2)
+                if(slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Block" || slotArray[x2, y2].GetComponent<Slot>().num == 2)
                 {
                     slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                     return;
@@ -636,13 +621,17 @@ public class Game : MonoBehaviour
             }
             else if (slotArray[x2, y2].name == "Division")
             {
-                if (slotArray[x1, y1].GetComponent<Slot>().num == 2)
+                if (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Block" || slotArray[x1, y1].GetComponent<Slot>().num == 2)
                 {
                     slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
                     return;
                 }
                 i = slotArray[x1, y1].GetComponent<Slot>().num;
             }
+
+            isMove = true;
+
+            GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
 
             slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
 

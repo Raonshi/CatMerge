@@ -15,6 +15,7 @@ public class Cat : MonoBehaviour
     //포인트 선물
     public float giftTime;
     public GameObject gift;
+    public GameObject adGift;
     public int giftPoint;
 
     //선물 젠 시간
@@ -29,6 +30,7 @@ public class Cat : MonoBehaviour
     private void Awake()
     {
         gift.SetActive(false);
+        adGift.SetActive(false);
     }
 
     void Start()
@@ -96,7 +98,7 @@ public class Cat : MonoBehaviour
 
     public void Gift()
     {
-        int rand = UnityEngine.Random.Range(0, 2);
+        int rand = UnityEngine.Random.Range(0, 3);
         if(rand == 0)
         {
             giftPoint = GameManager.Singleton.townLevel;
@@ -104,17 +106,36 @@ public class Cat : MonoBehaviour
         }
         else if(rand == 1)
         {
+            //광고 시청 보상
+            giftPoint = GameManager.Singleton.townLevel;
+            adGift.SetActive(true);
+            Debug.Log("광고 시청 보상!");
+        }
+        else if(rand == 2)
+        {
             giftTime = UnityEngine.Random.Range(minTime, maxTime);
         }
     }
 
-    public void OnClickGift()
+    public void OnClickGift(int tmp)
     {
-        GameManager.Singleton.totalPoint += giftPoint;
-        SaveManager.Singleton.SaveUserJson();
+        if(tmp == 0)
+        {
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
 
-        gift.SetActive(false);
-        giftTime = UnityEngine.Random.Range(minTime, maxTime);
+            GameManager.Singleton.totalPoint += giftPoint;
+            SaveManager.Singleton.SaveUserJson();
+
+            gift.SetActive(false);
+            giftTime = UnityEngine.Random.Range(minTime, maxTime);
+        }
+        else if(tmp == 1)
+        {
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+            adGift.SetActive(false);
+            giftTime = UnityEngine.Random.Range(minTime, maxTime);
+            Main.instance.adGiftPanel.SetActive(true);
+        }
     }
 
     public void OnClickCat()

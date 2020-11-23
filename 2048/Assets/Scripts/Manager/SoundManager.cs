@@ -48,6 +48,7 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
+
         VolumeControl();
     }
 
@@ -74,11 +75,13 @@ public class SoundManager : MonoBehaviour
 
     public void SoundInit()
     {
+
         for (int i = 0; i < audio.Count; i++)
         {
             audio[i].Stop();
             audio[i].clip = null;
         }
+
     }
 
     public void PlaySound(AudioClip clip)
