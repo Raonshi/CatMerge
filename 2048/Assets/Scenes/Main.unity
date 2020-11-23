@@ -519,7 +519,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 54793928}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1951059340}
+        m_MethodName: OnClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &54793928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -694,7 +705,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 106883872}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 238587174}
+        m_MethodName: OnClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &106883872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1288,6 +1310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 238587173}
+  - component: {fileID: 238587174}
   m_Layer: 5
   m_Name: 8
   m_TagString: Untagged
@@ -1317,6 +1340,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &238587174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238587172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49887fd4e8b793449db785f954232b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1482382058}
+  price: 0
 --- !u!1 &241175185
 GameObject:
   m_ObjectHideFlags: 0
@@ -3500,7 +3537,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 704319988}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1145216124}
+        m_MethodName: OnClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &704319988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4343,7 +4391,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 827151468}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1811289774}
+        m_MethodName: OnClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &827151468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4666,7 +4725,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 875811109}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1552036776}
+        m_MethodName: OnClickBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &875811109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5558,6 +5628,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae297c98315310c43ae6576549d4b165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  product:
+  - {fileID: 1951059340}
+  - {fileID: 1811289774}
+  - {fileID: 238587174}
+  - {fileID: 1145216124}
+  - {fileID: 1552036776}
 --- !u!1 &1064095766
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,6 +5991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1145216123}
+  - component: {fileID: 1145216124}
   m_Layer: 5
   m_Name: 16
   m_TagString: Untagged
@@ -5944,6 +6021,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1145216124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145216122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49887fd4e8b793449db785f954232b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 15452583}
+  price: 0
 --- !u!224 &1172446099 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7943572771914440609, guid: e6bc68fc508580347806f9b27c19de1e,
@@ -7538,6 +7629,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1552036775}
+  - component: {fileID: 1552036776}
   m_Layer: 5
   m_Name: 32
   m_TagString: Untagged
@@ -7567,6 +7659,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1552036776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552036774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49887fd4e8b793449db785f954232b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2047942345}
+  price: 0
 --- !u!1 &1554527667
 GameObject:
   m_ObjectHideFlags: 0
@@ -8835,6 +8941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1811289773}
+  - component: {fileID: 1811289774}
   m_Layer: 5
   m_Name: 4
   m_TagString: Untagged
@@ -8864,6 +8971,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1811289774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811289772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49887fd4e8b793449db785f954232b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2015643348}
+  price: 0
 --- !u!1 &1832011775
 GameObject:
   m_ObjectHideFlags: 0
@@ -9452,6 +9573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1951059339}
+  - component: {fileID: 1951059340}
   m_Layer: 5
   m_Name: 2
   m_TagString: Untagged
@@ -9481,6 +9603,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1951059340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951059338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49887fd4e8b793449db785f954232b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 2007374285}
+  price: 0
 --- !u!1 &1961511988
 GameObject:
   m_ObjectHideFlags: 0

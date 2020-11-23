@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
+    public List<Product> product = new List<Product>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,40 +17,5 @@ public class Shop : MonoBehaviour
     void Update()
     {
         
-    }
-
-
-    public void OnClickBuyCat(int id)
-    {
-        switch(id)
-        {
-            case 1:
-
-
-                break;
-
-            case 2:
-
-
-                break;
-
-            case 3:
-
-
-                break;
-
-            case 4:
-
-
-                break;
-
-            case 5
-            
-            
-            :
-
-
-                break;
-        }
     }
 }
