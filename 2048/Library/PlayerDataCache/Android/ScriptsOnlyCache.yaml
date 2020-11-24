@@ -13,6 +13,7 @@ ScriptsOnlyBuild:
     - Loading
     - Main
     - OptionPanel
+    - RewardAds
     - Rolling
     - Slot
     - Spawner
@@ -34,12 +35,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -123,13 +118,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14194}
     - Class: 114
-      Script: {instanceID: 14682}
+      Script: {instanceID: 14680}
     - Class: 114
-      Script: {instanceID: 14786}
+      Script: {instanceID: 14784}
     - Class: 114
-      Script: {instanceID: 14806}
+      Script: {instanceID: 14804}
     - Class: 114
-      Script: {instanceID: 14832}
+      Script: {instanceID: 14830}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -178,7 +173,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14786}
+      Script: {instanceID: 14784}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -214,8 +209,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
-    - Class: 84
-      Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
     - Class: 95
@@ -249,11 +242,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14786}
+      Script: {instanceID: 14784}
     - Class: 114
-      Script: {instanceID: 14806}
+      Script: {instanceID: 14804}
     - Class: 114
-      Script: {instanceID: 14832}
+      Script: {instanceID: 14830}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -269,10 +262,6 @@ ScriptsOnlyBuild:
     - Class: 223
       Script: {instanceID: 0}
     - Class: 224
-      Script: {instanceID: 0}
-    - Class: 328
-      Script: {instanceID: 0}
-    - Class: 329
       Script: {instanceID: 0}
     Assets/Scenes/Title.unity:
     - Class: 1
@@ -336,9 +325,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14786}
+      Script: {instanceID: 14784}
     - Class: 114
-      Script: {instanceID: 14906}
+      Script: {instanceID: 14904}
+    - Class: 114
+      Script: {instanceID: 40342}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -630,7 +621,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: 17c6165c9a4b302ee02bedeb3442d818
+      Hash: 61d3ba69a45eca320e5b320812e4b478
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -678,7 +669,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: 0601904e73e932c38c1154638d192191
+      Hash: 21c1d793fa61b2df84ddef248991b5c9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Cat
@@ -774,7 +765,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: c55ae4e8dd1b786a99389ac02afbf2c0
+      Hash: 8d334efe002114712fb74a46bf9ecb51
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Main
@@ -936,7 +927,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: ef4007ff2c9d0e5e854ee84aaf226ca4
+      Hash: 0087eb5bc04ec01e5bd40037f6800143
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game
@@ -1018,6 +1009,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SoundManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RewardAds
   platform: 13
   scenePathNames:
   - Assets/Scenes/Title.unity

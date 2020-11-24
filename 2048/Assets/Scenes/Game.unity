@@ -12400,6 +12400,9 @@ MonoBehaviour:
   isOver: 0
   isClose: 0
   isHalf: 0
+  startPos: {x: 0, y: 0}
+  endPos: {x: 0, y: 0}
+  gap: {x: 0, y: 0}
   maxTime: 0
   time: 0
   timeSlider: {fileID: 884141802}
@@ -12419,6 +12422,7 @@ MonoBehaviour:
   halfTime: {fileID: 1079425367}
   optionPanel: {fileID: 152434994}
   count: 0
+  k: 0
 --- !u!224 &1995662505
 RectTransform:
   m_ObjectHideFlags: 0

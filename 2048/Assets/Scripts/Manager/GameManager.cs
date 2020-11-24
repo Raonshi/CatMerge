@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public int townLevel;       //마을 레벨
     public float scoreRate;     //마을 레벨에 따른 점수 배율
 
+    public int scoreRateLevel;  //점수 배율증가 레벨
+
     public int best;            //플레이어 최고점
     public int totalPoint;      //플레이어가 보유한 포인트
 
@@ -105,6 +107,7 @@ public class GameManager : MonoBehaviour
             nickname = "Cat";
             townLevel = 1;
             totalPoint = 100;
+            scoreRateLevel = 0;
             best = 0;
             catCount = 0;
             isNum = false;
@@ -145,7 +148,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            scoreRate = (townLevel * 0.25f) + ((float)difficulty * 0.5f);
+            scoreRate = (townLevel * 0.25f) + ((float)difficulty * 0.5f) + (scoreRateLevel*0.05f);
         }
     }
 

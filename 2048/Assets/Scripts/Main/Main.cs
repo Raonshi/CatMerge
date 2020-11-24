@@ -121,8 +121,10 @@ public class Main : MonoBehaviour
         }
         else
         {
-            townUpgradeButton.GetComponent<Button>().image.color = Color.grey;
-            townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + "최대수치";
+            //townUpgradeButton.GetComponent<Button>().image.color = Color.grey;
+            //townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + "최대수치";
+            townUpgradePrice = 20 + Convert.ToInt32(GameManager.Singleton.scoreRateLevel * 1.15f);
+            townUpgradePriceText.text = string.Format("점수배율증가(lv {0})\n{1}포인트", GameManager.Singleton.scoreRateLevel, townUpgradePrice);
         }
 
         //고양이 소환 가격
@@ -223,24 +225,34 @@ public class Main : MonoBehaviour
     {
         if(GameManager.Singleton.townLevel >= 5)
         {
-            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Disable"));
-            return;
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
+            if(GameManager.Singleton.totalPoint < townUpgradePrice)
+            {
+                notEnoughPoint.SetActive(true);
+                return;
+            }
+
+            GameManager.Singleton.totalPoint -= townUpgradePrice;
+            GameManager.Singleton.scoreRateLevel++;
         }
-
-        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
-
-
-        if (GameManager.Singleton.totalPoint < townUpgradePrice)
+        else
         {
-            notEnoughPoint.SetActive(true);
-            return;
+            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+
+
+            if (GameManager.Singleton.totalPoint < townUpgradePrice)
+            {
+                notEnoughPoint.SetActive(true);
+                return;
+            }
+
+            GameManager.Singleton.totalPoint -= townUpgradePrice;
+            GameManager.Singleton.townLevel++;
+
+            townUpgrade = true;
+            UpdateCatTown();
         }
-
-        GameManager.Singleton.totalPoint -= townUpgradePrice;
-        GameManager.Singleton.townLevel++;
-
-        townUpgrade = true;
-        UpdateCatTown();
 
         SaveManager.Singleton.SaveUserJson();
     }

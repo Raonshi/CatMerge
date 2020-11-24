@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
     public bool isHalf;     //남은 시간 절반
 
     //터치 좌표
-    Vector2 startPos, endPos, gap;
+    public Vector2 startPos, endPos, gap;
 
     //게임 플레이 제한시간
     public float maxTime;
@@ -63,7 +63,7 @@ public class Game : MonoBehaviour
 
     //기타
     public int count;  //현재 생성되어 있는 타일의 수
-    int k;      //타일 움직임 감지용 변수
+    public int k;      //타일 움직임 감지용 변수
 
     //싱글턴
     public static Game instance;
@@ -396,7 +396,7 @@ public class Game : MonoBehaviour
             gap = endPos - startPos;
         }
         //안드로이드 뒤로가기 버튼
-        else if(Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             OnClickExit();
         }
@@ -406,7 +406,7 @@ public class Game : MonoBehaviour
         float y = Mathf.Abs(gap.y);
 
         //right, left
-        if(x > y)
+        if (x > y)
         {
             if (gap.x > 150)
             {
@@ -419,7 +419,7 @@ public class Game : MonoBehaviour
             isStop = true;
         }
         //up, down
-        else if(x < y)
+        else if (x < y)
         {
             if (gap.y > 150)
             {

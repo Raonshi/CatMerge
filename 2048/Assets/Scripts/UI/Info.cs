@@ -112,8 +112,14 @@ public class Info : MonoBehaviour
                 Debug.Log("광고를 시청하였습니다.");
                 SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
 
-                GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * 2;
-                SaveManager.Singleton.SaveUserJson();
+                if(RewardAds.instance.rewardedAd.IsLoaded() == true)
+                {
+                    RewardAds.instance.rewardedAd.Show();
+                }
+
+                RewardAds.instance.SetNewAds();
+                //GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * 2;
+                //SaveManager.Singleton.SaveUserJson();
 
                 gameObject.SetActive(false);
 

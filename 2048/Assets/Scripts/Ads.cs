@@ -12,19 +12,6 @@ public class Ads : MonoBehaviour
         RequestBanner();
     }
 
-    /*
-    public void OnGUI()
-    {
-        GUI.skin.label.fontSize = 60;
-        Rect textOutputRect = new Rect(
-          0.15f * Screen.width,
-          0.25f * Screen.height,
-          0.7f * Screen.width,
-          0.3f * Screen.height);
-        GUI.Label(textOutputRect, "Adaptive Banner Example");
-    }
-    */
-
     private void RequestBanner()
     {
         // These ad units are configured to always serve test ads.

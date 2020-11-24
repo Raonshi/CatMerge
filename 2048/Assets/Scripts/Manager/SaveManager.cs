@@ -49,6 +49,7 @@ public class SaveManager : MonoBehaviour
         user.SetData(
             GameManager.Singleton.nickname,
             GameManager.Singleton.townLevel,
+            GameManager.Singleton.scoreRateLevel,
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
             GameManager.Singleton.catCount,
@@ -80,6 +81,7 @@ public class SaveManager : MonoBehaviour
 
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
+        GameManager.Singleton.scoreRateLevel = user.scoreRateLevel;
         GameManager.Singleton.catCount = user.catCount;
         GameManager.Singleton.best = user.best;
 
@@ -245,6 +247,7 @@ public class UserJson
     public string nickname;
 
     public int townLevel;
+    public int scoreRateLevel;
     public int best;
     public int totalPoint;
     public int catCount;
@@ -254,10 +257,11 @@ public class UserJson
 
     public GameManager.Difficulty difficulty;
 
-    public void SetData(string _nickname,  int _townLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
+    public void SetData(string _nickname,  int _townLevel, int _scoreRateLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
     {
         nickname = _nickname;
         townLevel = _townLevel;
+        scoreRateLevel = _scoreRateLevel;
         best = _best;
         totalPoint = _totalPoint;
         catCount = _catCount;
