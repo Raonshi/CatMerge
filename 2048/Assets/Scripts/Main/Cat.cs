@@ -99,14 +99,21 @@ public class Cat : MonoBehaviour
 
     public void Gift()
     {
+        if (gift.activeSelf == true || adGift.activeSelf == true)
+        {
+            return;
+        }
+
         int rand = UnityEngine.Random.Range(0, 3);
         if(rand == 0)
         {
+            Main.instance.giftInfo.SetActive(true);
             giftPoint = GameManager.Singleton.townLevel;
             gift.SetActive(true);
         }
         else if(rand == 1)
         {
+            Main.instance.giftInfo.SetActive(true);
             //광고 시청 보상
             giftPoint = GameManager.Singleton.townLevel;
             adGift.SetActive(true);

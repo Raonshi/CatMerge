@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using GoogleMobileAds.Api;
 
 public class RewardAds : MonoBehaviour
@@ -87,14 +88,44 @@ public class RewardAds : MonoBehaviour
 
     public void HandleUserEarnedReward(object sender, Reward args)
     {
-        string type = args.Type;
-        double amount = args.Amount * 0.2f;
+        if(SceneManager.GetActiveScene().name == "Game")
+        {
+            string type = args.Type;
+            double amount = args.Amount * 0.2f;
 
-        GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * Convert.ToInt32(amount);
-        SaveManager.Singleton.SaveUserJson();
+            Debug.Log("amount : " + Convert.ToInt32(amount));
 
-        MonoBehaviour.print(
-            "HandleRewardedAdRewarded event received for "
-                        + amount.ToString() + " " + type);
+            GameManager.Singleton.totalPoint -= 5;
+
+            for (int i = 0; i < Convert.ToInt32(amount); i++)
+            {
+                GameObject obj;
+                while (true)
+                {
+                    obj = Game.instance.slotArray[UnityEngine.Random.Range(0, Game.instance.size), UnityEngine.Random.Range(0, Game.instance.size)];
+                    if (obj.name != "Block")
+                    {
+                        break;
+                    }
+                }
+                Destroy(obj);
+            }
+
+            MonoBehaviour.print(
+    "HandleRewardedAdRewarded event received for "
+                + amount.ToString() + " " + type);
+        }
+        else if(SceneManager.GetActiveScene().name == "Main")
+        {
+            string type = args.Type;
+            double amount = args.Amount * 0.2f;
+
+            GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * Convert.ToInt32(amount);
+            SaveManager.Singleton.SaveUserJson();
+
+            MonoBehaviour.print(
+    "HandleRewardedAdRewarded event received for "
+                + amount.ToString() + " " + type);
+        }
     }
 }

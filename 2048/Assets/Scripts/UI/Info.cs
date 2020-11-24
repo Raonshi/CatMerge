@@ -61,7 +61,7 @@ public class Info : MonoBehaviour
                 Game.instance.isOver = true;
                 Game.instance.isClose = true;
 
-                message.text = string.Format("이동 가능한 타일이 없습니다.\n5포인트를 사용하여 타일 1개를 삭제할 수 있습니다.\n(현재 보유 포인트 : {0})\n<color=red>점수는 반영되지 않습니다</color>", GameManager.Singleton.totalPoint);
+                message.text = string.Format("이동 가능한 타일이 없습니다.\n5포인트를 사용하여 타일 1개를 삭제하겠습니까?\n(추가로 광고를 시청하면 타일 2개를 삭제할 수 있습니다.)\n(현재 보유 포인트 : {0})\n<color=red>점수는 반영되지 않습니다</color>", GameManager.Singleton.totalPoint);
                 break;
 
             case "Input":
@@ -102,7 +102,15 @@ public class Info : MonoBehaviour
 
                 Game.instance.isOver = false;
                 GameManager.Singleton.totalPoint -= 5;
-                GameObject obj = Game.instance.slotArray[UnityEngine.Random.Range(0, Game.instance.size), UnityEngine.Random.Range(0, Game.instance.size)];
+                GameObject obj;
+                while (true)
+                {
+                    obj = Game.instance.slotArray[UnityEngine.Random.Range(0, Game.instance.size), UnityEngine.Random.Range(0, Game.instance.size)];
+                    if(obj.name != "Block")
+                    {
+                        break;
+                    }
+                }
                 Destroy(obj);
 
                 gameObject.SetActive(false);
@@ -157,6 +165,25 @@ public class Info : MonoBehaviour
                 gameObject.SetActive(false);
                 break;
         }
+    }
+
+    public void OnClickAds()
+    {
+        if (GameManager.Singleton.totalPoint < 5)
+        {
+            Game.instance.notEnoughPoint.SetActive(true);
+            return;
+        }
+
+
+        if (RewardAds.instance.rewardedAd.IsLoaded() == true)
+        {
+            RewardAds.instance.rewardedAd.Show();
+        }
+
+        RewardAds.instance.SetNewAds();
+
+        gameObject.SetActive(false);
     }
 
 }

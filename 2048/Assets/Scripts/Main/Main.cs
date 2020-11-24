@@ -131,12 +131,13 @@ public class Main : MonoBehaviour
         catPrice = (GameManager.Singleton.townLevel * 2) + 3;
         catPriceText.text = catPrice.ToString() + "포인트";
 
-
+        /*
         if (GameObject.Find("Gift") == true && isGift == true)
         {
             giftInfo.SetActive(true);
             isGift = false;
         }
+        */
 
         //게임종료 알림창과 포인트 부족 알림창은 활성화 시 다른 버튼을 누를 수 없다.
         if(close.activeSelf == true || notEnoughPoint.activeSelf == true)
