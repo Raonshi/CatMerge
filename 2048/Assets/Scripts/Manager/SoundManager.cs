@@ -86,7 +86,6 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
-        Debug.Log(clip.name);
         for (int i = 0; i < audio.Count; i++)
         {
             //재생 중인 경우

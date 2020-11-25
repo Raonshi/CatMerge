@@ -156,7 +156,6 @@ public class Spawner : MonoBehaviour
 
             if (exit == false)
             {
-                Debug.Log("Can not Create X-Block");
                 return;
             }
             GameObject obj = Resources.Load("Prefabs/Tiles/Block") as GameObject;

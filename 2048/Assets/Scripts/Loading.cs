@@ -23,6 +23,8 @@ public class Loading : MonoBehaviour
 
     IEnumerator LoadNextScene()
     {
+        yield return new WaitForSeconds(1.0f);
+
         AsyncOperation async = SceneManager.LoadSceneAsync(GameManager.Singleton.nextScene);
 
         async.allowSceneActivation = false;
@@ -32,10 +34,7 @@ public class Loading : MonoBehaviour
             //로딩 진행중일때
             if(async.progress < 0.9f)
             {
-                Debug.Log("Loading : " + async.progress);
-
                 loading.text = message;
-
             }
             //로딩이 끝나면
             else

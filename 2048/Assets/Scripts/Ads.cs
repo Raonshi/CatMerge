@@ -18,11 +18,13 @@ public class Ads : MonoBehaviour
 #if UNITY_EDITOR
         string adUnitId = "unused";
 #elif UNITY_ANDROID
-            string adUnitId = "ca-app-pub-3940256099942544/6300978111";
-#elif UNITY_IPHONE
-            string adUnitId = "ca-app-pub-3212738706492790/5381898163";
+        //Test
+        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+        
+        //Real
+        //string adUnitId = "ca-app-pub-1569961743545752/4795583415";
 #else
-            string adUnitId = "unexpected_platform";
+        string adUnitId = "unexpected_platform";
 #endif
 
         // Clean up banner ad before creating a new one.
@@ -37,10 +39,15 @@ public class Ads : MonoBehaviour
         this.bannerView = new BannerView(adUnitId, adaptiveSize, AdPosition.Bottom);
 
         // Register for ad events.
+        //앱 실행 시 광고 로드
         this.bannerView.OnAdLoaded += this.HandleAdLoaded;
+        //광고 로드에 실패했을 경우
         this.bannerView.OnAdFailedToLoad += this.HandleAdFailedToLoad;
+        //광고 클릭 시 광고 URL 열기
         this.bannerView.OnAdOpening += this.HandleAdOpened;
+        //URL화면에서 다시 앱으로 돌아오면 호출됨.
         this.bannerView.OnAdClosed += this.HandleAdClosed;
+        //URL이 호출되고 앱이 백그라운드로 실행되면 호출됨
         this.bannerView.OnAdLeavingApplication += this.HandleAdLeftApplication;
 
         AdRequest adRequest = new AdRequest.Builder()

@@ -117,7 +117,6 @@ public class Info : MonoBehaviour
                 break;
 
             case "AdGiftPanel":
-                Debug.Log("광고를 시청하였습니다.");
                 SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
 
                 if(RewardAds.instance.rewardedAd.IsLoaded() == true)
@@ -126,8 +125,6 @@ public class Info : MonoBehaviour
                 }
 
                 RewardAds.instance.SetNewAds();
-                //GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * 2;
-                //SaveManager.Singleton.SaveUserJson();
 
                 gameObject.SetActive(false);
 

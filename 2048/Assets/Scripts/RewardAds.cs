@@ -32,8 +32,16 @@ public class RewardAds : MonoBehaviour
 
     public void SetNewAds()
     {
+#if UNITY_EDITOR
+        string adUnitId = "unused";
+#elif UNITY_ANDROID
+        //Test
         string adUnitId = "ca-app-pub-3940256099942544/5224354917";
-
+        //Real
+        //string adUnitId = "ca-app-pub-1569961743545752/9310818584";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
 
         this.rewardedAd = new RewardedAd(adUnitId);
 
@@ -88,12 +96,11 @@ public class RewardAds : MonoBehaviour
 
     public void HandleUserEarnedReward(object sender, Reward args)
     {
+        //게임씬에서 보상광고 시청
         if(SceneManager.GetActiveScene().name == "Game")
         {
             string type = args.Type;
             double amount = args.Amount * 0.2f;
-
-            Debug.Log("amount : " + Convert.ToInt32(amount));
 
             GameManager.Singleton.totalPoint -= 5;
 
@@ -110,11 +117,9 @@ public class RewardAds : MonoBehaviour
                 }
                 Destroy(obj);
             }
-
-            MonoBehaviour.print(
-    "HandleRewardedAdRewarded event received for "
-                + amount.ToString() + " " + type);
         }
+
+        //메인 씬에서 보상 광고 시청
         else if(SceneManager.GetActiveScene().name == "Main")
         {
             string type = args.Type;
@@ -122,10 +127,6 @@ public class RewardAds : MonoBehaviour
 
             GameManager.Singleton.totalPoint += GameManager.Singleton.townLevel * Convert.ToInt32(amount);
             SaveManager.Singleton.SaveUserJson();
-
-            MonoBehaviour.print(
-    "HandleRewardedAdRewarded event received for "
-                + amount.ToString() + " " + type);
         }
     }
 }
