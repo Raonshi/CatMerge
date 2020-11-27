@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
@@ -15,8 +16,11 @@ public class Tutorial : MonoBehaviour
         isToggle = false;
         toggle.isOn = true;
 
-        Game.instance.isOver = true;
-        Game.instance.isClose = true;
+        if(SceneManager.GetActiveScene().name == "Game")
+        {
+            Game.instance.isOver = true;
+            Game.instance.isClose = true;
+        }
     }
 
     public void OnClickOK()

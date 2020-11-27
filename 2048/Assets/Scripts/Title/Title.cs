@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Title : MonoBehaviour
 {
     public GameObject startButton;
     public GameObject gameClose;
+    public GameObject newtworkConnect;
 
     public static Title instance;
 
@@ -13,6 +15,8 @@ public class Title : MonoBehaviour
     void Start()
     {
         gameClose.SetActive(false);
+        newtworkConnect.SetActive(false);
+        startButton.GetComponent<Button>().interactable = true;
 
         if (GameObject.Find("GameManager") == false)
         {
@@ -20,6 +24,17 @@ public class Title : MonoBehaviour
         }
         //메인 씬 bgm재생
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Main"));
+
+
+        switch(Application.internetReachability)
+        {
+            case NetworkReachability.NotReachable:
+                startButton.SetActive(false);
+                newtworkConnect.SetActive(true);
+                break;
+            default:
+                break;
+        }
     }
 
     private void Update()

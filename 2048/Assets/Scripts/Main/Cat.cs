@@ -80,7 +80,7 @@ public class Cat : MonoBehaviour
             }
             else
             {
-                Move();
+                transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
             }
         }
 
@@ -92,11 +92,6 @@ public class Cat : MonoBehaviour
         }
     }
 
-    void Move()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-    }
-
     public void Gift()
     {
         if (gift.activeSelf == true || adGift.activeSelf == true)
@@ -105,6 +100,7 @@ public class Cat : MonoBehaviour
         }
 
         int rand = UnityEngine.Random.Range(0, 3);
+
         if(rand == 0)
         {
             Main.instance.giftInfo.SetActive(true);
@@ -149,5 +145,16 @@ public class Cat : MonoBehaviour
     public void OnClickCat()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_CatSummon"));
+        StartCoroutine(Animation());
+    }
+
+
+    IEnumerator Animation()
+    {
+        gameObject.GetComponent<Animator>().SetBool("Touch", true);
+
+        yield return new WaitForSeconds(0.3f);
+
+        gameObject.GetComponent<Animator>().SetBool("Touch", false);
     }
 }

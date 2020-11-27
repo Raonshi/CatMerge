@@ -48,7 +48,6 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-
         VolumeControl();
     }
 

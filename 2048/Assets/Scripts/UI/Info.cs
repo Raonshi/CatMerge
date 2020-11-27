@@ -18,6 +18,12 @@ public class Info : MonoBehaviour
 
         switch (gameObject.name)
         {
+            case "NetworkConnect":
+
+                message.text = string.Format("네트워크에 연결 후 게임을 실행해주세요");
+
+                break;
+
             case "GameClose":
                 if(SceneManager.GetActiveScene().name == "Title")
                 {
@@ -81,6 +87,12 @@ public class Info : MonoBehaviour
 
         switch (gameObject.name)
         {
+            case "NetworkConnect":
+                SaveManager.Singleton.SaveUserJson();
+                //EditorApplication.isPlaying = false;
+                Application.Quit();
+                break;
+
             case "GameClose":
                 SaveManager.Singleton.SaveUserJson();
                 //EditorApplication.isPlaying = false;
@@ -117,6 +129,8 @@ public class Info : MonoBehaviour
                 break;
 
             case "AdGiftPanel":
+
+
                 SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_TimeRecovery"));
 
                 if(RewardAds.instance.rewardedAd.IsLoaded() == true)

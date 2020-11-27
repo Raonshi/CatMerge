@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
         SaveManager.Singleton.InitSaveManager();
         TimeManager.Singleton.InitTimeManager();
         SoundManager.Singleton.InitSoundManager();
+        //NetworkManager.Singleton.InitNetworkManager();
 
         isStart = true;
     }

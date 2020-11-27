@@ -13,8 +13,6 @@ public class OptionPanel : MonoBehaviour
     Slider bgmSlider;
     Slider sfxSlider;
 
-    
-
     private void Start()
     {
         bgmSlider = bgm.GetComponentInChildren<Slider>();

@@ -114,17 +114,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13302}
     - Class: 114
-      Script: {instanceID: 14108}
+      Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14196}
+      Script: {instanceID: 14194}
     - Class: 114
-      Script: {instanceID: 14684}
+      Script: {instanceID: 14682}
     - Class: 114
-      Script: {instanceID: 14788}
+      Script: {instanceID: 14786}
     - Class: 114
-      Script: {instanceID: 14808}
+      Script: {instanceID: 14806}
     - Class: 114
-      Script: {instanceID: 14834}
+      Script: {instanceID: 14832}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -171,9 +171,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12476}
     - Class: 114
-      Script: {instanceID: 14108}
+      Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14788}
+      Script: {instanceID: 14786}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -238,15 +238,15 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13336}
     - Class: 114
-      Script: {instanceID: 13442}
+      Script: {instanceID: 13440}
     - Class: 114
-      Script: {instanceID: 14108}
+      Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14788}
+      Script: {instanceID: 14786}
     - Class: 114
-      Script: {instanceID: 14808}
+      Script: {instanceID: 14806}
     - Class: 114
-      Script: {instanceID: 14834}
+      Script: {instanceID: 14832}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -319,17 +319,17 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 13246}
     - Class: 114
-      Script: {instanceID: 13520}
+      Script: {instanceID: 13518}
     - Class: 114
-      Script: {instanceID: 13634}
+      Script: {instanceID: 13632}
     - Class: 114
-      Script: {instanceID: 14108}
+      Script: {instanceID: 14106}
     - Class: 114
-      Script: {instanceID: 14480}
+      Script: {instanceID: 14478}
     - Class: 114
-      Script: {instanceID: 14788}
+      Script: {instanceID: 14786}
     - Class: 114
-      Script: {instanceID: 14908}
+      Script: {instanceID: 14906}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -795,7 +795,7 @@ ScriptsOnlyBuild:
     className: SignalReceiver
   - hash:
       serializedVersion: 2
-      Hash: ddab70b494ebdf61987ebffd5aad3173
+      Hash: 09b738ed223a38f75fc9b296eadfeaed
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Title
@@ -1015,6 +1015,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SoundManager
+  - hash:
+      serializedVersion: 2
+      Hash: 30f839b683f8048fb657d830333b9092
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NetworkManager
   platform: 13
   scenePathNames:
   - Assets/Scenes/Title.unity

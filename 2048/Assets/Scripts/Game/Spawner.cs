@@ -6,12 +6,10 @@ public class Spawner : MonoBehaviour
 {
     public static Spawner instance;
 
-
     private void Awake()
     {
         instance = this;
     }
-
 
     public void TileSpawn()
     {

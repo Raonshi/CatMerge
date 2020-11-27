@@ -69,8 +69,6 @@ public class Game : MonoBehaviour
     public static Game instance;
 
 
-
-
     private void Awake()
     {
         instance = this;

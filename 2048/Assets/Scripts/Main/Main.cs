@@ -82,11 +82,6 @@ public class Main : MonoBehaviour
         if (GameManager.Singleton.isNew == true)
         {
             tutorial.SetActive(true);
-            //게임시작 버튼 유도
-
-            summonButton.GetComponent<Button>().interactable = false;
-            townUpgradeButton.GetComponent<Button>().interactable = false;
-
             return;
         }
         else if(GameManager.Singleton.isHelp == true && GameManager.Singleton.isNew == false)
@@ -121,8 +116,6 @@ public class Main : MonoBehaviour
         }
         else
         {
-            //townUpgradeButton.GetComponent<Button>().image.color = Color.grey;
-            //townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + "최대수치";
             townUpgradePrice = 20 + Convert.ToInt32(GameManager.Singleton.scoreRateLevel * 1.15f);
             townUpgradePriceText.text = string.Format("점수배율증가(lv {0})\n{1}포인트", GameManager.Singleton.scoreRateLevel, townUpgradePrice);
         }
@@ -130,14 +123,6 @@ public class Main : MonoBehaviour
         //고양이 소환 가격
         catPrice = (GameManager.Singleton.townLevel * 2) + 3;
         catPriceText.text = catPrice.ToString() + "포인트";
-
-        /*
-        if (GameObject.Find("Gift") == true && isGift == true)
-        {
-            giftInfo.SetActive(true);
-            isGift = false;
-        }
-        */
 
         //게임종료 알림창과 포인트 부족 알림창은 활성화 시 다른 버튼을 누를 수 없다.
         if(close.activeSelf == true || notEnoughPoint.activeSelf == true)
@@ -167,7 +152,6 @@ public class Main : MonoBehaviour
         //마을 화면 및 최대 고양이 수 초기화
         maxCount = GameManager.Singleton.townLevel + 4;
         town.sprite = Resources.Load<Sprite>("Images/Towns/Level" + GameManager.Singleton.townLevel);
-        //town.sprite = Resources.Load<Sprite>("Images/Towns/Cat_Town");
 
         //마을 업그레이드 할때는 이미지만 교체
         //Main스크립트 실행시엔 기존 고양이 삭제 안함.
