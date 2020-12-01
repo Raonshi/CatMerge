@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class Info : MonoBehaviour
 {
     public Text message;
     public List<GameObject> button = new List<GameObject>();
-    InputField nicknameInput;
 
     private void OnEnable()
     {
@@ -33,6 +30,24 @@ public class Info : MonoBehaviour
                 {
                     message.text = string.Format("<color=red>게임을 종료하면 고양이가 선물을 잃어버리게 됩니다!</color>\n게임을 종료하시겠습니까?");
                 }
+                break;
+
+            case "NotEnoughCash":
+                message.text = string.Format("캐쉬가 부족합니다.\n\n상점으로 이동하여 캐쉬를 충전하시겠습니까?");
+                break;
+
+            case "NotEnoughLife":
+                message.text = string.Format("게임 가능 횟수가 부족합니다.\n\n잠시 후 다시 게임을 시작하거나\n<color=red>5캐쉬를 사용하여 충전할 수 있습니다.</color>");
+
+                if (GameManager.Singleton.totalCash < 5)
+                {
+                    GameObject.Find(gameObject.name + "/Yes").GetComponent<Button>().interactable = false;
+                }
+                else
+                {
+                    GameObject.Find(gameObject.name + "/Yes").GetComponent<Button>().interactable = true;
+                }
+
                 break;
 
             case "NotEnoughPoint":
@@ -68,11 +83,6 @@ public class Info : MonoBehaviour
                 Game.instance.isClose = true;
 
                 message.text = string.Format("이동 가능한 타일이 없습니다.\n5포인트를 사용하여 타일 1개를 삭제하겠습니까?\n(추가로 광고를 시청하면 타일 2개를 삭제할 수 있습니다.)\n(현재 보유 포인트 : {0})\n<color=red>점수는 반영되지 않습니다</color>", GameManager.Singleton.totalPoint);
-                break;
-
-            case "Input":
-                message.text = string.Format("닉네임을 입력해주세요.");
-                nicknameInput = gameObject.transform.Find("InputField").GetComponent<InputField>();
                 break;
 
             case "AdGiftPanel":
@@ -142,6 +152,15 @@ public class Info : MonoBehaviour
 
                 gameObject.SetActive(false);
 
+                break;
+
+            case "NotEnoughCash":
+                Main.instance.shopPanel.SetActive(true);
+                break;
+
+            case "NotEnoughLife":
+                GameManager.Singleton.totalCash -= 5;
+                GameManager.Singleton.life = 5;
                 break;
         }
     }

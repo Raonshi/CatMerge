@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,8 +7,13 @@ public class TimeManager : MonoBehaviour
     public string closeString;
     public string openString;
 
-    //메인화면에서 벗어나는 시간
     public DateTime closeTime;
+
+    //1회 충전시간
+    public float charge;
+    public TimeSpan chargeTime;
+
+    public float remainTime;
     
     public DateTime openTime;
     [SerializeField]
@@ -53,9 +57,17 @@ public class TimeManager : MonoBehaviour
 
         SaveManager.Singleton.LoadTimeJson();
 
+        
         if(isNew == true)
         {
             closeTime = DateTime.Now;
+            charge = 300;
+        }
+        else
+        {
+            TimeSpan span = (DateTime.Now - closeTime);
+            GameManager.Singleton.life += Convert.ToInt32(Mathf.Floor((float)span.TotalSeconds / 300));
+            charge = remainTime - (Mathf.Floor((float)span.TotalSeconds) % 300);
         }
 
         time = DateTime.Now - closeTime;
@@ -64,6 +76,33 @@ public class TimeManager : MonoBehaviour
 
     private void Update()
     {
+        remainTime = charge;
         SaveManager.Singleton.SaveTimeJson();
+
+        
+        if (GameManager.Singleton.life < 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)))
+        {
+            charge -= Time.deltaTime;
+            chargeTime = TimeSpan.FromMinutes(charge);
+
+            if (charge <= 0)
+            {
+                GameManager.Singleton.life++;
+                charge = 300;
+            }
+        }
+        /*
+        if (GameManager.Singleton.life < 5)
+        {
+            charge -= Time.deltaTime;
+            chargeTime = TimeSpan.FromMinutes(charge);
+
+            if (charge <= 0)
+            {
+                GameManager.Singleton.life++;
+                charge = 300;
+            }
+        }
+        */
     }
 }

@@ -48,11 +48,14 @@ public class SaveManager : MonoBehaviour
         //json으로 변환할 객체에 데이터를 저장한다.
         user.SetData(
             GameManager.Singleton.nickname,
+            GameManager.Singleton.life,
             GameManager.Singleton.townLevel,
             GameManager.Singleton.scoreRateLevel,
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
+            GameManager.Singleton.totalCash,
             GameManager.Singleton.catCount,
+            TimeManager.Singleton.remainTime,
             GameManager.Singleton.isNew,
             GameManager.Singleton.isNum,
             GameManager.Singleton.difficulty
@@ -79,8 +82,10 @@ public class SaveManager : MonoBehaviour
 
         GameManager.Singleton.nickname = user.nickname;
 
+        GameManager.Singleton.life = user.life;
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
+        GameManager.Singleton.totalCash = user.totalCash;
         GameManager.Singleton.scoreRateLevel = user.scoreRateLevel;
         GameManager.Singleton.catCount = user.catCount;
         GameManager.Singleton.best = user.best;
@@ -88,6 +93,8 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.isNew = user.isNew;
         GameManager.Singleton.isNum = user.isNum;
         GameManager.Singleton.difficulty = user.difficulty;
+
+        TimeManager.Singleton.remainTime = user.remainTime;
     
     }
     #endregion
@@ -246,25 +253,32 @@ public class UserJson
 {
     public string nickname;
 
+    public int life;
     public int townLevel;
     public int scoreRateLevel;
     public int best;
     public int totalPoint;
+    public int totalCash;
     public int catCount;
+    public float remainTime;
 
     public bool isNew;
     public bool isNum;
 
     public GameManager.Difficulty difficulty;
 
-    public void SetData(string _nickname,  int _townLevel, int _scoreRateLevel, int _best, int _totalPoint, int _catCount, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
+    public void SetData(string _nickname, int _life,  int _townLevel, int _scoreRateLevel, int _best, int _totalPoint,int _totalCash,
+        int _catCount, float _remainTime, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
     {
         nickname = _nickname;
+        life = _life;
         townLevel = _townLevel;
         scoreRateLevel = _scoreRateLevel;
         best = _best;
         totalPoint = _totalPoint;
+        totalCash = _totalCash;
         catCount = _catCount;
+        remainTime = _remainTime;
 
         isNew = _isNew;
         isNum = _isNum;
@@ -303,7 +317,6 @@ public class TimeJson
         return JsonUtility.ToJson(this);
     }
 }
-
 
 public class TutorialJson
 {

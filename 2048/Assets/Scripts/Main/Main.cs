@@ -9,6 +9,8 @@ public class Main : MonoBehaviour
 {
     //메인화면 알림창
     public GameObject close;
+    public GameObject notEnoughCash;
+    public GameObject notEnoughLife;
     public GameObject notEnoughPoint;
     public GameObject fullCount;
     public GameObject giftInfo;
@@ -16,11 +18,20 @@ public class Main : MonoBehaviour
 
     //메인화면 버튼
     public GameObject startButton;
+    public Text startButtonText;
     public GameObject summonButton;
     public GameObject townUpgradeButton;
 
     //포인트
     public Text point;
+    public GameObject pointBuy;
+
+    //캐쉬
+    public Text cash;
+    public GameObject cashBuy;
+
+    //상점
+    public GameObject shopPanel;
 
     //최초 게임시작 유도
     public GameObject tutorial;
@@ -65,12 +76,16 @@ public class Main : MonoBehaviour
         isGift = true;
         townUpgrade = false;
 
+        notEnoughCash.SetActive(false);
+        notEnoughLife.SetActive(false);
+        notEnoughPoint.SetActive(false);
         close.SetActive(false);
         tutorial.SetActive(false);
         help.SetActive(false);
         tutorial4.SetActive(false);
         option.SetActive(false);
         adGiftPanel.SetActive(false);
+        shopPanel.SetActive(false);
     }
 
     void Start()
@@ -104,7 +119,18 @@ public class Main : MonoBehaviour
 
 
         //텍스트 수치 표시
+        if(GameManager.Singleton.life == 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)))
+        {
+            startButtonText.text = string.Format("게임시작({0} / {1})\n00:00", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)));
+            //startButtonText.text = string.Format("게임시작({0} / 5)\n00:00", GameManager.Singleton.life);
+        }
+        else
+        {
+            startButtonText.text = string.Format("게임시작({0} / {1})\n{2:00}:{3:00}", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)), TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
+            //startButtonText.text = string.Format("게임시작({0} / 5)\n{1:00}:{2:00}", GameManager.Singleton.life, TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
+        }       
         point.text = "포인트 : " + GameManager.Singleton.totalPoint;
+        cash.text = "캐쉬 : " + GameManager.Singleton.totalCash;
         scoreRateText.text = "점수배율 : 1 + " + GameManager.Singleton.scoreRate + " 배";
         catCount.text = "고양이 : " + GameManager.Singleton.catCount + " / " + maxCount;
 
@@ -175,11 +201,12 @@ public class Main : MonoBehaviour
             obj.GetComponent<Cat>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + Mathf.Pow(2, GameManager.Singleton.townLevel));
             obj.GetComponent<Cat>().isNew = isNew;
 
+            
             if (TimeManager.Singleton.giftTime.Count != 0)
             {
                 obj.GetComponent<Cat>().giftTime = TimeManager.Singleton.giftTime[i];
             }
-
+            
             catList.Add(obj);
         }
 
@@ -190,9 +217,28 @@ public class Main : MonoBehaviour
 
     public void OnClickStart()
     {
+        if(GameManager.Singleton.life == 0)
+        {
+            notEnoughLife.SetActive(true);
+            return;
+        }
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
 
         GameManager.Singleton.isNew = false;
+
+        
+        if (GameManager.Singleton.life == 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)))
+        {
+            TimeManager.Singleton.charge = 300;
+        }
+        /*
+        if (GameManager.Singleton.life == 5)
+        {
+            TimeManager.Singleton.charge = 300;
+        }
+        */
+
+        GameManager.Singleton.life--;
 
         GameManager.Singleton.LoadNextScene("Game");
     }
@@ -274,6 +320,14 @@ public class Main : MonoBehaviour
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         option.SetActive(true);
     }
+
+
+    public void OnClickBuy()
+    {
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+        shopPanel.SetActive(true);
+    }
+
 
     #endregion
 }

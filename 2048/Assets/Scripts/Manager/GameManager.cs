@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     public int best;            //플레이어 최고점
     public int totalPoint;      //플레이어가 보유한 포인트
+    public int totalCash;       //플레이어가 보유한 캐쉬
 
     public bool isNew;          //최초 플레이 유무
     public bool isHelp;         //첫 플레이 후 메인화면 설명
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
     public bool isStart;        //게임 실행 확인                                true : 게임 실행됨                         /   false : 게임 실행 후 false로 변함
 
     public int catCount;        //보유한 고양이 수
+
+    public int life;
 
     //숫자 활성화 토글
     public bool isNum;      //게임 화면에서 숫자 표현 토글을 사용하기 위한 변수
@@ -93,7 +96,6 @@ public class GameManager : MonoBehaviour
         SaveManager.Singleton.InitSaveManager();
         TimeManager.Singleton.InitTimeManager();
         SoundManager.Singleton.InitSoundManager();
-        //NetworkManager.Singleton.InitNetworkManager();
 
         isStart = true;
     }
@@ -107,7 +109,14 @@ public class GameManager : MonoBehaviour
             //user.json setting
             nickname = "Cat";
             townLevel = 1;
-            totalPoint = 100;
+#if UNITY_EDITOR
+            totalPoint = 9999;
+            totalCash = 9999;
+#else
+            totalPoint = 50;
+            totalCash = 10;
+#endif
+            life = 5;
             scoreRateLevel = 0;
             best = 0;
             catCount = 0;
@@ -135,10 +144,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateScoreRate();
-
-        SaveManager.Singleton.SaveUserJson();
-
+        /*
+        if(life > 5)
+        {
+            life = 5;
+        }
+        */
         
+        if(life > 5 + System.Convert.ToInt32(Mathf.Floor((townLevel - 1) * 0.5f)))
+        {
+            life = 5 + System.Convert.ToInt32(Mathf.Floor((townLevel - 1) * 0.5f));
+        }
+        
+        SaveManager.Singleton.SaveUserJson();
     }
 
     public void UpdateScoreRate()

@@ -27,7 +27,6 @@ public class TitleSpawn : MonoBehaviour
     void Update()
     {
         time -= Time.deltaTime;
-
         
         if(time <= 0)
         {
