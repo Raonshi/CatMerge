@@ -144,13 +144,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         UpdateScoreRate();
-        /*
-        if(life > 5)
-        {
-            life = 5;
-        }
-        */
-        
+
         if(life > 5 + System.Convert.ToInt32(Mathf.Floor((townLevel - 1) * 0.5f)))
         {
             life = 5 + System.Convert.ToInt32(Mathf.Floor((townLevel - 1) * 0.5f));

@@ -91,18 +91,5 @@ public class TimeManager : MonoBehaviour
                 charge = 300;
             }
         }
-        /*
-        if (GameManager.Singleton.life < 5)
-        {
-            charge -= Time.deltaTime;
-            chargeTime = TimeSpan.FromMinutes(charge);
-
-            if (charge <= 0)
-            {
-                GameManager.Singleton.life++;
-                charge = 300;
-            }
-        }
-        */
     }
 }

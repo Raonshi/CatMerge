@@ -122,12 +122,10 @@ public class Main : MonoBehaviour
         if(GameManager.Singleton.life == 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)))
         {
             startButtonText.text = string.Format("게임시작({0} / {1})\n00:00", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)));
-            //startButtonText.text = string.Format("게임시작({0} / 5)\n00:00", GameManager.Singleton.life);
         }
         else
         {
             startButtonText.text = string.Format("게임시작({0} / {1})\n{2:00}:{3:00}", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)), TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
-            //startButtonText.text = string.Format("게임시작({0} / 5)\n{1:00}:{2:00}", GameManager.Singleton.life, TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
         }       
         point.text = "포인트 : " + GameManager.Singleton.totalPoint;
         cash.text = "캐쉬 : " + GameManager.Singleton.totalCash;
@@ -231,12 +229,6 @@ public class Main : MonoBehaviour
         {
             TimeManager.Singleton.charge = 300;
         }
-        /*
-        if (GameManager.Singleton.life == 5)
-        {
-            TimeManager.Singleton.charge = 300;
-        }
-        */
 
         GameManager.Singleton.life--;
 

@@ -237,7 +237,6 @@ public class Game : MonoBehaviour
     //고양이 숫자 보기 / 안보기 -> true : 숫자 안보임      false : 숫자 보임
     public void EnableNum()
     {
-
         if (GameManager.Singleton.isNum == false)
         {
             GameObject tileSet = GameObject.Find("Canvas/TileSet");

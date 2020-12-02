@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class Info : MonoBehaviour
 {
     public Text message;
-    public List<GameObject> button = new List<GameObject>();
 
     private void OnEnable()
     {
@@ -75,10 +74,6 @@ public class Info : MonoBehaviour
                 break;
 
             case "Retry":
-                button.Clear();
-                button.Add(gameObject.transform.Find("Yes").gameObject);
-                button.Add(gameObject.transform.Find("No").gameObject);
-
                 Game.instance.isOver = true;
                 Game.instance.isClose = true;
 
@@ -99,13 +94,11 @@ public class Info : MonoBehaviour
         {
             case "NetworkConnect":
                 SaveManager.Singleton.SaveUserJson();
-                //EditorApplication.isPlaying = false;
                 Application.Quit();
                 break;
 
             case "GameClose":
                 SaveManager.Singleton.SaveUserJson();
-                //EditorApplication.isPlaying = false;
                 Application.Quit();
                 break;
 

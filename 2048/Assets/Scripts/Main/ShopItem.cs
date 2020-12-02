@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
 {
@@ -13,4 +14,27 @@ public class ShopItem : MonoBehaviour
 
     public int price;
     public int value;
+
+    Image image;
+
+
+    private void OnEnable()
+    {
+        InitShopItem();
+    }
+
+
+    public void InitShopItem()
+    {
+        switch(type)
+        {
+            case Type.Cash:
+                image.sprite = Resources.Load<Sprite>("Images/UI/Cash");
+                break;
+
+            case Type.Point:
+                image.sprite = Resources.Load<Sprite>("Images/UI/Point");
+                break;
+        }
+    }
 }
