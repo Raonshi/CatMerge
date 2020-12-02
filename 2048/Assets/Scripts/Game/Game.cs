@@ -503,11 +503,13 @@ public class Game : MonoBehaviour
         //일반 이동
         if (slotArray[x2, y2] == null && slotArray[x1, y1] != null)
         {
-            if(slotArray[x1, y1].name == "Block")
+            Slot slot1 = slotArray[x1, y1].GetComponent<Slot>();
+
+            if (slotArray[x1, y1].name == "Block")
             {
                 return;
             }
-            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
+            slot1.Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
 
@@ -518,6 +520,9 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Multiple" || slotArray[x2, y2].name == "Multiple") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            Slot slot1 = slotArray[x1, y1].GetComponent<Slot>();
+            Slot slot2 = slotArray[x2, y2].GetComponent<Slot>();
+
             int i = 1;
 
             //만약 두 타일 모두 특수타일이면 이동 될 좌표의 타일 결합 상태를 true로 한다.
@@ -525,19 +530,19 @@ public class Game : MonoBehaviour
             {
                 if(slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Block")
                 {
-                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    slot2.isCombine = true;
                     return;
                 }
-                i = slotArray[x2, y2].GetComponent<Slot>().num;
+                i = slot2.num;
             }
             else if (slotArray[x2, y2].name == "Multiple")
             {
                 if(slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Block")
                 {
-                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    slot1.isCombine = true;
                     return;
                 }
-                i = slotArray[x1, y1].GetComponent<Slot>().num;
+                i = slot1.num;
             }
 
             isMove = true;
@@ -546,7 +551,7 @@ public class Game : MonoBehaviour
             GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
 
             //화면상 이동 >> 이동 후 두 좌표의 오브젝트를 제거
-            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
+            slot1.Move(x2, y2, true);
 
             slotArray[x1, y1] = null;
             count--;
@@ -581,22 +586,23 @@ public class Game : MonoBehaviour
                 Destroy(slotArray[x2, y2]);
                 //게임오브젝트를 생성
                 slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-                slotArray[x2, y2].gameObject.name = obj.name;
+                slotArray[x2, y2].name = obj.name;
 
+                slot2 = slotArray[x2, y2].GetComponent<Slot>();
                 //생성되는 게임 오브젝트는 기존 타일의 진화형태이다.
-                slotArray[x2, y2].GetComponent<Slot>().num = i * 2;
+                slot2.num = i * 2;
 
                 //스프라이트 변경
-                slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+                slot2.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot2.num);
 
                 //위치 및 로테이션 초기화
                 slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
                 slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+                slot2.isCombine = true;
+                slot2.anim.SetBool("isCombine", true);
 
-                score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
+                score += (slot2.num * 10) + Convert.ToInt32((slot2.num * 10 * GameManager.Singleton.scoreRate));
             }
             k++;
             
@@ -605,32 +611,35 @@ public class Game : MonoBehaviour
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && (slotArray[x1, y1].name == "Division" || slotArray[x2, y2].name == "Division") &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            Slot slot1 = slotArray[x1, y1].GetComponent<Slot>();
+            Slot slot2 = slotArray[x2, y2].GetComponent<Slot>();
+
             int i = 1;
 
             if (slotArray[x1, y1].name == "Division")
             {
                 if(slotArray[x2, y2].name == "Multiple" || slotArray[x2, y2].name == "Division" || slotArray[x2, y2].name == "Block" || slotArray[x2, y2].GetComponent<Slot>().num == 2)
                 {
-                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    slot2.isCombine = true;
                     return;
                 }
-                i = slotArray[x2, y2].GetComponent<Slot>().num;
+                i = slot2.num;
             }
             else if (slotArray[x2, y2].name == "Division")
             {
                 if (slotArray[x1, y1].name == "Multiple" || slotArray[x1, y1].name == "Division" || slotArray[x1, y1].name == "Block" || slotArray[x1, y1].GetComponent<Slot>().num == 2)
                 {
-                    slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
+                    slot2.isCombine = true;
                     return;
                 }
-                i = slotArray[x1, y1].GetComponent<Slot>().num;
+                i = slot1.num;
             }
 
             isMove = true;
 
             GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
 
-            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
+            slot1.Move(x2, y2, true);
 
             Destroy(slotArray[x2, y2]);
             count--;
@@ -639,15 +648,17 @@ public class Game : MonoBehaviour
 
             slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
             slotArray[x2, y2].gameObject.name = obj.name;
-            slotArray[x2, y2].GetComponent<Slot>().num = Convert.ToInt32(i * 0.5f);
 
-            slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+            slot2 = slotArray[x2, y2].GetComponent<Slot>();
+            slot2.num = Convert.ToInt32(i * 0.5f);
+
+            slot2.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot2.num);
 
             slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
             slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
-            slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-            slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+            slot2.isCombine = true;
+            slot2.anim.SetBool("isCombine", true);
             k++;
         }
         //일반 결합
@@ -655,15 +666,18 @@ public class Game : MonoBehaviour
             slotArray[x1, y1].GetComponent<Slot>().num != 1 && slotArray[x2, y2].GetComponent<Slot>().num != 1 &&
             slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            Slot slot1 = slotArray[x1, y1].GetComponent<Slot>();
+            Slot slot2 = slotArray[x2, y2].GetComponent<Slot>();
+
             isMove = true;
 
             GameObject obj = Resources.Load("Prefabs/Tiles/Tile") as GameObject;
             int i, j;
 
-            i = slotArray[x1, y1].GetComponent<Slot>().num;
-            j = slotArray[x2, y2].GetComponent<Slot>().num;
+            i = slot1.num;
+            j = slot2.num;
 
-            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, true);
+            slot1.Move(x2, y2, true);
 
             slotArray[x1, y1] = null;
             count--;
@@ -698,30 +712,34 @@ public class Game : MonoBehaviour
                 Destroy(slotArray[x2, y2]);
 
                 slotArray[x2, y2] = Instantiate(obj, GameObject.Find("Canvas/TileSet").transform);
-                slotArray[x2, y2].gameObject.name = obj.name;
-                slotArray[x2, y2].GetComponent<Slot>().num = j + i;
+                slotArray[x2, y2].name = obj.name;
 
-                slotArray[x2, y2].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/" + slotArray[x2, y2].GetComponent<Slot>().num);
+                slot2 = slotArray[x2, y2].GetComponent<Slot>();
+                slot2.num = j + i;
+
+                slot2.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot2.num);
 
                 slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
                 slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
-                slotArray[x2, y2].GetComponent<Slot>().isCombine = true;
-                slotArray[x2, y2].GetComponent<Slot>().anim.SetBool("isCombine", true);
+                slot2.isCombine = true;
+                slot2.anim.SetBool("isCombine", true);
 
-                score += (slotArray[x2, y2].GetComponent<Slot>().num * 10) + Convert.ToInt32((slotArray[x2, y2].GetComponent<Slot>().num * 10 * GameManager.Singleton.scoreRate));
+                score += (slot2.num * 10) + Convert.ToInt32((slot2.num * 10 * GameManager.Singleton.scoreRate));
             }
             k++;
         }
         //특수블럭 간 결합 못하도록 함
         else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
+            Slot slot1 = slotArray[x1, y1].GetComponent<Slot>();
+
             if (slotArray[x1, y1].name == "Block" || slotArray[x2, y2].name == "Block")
             {
                 k++;
                 return;
             }
-            slotArray[x1, y1].GetComponent<Slot>().Move(x2, y2, false);
+            slot1.Move(x2, y2, false);
             slotArray[x2, y2] = slotArray[x1, y1];
             slotArray[x1, y1] = null;
         }

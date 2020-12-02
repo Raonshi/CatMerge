@@ -15,7 +15,7 @@ public class ShopItem : MonoBehaviour
     public int price;
     public int value;
 
-    Image image;
+    public Image image;
 
 
     private void OnEnable()
