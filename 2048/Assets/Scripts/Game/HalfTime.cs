@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HalfTime : MonoBehaviour
 {
-    Rigidbody2D rigidbody = new Rigidbody2D();
+    Rigidbody2D rigidbody;
     // Start is called before the first frame update
     void Start()
     {

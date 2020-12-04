@@ -14,6 +14,11 @@ public class Info : MonoBehaviour
 
         switch (gameObject.name)
         {
+            case "Banner":
+
+                message.text = string.Format("CAT\n\nMERGE");
+
+                break;
             case "NetworkConnect":
 
                 message.text = string.Format("네트워크에 연결 후 게임을 실행해주세요");

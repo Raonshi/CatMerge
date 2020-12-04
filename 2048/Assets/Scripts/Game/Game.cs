@@ -17,6 +17,9 @@ public class Game : MonoBehaviour
     public float xPos;
     public float yPos;
 
+    //슬롯 간 거리차이
+    public float slotGap;
+
     //현재 점수
     public Text scoreText;
     public int score;
@@ -578,7 +581,7 @@ public class Game : MonoBehaviour
 
                 point++;
 
-                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
+                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * slotGap) - xPos, (y2 * slotGap) - yPos)));
                 DestroyImmediate(slotArray[x2, y2]);
             }
             else
@@ -596,7 +599,7 @@ public class Game : MonoBehaviour
                 slot2.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot2.num);
 
                 //위치 및 로테이션 초기화
-                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * slotGap) - xPos, (y2 * slotGap) - yPos);
                 slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
                 slot2.isCombine = true;
@@ -654,7 +657,7 @@ public class Game : MonoBehaviour
 
             slot2.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot2.num);
 
-            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+            slotArray[x2, y2].transform.localPosition = new Vector2((x2 * slotGap) - xPos, (y2 * slotGap) - yPos);
             slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
             slot2.isCombine = true;
@@ -704,7 +707,7 @@ public class Game : MonoBehaviour
 
                 point++;
 
-                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos)));
+                StartCoroutine(Complete64(slotArray[x2, y2].transform.localPosition = new Vector2((x2 * slotGap) - xPos, (y2 * slotGap) - yPos)));
                 DestroyImmediate(slotArray[x2, y2]);
             }
             else
@@ -719,7 +722,7 @@ public class Game : MonoBehaviour
 
                 slot2.image.sprite = Resources.Load<Sprite>("Images/Cats/" + slot2.num);
 
-                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * 270) - xPos, (y2 * 270) - yPos);
+                slotArray[x2, y2].transform.localPosition = new Vector2((x2 * slotGap) - xPos, (y2 * slotGap) - yPos);
                 slotArray[x2, y2].transform.rotation = Quaternion.identity;
 
                 slot2.isCombine = true;

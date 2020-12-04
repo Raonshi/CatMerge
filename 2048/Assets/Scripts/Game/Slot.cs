@@ -11,7 +11,7 @@ public class Slot : MonoBehaviour
     
     public int num;
 
-    public bool isCombine, isNew, isBomb, isNum;
+    public bool isCombine, isNew, isNum;
     public Animator anim;
 
     public int _x;
@@ -77,8 +77,8 @@ public class Slot : MonoBehaviour
                 break;
         }
 
-        _xPos = GameObject.Find("Game").GetComponent<Game>().xPos;
-        _yPos = GameObject.Find("Game").GetComponent<Game>().yPos;
+        _xPos = Game.instance.xPos;
+        _yPos = Game.instance.yPos;
     }
 
     void Update()
@@ -106,7 +106,7 @@ public class Slot : MonoBehaviour
         _y = y;
         _combine = combine;
 
-        Vector3 target = new Vector3((270 * x) - _xPos, (270 * y) - _yPos, 0);
+        Vector3 target = new Vector3((Game.instance.slotGap * x) - _xPos, (Game.instance.slotGap * y) - _yPos, 0);
         transform.localPosition = Vector3.MoveTowards(transform.localPosition, target, 5000 * Time.deltaTime);
         
         

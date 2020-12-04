@@ -12630,6 +12630,7 @@ MonoBehaviour:
   size: 4
   xPos: 405
   yPos: 355
+  slotGap: 270
   scoreText: {fileID: 1490726879}
   score: 0
   bestText: {fileID: 527587838}

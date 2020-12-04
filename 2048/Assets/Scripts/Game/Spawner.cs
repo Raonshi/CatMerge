@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -13,7 +12,7 @@ public class Spawner : MonoBehaviour
 
     public void TileSpawn()
     {
-        if(Game.instance.count >= 16)
+        if (Game.instance.count >= 16)
         {
             return;
         }
@@ -22,8 +21,8 @@ public class Spawner : MonoBehaviour
 
         while (true)
         {
-            x = UnityEngine.Random.Range(0, Game.instance.size);
-            y = UnityEngine.Random.Range(0, Game.instance.size);
+            x = Random.Range(0, Game.instance.size);
+            y = Random.Range(0, Game.instance.size);
 
             if (Game.instance.slotArray[x, y] == null)
             {
@@ -33,7 +32,7 @@ public class Spawner : MonoBehaviour
         i = Random.Range(0, 100);
 
         GameObject obj;
-        
+
 
         //x2고양이 생성
         if ((i >= 0 && i < 5) && Game.instance.score >= 5000)
@@ -84,7 +83,7 @@ public class Spawner : MonoBehaviour
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
 
         Game.instance.slotArray[x, y].gameObject.name = obj.name;
-        Game.instance.slotArray[x, y].transform.localPosition = new Vector2((x * 270) - Game.instance.xPos, (y * 270) - Game.instance.yPos);
+        Game.instance.slotArray[x, y].transform.localPosition = new Vector2((x * Game.instance.slotGap) - Game.instance.xPos, (y * Game.instance.slotGap) - Game.instance.yPos);
         Game.instance.slotArray[x, y].transform.rotation = Quaternion.identity;
     }
 
@@ -103,7 +102,6 @@ public class Spawner : MonoBehaviour
         if (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal)
         {
             int[] array = new int[2] { 0, 3 };
-            GameObject[] slot = new GameObject[4];
             bool exit = false;
 
             //4 귀퉁이의 빈공간을 검사
@@ -162,7 +160,7 @@ public class Spawner : MonoBehaviour
             Game.instance.slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
 
             Game.instance.slotArray[x, y].gameObject.name = obj.name;
-            Game.instance.slotArray[x, y].transform.localPosition = new Vector2((x * 270) - Game.instance.xPos, (y * 270) - Game.instance.yPos);
+            Game.instance.slotArray[x, y].transform.localPosition = new Vector2((x * Game.instance.slotGap) - Game.instance.xPos, (y * Game.instance.slotGap) - Game.instance.yPos);
             Game.instance.slotArray[x, y].transform.rotation = Quaternion.identity;
 
             SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
@@ -175,8 +173,8 @@ public class Spawner : MonoBehaviour
             while (true)
             {
 
-                x = UnityEngine.Random.Range(0, Game.instance.size);
-                y = UnityEngine.Random.Range(0, Game.instance.size);
+                x = Random.Range(0, Game.instance.size);
+                y = Random.Range(0, Game.instance.size);
 
                 if (list.Count >= 16)
                 {
@@ -223,7 +221,7 @@ public class Spawner : MonoBehaviour
             Game.instance.slotArray[x, y].GetComponent<Slot>().image.sprite = Resources.Load<Sprite>("Images/Cats/Block");
 
             Game.instance.slotArray[x, y].gameObject.name = obj.name;
-            Game.instance.slotArray[x, y].transform.localPosition = new Vector2((x * 270) - Game.instance.xPos, (y * 270) - Game.instance.yPos);
+            Game.instance.slotArray[x, y].transform.localPosition = new Vector2((x * Game.instance.slotGap) - Game.instance.xPos, (y * Game.instance.slotGap) - Game.instance.yPos);
             Game.instance.slotArray[x, y].transform.rotation = Quaternion.identity;
 
             SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Generate"));
