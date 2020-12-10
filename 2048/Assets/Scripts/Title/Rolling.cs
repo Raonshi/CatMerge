@@ -30,15 +30,5 @@ public class Rolling : MonoBehaviour
     public void OnClick()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_CatSummon"));
-        StartCoroutine(Animation());
-    }
-
-    IEnumerator Animation()
-    {
-        gameObject.GetComponent<Animator>().SetBool("Touch", true);
-
-        yield return new WaitForSeconds(0.3f);
-
-        gameObject.GetComponent<Animator>().SetBool("Touch", false);
     }
 }

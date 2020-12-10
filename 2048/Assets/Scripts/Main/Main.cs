@@ -15,6 +15,11 @@ public class Main : MonoBehaviour
     public GameObject fullCount;
     public GameObject giftInfo;
     public GameObject adGiftPanel;
+    public GameObject dataSaveFail;
+    public GameObject dataLoadFail;
+    public GameObject dataSave;
+    public GameObject dataLoad;
+
 
     //메인화면 버튼
     public GameObject startButton;
@@ -86,6 +91,10 @@ public class Main : MonoBehaviour
         option.SetActive(false);
         adGiftPanel.SetActive(false);
         shopPanel.SetActive(false);
+        dataSaveFail.SetActive(false);
+        dataLoadFail.SetActive(false);
+        dataSave.SetActive(false);
+        dataLoad.SetActive(false);
     }
 
     void Start()
@@ -112,6 +121,7 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (GameManager.Singleton.tutorial4 == true && GameManager.Singleton.townLevel >= 3 && GameManager.Singleton.isNew == false && GameManager.Singleton.isHelp == false)
         {
             tutorial4.SetActive(true);
@@ -211,6 +221,17 @@ public class Main : MonoBehaviour
         townUpgrade = false;
     }
 
+    public void CatDispose()
+    {
+        for(int i = 0; i < catList.Count; i++)
+        {
+            Destroy(catList[i]);
+        }
+
+        catList.Clear();
+    }
+
+
     #region 버튼
 
     public void OnClickStart()
@@ -246,30 +267,22 @@ public class Main : MonoBehaviour
 
     public void OnClickTownUpgrade()
     {
-        if(GameManager.Singleton.townLevel >= 5)
+        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+        
+        if (GameManager.Singleton.totalPoint < townUpgradePrice)
         {
-            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
+            notEnoughPoint.SetActive(true);
+            return;
+        }
 
-            if(GameManager.Singleton.totalPoint < townUpgradePrice)
-            {
-                notEnoughPoint.SetActive(true);
-                return;
-            }
 
+        if (GameManager.Singleton.townLevel >= 5)
+        {
             GameManager.Singleton.totalPoint -= townUpgradePrice;
             GameManager.Singleton.scoreRateLevel++;
         }
         else
         {
-            SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
-
-
-            if (GameManager.Singleton.totalPoint < townUpgradePrice)
-            {
-                notEnoughPoint.SetActive(true);
-                return;
-            }
-
             GameManager.Singleton.totalPoint -= townUpgradePrice;
             GameManager.Singleton.townLevel++;
 

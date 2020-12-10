@@ -78,6 +78,8 @@ public class Game : MonoBehaviour
 
         isMove = false;
         isStop = false;
+        isOver = false;
+        isHalf = true;
 
 
         //시간 초기화
@@ -93,9 +95,6 @@ public class Game : MonoBehaviour
     {
         //게임 씬 bgm재생
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/BGM_Game"));
-
-        isOver = false;
-        isHalf = true;
 
         //숫자 보기 안보기 토글값 불러옴
         if(GameManager.Singleton.isNum == true)
@@ -500,6 +499,7 @@ public class Game : MonoBehaviour
         isMove = false;
     }
 
+
     //타일 이동 및 결합
     public void MoveOrCombine(int x1, int y1, int x2, int y2)
     {
@@ -572,7 +572,7 @@ public class Game : MonoBehaviour
                     time += recoveryTime;
                 }
 
-                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"));
+                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/UI/TimeRecovery"));
                 timeRecovery.name = "TimeRecovery";
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
@@ -698,7 +698,7 @@ public class Game : MonoBehaviour
                     time += recoveryTime;
                 }
 
-                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/TimeRecovery"));
+                GameObject timeRecovery = Instantiate(Resources.Load<GameObject>("Prefabs/UI/TimeRecovery"));
                 timeRecovery.name = "TimeRecovery";
                 timeRecovery.transform.SetParent(GameObject.Find("Canvas").transform);
                 timeRecovery.GetComponent<Animator>().SetBool("Create", true);
@@ -733,7 +733,8 @@ public class Game : MonoBehaviour
             k++;
         }
         //특수블럭 간 결합 못하도록 함
-        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 && slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
+        else if (slotArray[x2, y2] != null && slotArray[x1, y1] != null && slotArray[x1, y1].GetComponent<Slot>().num == 1 && slotArray[x2, y2].GetComponent<Slot>().num == 1 &&
+            slotArray[x1, y1].GetComponent<Slot>().isCombine == false && slotArray[x2, y2].GetComponent<Slot>().isCombine == false)
         {
             Slot slot1 = slotArray[x1, y1].GetComponent<Slot>();
 
@@ -784,7 +785,7 @@ public class Game : MonoBehaviour
 
     IEnumerator Complete64(Vector2 position)
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/CompleteEffect"), GameObject.Find("Canvas").transform);
+        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/UI/CompleteEffect"), GameObject.Find("Canvas").transform);
         obj.name = "Tile";
         obj.transform.localPosition = position;
         obj.transform.rotation = Quaternion.identity;

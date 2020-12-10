@@ -15,7 +15,7 @@ public class Shop : MonoBehaviour
         cash.text = "캐쉬 : " + GameManager.Singleton.totalCash;
     }
 
-    public void OnClickCashBuy(ShopItem item)
+    public void OnClickBuy(ShopItem item)
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
 

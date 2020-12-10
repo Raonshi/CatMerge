@@ -5,7 +5,6 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     public string closeString;
-    public string openString;
 
     public DateTime closeTime;
 
@@ -15,8 +14,6 @@ public class TimeManager : MonoBehaviour
 
     public float remainTime;
     
-    public DateTime openTime;
-    [SerializeField]
     public TimeSpan time;
 
     public bool isNew;

@@ -88,6 +88,22 @@ public class Info : MonoBehaviour
             case "AdGiftPanel":
                 message.text = string.Format("광고를 시청하면 더 많은 보상을 얻을 수 있습니다.\n시청하겠습니까?");
                 break;
+
+            case "DataSave":
+                message.text = string.Format("현재까지의 기록을 저장했습니다.");
+                break;
+
+            case "DataLoad":
+                message.text = string.Format("저장되어 있던 기록을 불러왔습니다.");
+                break;
+
+            case "DataSaveFail":
+                message.text = string.Format("저장에 실패했습니다!");
+                break;
+
+            case "DataLoadFail":
+                message.text = string.Format("불러오기에 실패했습니다!");
+                break;
         }
     }
 
@@ -159,6 +175,7 @@ public class Info : MonoBehaviour
             case "NotEnoughLife":
                 GameManager.Singleton.totalCash -= 5;
                 GameManager.Singleton.life = 5;
+                gameObject.SetActive(false);
                 break;
         }
     }

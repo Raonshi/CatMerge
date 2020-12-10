@@ -42,4 +42,18 @@ public class OptionPanel : MonoBehaviour
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         gameObject.SetActive(false);
     }
+
+    public void OnClickDataSave()
+    {
+        SaveManager.Singleton.SaveDataOutSide();
+    }
+
+    public void OnClickDataLoad()
+    {
+        SaveManager.Singleton.LoadDataOutSide();
+
+        Main.instance.CatDispose();
+        Main.instance.UpdateCatTown();
+        Main.instance.CatSpawn(GameManager.Singleton.catCount, true);
+    }
 }

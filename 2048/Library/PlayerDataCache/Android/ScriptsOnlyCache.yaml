@@ -120,23 +120,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12478}
     - Class: 114
-      Script: {instanceID: 13024}
+      Script: {instanceID: 13026}
     - Class: 114
-      Script: {instanceID: 13142}
+      Script: {instanceID: 13144}
     - Class: 114
-      Script: {instanceID: 13304}
+      Script: {instanceID: 13306}
     - Class: 114
-      Script: {instanceID: 14110}
+      Script: {instanceID: 14112}
     - Class: 114
-      Script: {instanceID: 14198}
+      Script: {instanceID: 14200}
     - Class: 114
-      Script: {instanceID: 14686}
+      Script: {instanceID: 14688}
     - Class: 114
-      Script: {instanceID: 14790}
+      Script: {instanceID: 14792}
     - Class: 114
-      Script: {instanceID: 14810}
+      Script: {instanceID: 14812}
     - Class: 114
-      Script: {instanceID: 14836}
+      Script: {instanceID: 14838}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -183,9 +183,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12478}
     - Class: 114
-      Script: {instanceID: 14110}
+      Script: {instanceID: 14112}
     - Class: 114
-      Script: {instanceID: 14790}
+      Script: {instanceID: 14792}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -256,25 +256,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12874}
     - Class: 114
-      Script: {instanceID: 13024}
+      Script: {instanceID: 13026}
     - Class: 114
-      Script: {instanceID: 13304}
+      Script: {instanceID: 13306}
     - Class: 114
-      Script: {instanceID: 13338}
+      Script: {instanceID: 13340}
     - Class: 114
-      Script: {instanceID: 13426}
+      Script: {instanceID: 13428}
     - Class: 114
-      Script: {instanceID: 13442}
+      Script: {instanceID: 13444}
     - Class: 114
-      Script: {instanceID: 13712}
+      Script: {instanceID: 13714}
     - Class: 114
-      Script: {instanceID: 14110}
+      Script: {instanceID: 14112}
     - Class: 114
-      Script: {instanceID: 14790}
+      Script: {instanceID: 14792}
     - Class: 114
-      Script: {instanceID: 14810}
+      Script: {instanceID: 14812}
     - Class: 114
-      Script: {instanceID: 14836}
+      Script: {instanceID: 14838}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -341,21 +341,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12578}
     - Class: 114
-      Script: {instanceID: 13202}
+      Script: {instanceID: 13204}
     - Class: 114
-      Script: {instanceID: 13248}
+      Script: {instanceID: 13250}
     - Class: 114
-      Script: {instanceID: 13520}
+      Script: {instanceID: 13522}
     - Class: 114
-      Script: {instanceID: 13634}
+      Script: {instanceID: 13636}
     - Class: 114
-      Script: {instanceID: 14110}
+      Script: {instanceID: 14112}
     - Class: 114
-      Script: {instanceID: 14482}
+      Script: {instanceID: 14484}
     - Class: 114
-      Script: {instanceID: 14790}
+      Script: {instanceID: 14792}
     - Class: 114
-      Script: {instanceID: 14910}
+      Script: {instanceID: 14912}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -501,7 +501,7 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
-      Hash: c97713a43e56f3137cd704ccea475dcf
+      Hash: 247d7453594708b03d1bf87f0998fbe4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Loading
@@ -729,6 +729,12 @@ ScriptsOnlyBuild:
     className: SpriteSkinEntity
   - hash:
       serializedVersion: 2
+      Hash: 2dc0bad275d9a76ed0216d4bb61d2bc0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NetworkManager
+  - hash:
+      serializedVersion: 2
       Hash: edb8f1139c89256f78fad8657c298603
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -795,13 +801,13 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 2a1d2ec24c42c1f6952488be42d365e1
+      Hash: 34623ddb90a8270c6624fe01373a03d8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Main
   - hash:
       serializedVersion: 2
-      Hash: c0368a13c8c8d56cc83564977fe1d3c1
+      Hash: fd0b09239fc7f9d00c2721001812dc75
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Slot
@@ -867,7 +873,7 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 7ae08d9952f091a2b4d6ec2043a9c449
+      Hash: 5bd8e3f377691f6e81338ff79713176a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ShopItem
@@ -909,7 +915,7 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
-      Hash: 07f932dc20a861772af9c68138e5f3a4
+      Hash: 94b9ef47106e7ce3e0c9507b3c44c729
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeManager
@@ -969,7 +975,7 @@ ScriptsOnlyBuild:
     className: BaseInput
   - hash:
       serializedVersion: 2
-      Hash: 0087eb5bc04ec01e5bd40037f6800143
+      Hash: 94fa63097f13690f0692f1de35898716
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Game

@@ -238,15 +238,137 @@ public class SaveManager : MonoBehaviour
         StreamReader reader = new StreamReader(path);
 
         string data = reader.ReadToEnd();
-        
+
         reader.Dispose();
         reader.Close();
 
+
         return data;
     }
-   
+
 #endregion
+
+
+#region 앱 삭제 이후에도 데이터 보관
+
+    public void SaveDataOutSide()
+    {
+        string[] fileNameArray = Directory.GetFiles(Application.persistentDataPath + "/Save/");
+        
+        string destPath = "Assets/Save/";
+        //string destPath = Application.persistentDataPath + "/Save/";
+
+        if (Directory.Exists(destPath) == false)
+        {
+            Directory.CreateDirectory(destPath);
+
+            if(Directory.Exists(destPath) == false)
+            {
+                Main.instance.dataSaveFail.SetActive(true);
+                return;
+            }
+        }
+
+        for (int i = 0; i < fileNameArray.Length; i++)
+        {
+            string[] name = fileNameArray[i].Split('/');
+            string path = destPath + name[name.Length - 1];
+            File.Copy(fileNameArray[i], path, true);
+        }
+        Main.instance.dataSave.SetActive(true);
+    }
+
+    public void LoadDataOutSide()
+    {
+        string destPath = "Assets/Save/";
+        //string destPath = Application.persistentDataPath + "/Save/";
+
+        if (Directory.Exists(destPath) == false || Directory.GetFiles(destPath).Length == 0)
+        {
+            Main.instance.dataLoadFail.SetActive(true);
+            //Debug.Log("No Save File!");
+            return;
+        }
+
+        string[] fileNameArray = Directory.GetFiles(destPath);
+
+
+        for (int i = 0; i < fileNameArray.Length; i++)
+        {
+            string path = fileNameArray[i];
+
+            if (File.Exists(path) == false)
+            {
+                Main.instance.dataLoadFail.SetActive(true);
+                //Debug.Log("Path Not Exist!");
+                return;
+            }
+
+            StreamReader reader = new StreamReader(path);
+
+            string data = reader.ReadToEnd();
+
+            reader.Dispose();
+            reader.Close();
+            if(fileNameArray[i].Contains(".meta"))
+            {
+                continue;
+            }
+
+            if(fileNameArray[i].Contains("user"))
+            {
+                UserJson user = JsonUtility.FromJson<UserJson>(data);
+
+                GameManager.Singleton.nickname = user.nickname;
+
+                GameManager.Singleton.life = user.life;
+                GameManager.Singleton.townLevel = user.townLevel;
+                GameManager.Singleton.totalPoint = user.totalPoint;
+                GameManager.Singleton.totalCash = user.totalCash;
+                GameManager.Singleton.scoreRateLevel = user.scoreRateLevel;
+                GameManager.Singleton.catCount = user.catCount;
+                GameManager.Singleton.best = user.best;
+
+                GameManager.Singleton.isNew = user.isNew;
+                GameManager.Singleton.isNum = user.isNum;
+                GameManager.Singleton.difficulty = user.difficulty;
+
+                TimeManager.Singleton.remainTime = user.remainTime;
+            }
+            else if(fileNameArray[i].Contains("time"))
+            {
+                TimeJson close = JsonUtility.FromJson<TimeJson>(data);
+
+                TimeManager.Singleton.closeTime = new DateTime(close.year, close.month, close.day, close.hour, close.minute, close.second);
+            }
+            else if (fileNameArray[i].Contains("tutorial"))
+            {
+                TutorialJson tutorial = JsonUtility.FromJson<TutorialJson>(data);
+
+                GameManager.Singleton.tutorial0 = tutorial.tutorial0;
+                GameManager.Singleton.tutorial1 = tutorial.tutorial1;
+                GameManager.Singleton.tutorial2 = tutorial.tutorial2;
+                GameManager.Singleton.tutorial3 = tutorial.tutorial3;
+                GameManager.Singleton.tutorial4 = tutorial.tutorial4;
+            }
+            else if (fileNameArray[i].Contains("option"))
+            {
+                OptionJson option = JsonUtility.FromJson<OptionJson>(data);
+
+                GameManager.Singleton.bgm = option.bgm;
+                GameManager.Singleton.sfx = option.sfx;
+            }
+            //Debug.Log(fileNameArray[i] + " Has Load!");
+
+            Main.instance.dataLoad.SetActive(true);
+        }
+    }
+
+#endregion
+
 }
+
+
 
 
 #region Data -> Json

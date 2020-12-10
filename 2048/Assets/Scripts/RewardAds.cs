@@ -23,12 +23,6 @@ public class RewardAds : MonoBehaviour
         SetNewAds();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
     public void SetNewAds()
     {
