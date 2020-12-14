@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// 메인화면에서 고양이에 개별적으로 연결되는 스크립트.
+/// </summary>
 public class Cat : MonoBehaviour
 {
+    //고양이의 이동 좌표
     List<Transform> targetList = new List<Transform>();
     public Transform target;
     public GameObject[] array;
@@ -90,6 +95,9 @@ public class Cat : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 보상 지급 시간이 흐르면 랜덤으로 보상을 지급할지 말지 선택한다.
+    /// </summary>
     public void Gift()
     {
         if (gift.activeSelf == true || adGift.activeSelf == true)
@@ -119,6 +127,10 @@ public class Cat : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 보상 클릭 시 일반 보상일 경우 바로 보상지급, 광고 보상일경우 광고 시청 여부를 묻는 알림을 호출한다.
+    /// </summary>
+    /// <param name="tmp">일반보상 = 0, 광고 보상 = 1</param>
     public void OnClickGift(int tmp)
     {
         if(tmp == 0)
@@ -146,7 +158,10 @@ public class Cat : MonoBehaviour
         StartCoroutine(Animation());
     }
 
-
+    /// <summary>
+    /// 고양이 터치 연출
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Animation()
     {
         gameObject.GetComponent<Animator>().SetBool("Touch", true);

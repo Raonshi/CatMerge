@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// 보통, 어려움 난이도에서 생성되는 블록타일의 생성 주기를 시각적으로 연출한다.
+/// </summary>
 public class BlockGage : MonoBehaviour
 {
     Animator anim;

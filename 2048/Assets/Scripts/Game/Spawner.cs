@@ -1,6 +1,10 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// 게임 내에서 타일의 생성을 담당한다.
+/// </summary>
 public class Spawner : MonoBehaviour
 {
     public static Spawner instance;
@@ -10,6 +14,9 @@ public class Spawner : MonoBehaviour
         instance = this;
     }
 
+    /// <summary>
+    /// 현재 게임에서 존재하는 타일이 16개 미만일 경우 실행되며 타일이 없는 랜덤좌표에 2, 곱하기, 나누기 타일 중 하나를 생성한다.
+    /// </summary>
     public void TileSpawn()
     {
         if (Game.instance.count >= 16)
@@ -88,7 +95,10 @@ public class Spawner : MonoBehaviour
     }
 
 
-    //타일 막아버림
+    /// <summary>
+    /// 보통난이도일 경우 4곳의 귀퉁이에 블록 타일을 생성한다.
+    /// 어려움난이도일 경우 랜덤한 위치에 블록 타일을 생성한다.
+    /// </summary>
     public void BlockSpawn()
     {
         if (Game.instance.blockCount == 4)

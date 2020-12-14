@@ -53,6 +53,10 @@ public class NetworkManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 핑 테스트
+    /// </summary>
+    /// <returns></returns>
     IEnumerator PingTest()
     {
         Debug.Log("Ping Start : " + networkAddress);

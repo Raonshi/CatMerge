@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/// <summary>
+/// 게임을 시작할 때마다 생성되는 인스턴스. 게임이 종료되고 메인화면으로 전환되면 사라진다.
+/// </summary>
 public class Game : MonoBehaviour
 {
     //고양이 타일
@@ -76,6 +78,7 @@ public class Game : MonoBehaviour
     {
         instance = this;
 
+        //bool값 초기화
         isMove = false;
         isStop = false;
         isOver = false;
@@ -141,16 +144,14 @@ public class Game : MonoBehaviour
 
     private void Update()
     {
-        //패널 화면이 없으면 시간이 흘러간다.
-        if (GameObject.FindGameObjectsWithTag("InfoPanel").Length == 0)
-        {
-            time -= Time.deltaTime;
-        }
-        else if(GameObject.FindGameObjectsWithTag("InfoPanel").Length != 0)
+        //알림창이 화면에 띄워지면 시간이 멈추고 타일 조작이 불가능하다.
+        if (GameObject.FindGameObjectsWithTag("InfoPanel").Length != 0)
         {
             isMove = true;
             return;
         }
+
+        time -= Time.deltaTime;
 
         //게임 내에 존재하는 고양이의 수를 센다.
         count = GameObject.Find("Canvas/TileSet").transform.childCount;
@@ -175,8 +176,9 @@ public class Game : MonoBehaviour
             gameOver.SetActive(true);
         }
 
+
         //hardTime이 20초 될때마다 블럭을 막는다.
-        if(hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard))
+        if (hardTime >= 20 && (GameManager.Singleton.difficulty == GameManager.Difficulty.Normal || GameManager.Singleton.difficulty == GameManager.Difficulty.Hard))
         {
             Spawner.instance.BlockSpawn();
             hardTime = 0;
@@ -184,9 +186,6 @@ public class Game : MonoBehaviour
 
         timeSlider.value = time;
         timeText.text = Convert.ToInt32(timeSlider.value).ToString();
-
-        //점수를 체크한다.
-        ScoreCheck();
         
         //이동 중이 아닌 경우
         if(isMove == false)
@@ -208,23 +207,28 @@ public class Game : MonoBehaviour
             if (k != 0)
             {
                 Spawner.instance.TileSpawn();
+
             }
+
+            k = 0;
 
             //고양이 수가 16이상이면 타일을 검사한다.
             if (count >= 16)
             {
                 TileCheck();
             }
-            k = 0;
+
             isStop = false;
 
             //고양이 숫자 표시
             EnableNum();
         }
-       
+
+        //점수를 체크한다.
+        ScoreCheck();
+
         //결합된 고양이의 불 값을 변경
         InitCombine();
-
 
         //현재 점수가 최고점보다 높을 경우에 최고점이 실시간으로 올라간다.
         if(score > GameManager.Singleton.best)
@@ -236,7 +240,9 @@ public class Game : MonoBehaviour
 
 
     #region 기능
-    //고양이 숫자 보기 / 안보기 -> true : 숫자 안보임      false : 숫자 보임
+    /// <summary>
+    /// 숫자 안보기 / 보기 기능
+    /// </summary>
     public void EnableNum()
     {
         if (GameManager.Singleton.isNum == false)
@@ -273,7 +279,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    //결합된 고양이의 불 값을 변경
+    /// <summary>
+    /// 1회 이동이 완료 후 이동 중 결합된 타일의 isCombine값을 false로 변경한다.
+    /// </summary>
     public void InitCombine()
     {
         for (int x = 0; x < size; x++)
@@ -289,7 +297,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    //점수 체크
+    /// <summary>
+    /// 매 프레임마다 현재 획득한 점수를 게임 화면에 갱신한다.
+    /// </summary>
     public void ScoreCheck()
     {
         if(score == 0)
@@ -302,7 +312,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    //타일 검사
+    /// <summary>
+    /// 빈 타일이 없을 경우 결합 혹은 이동이 가능한 타일이 있는지 검사한다.
+    /// </summary>
     public void TileCheck()
     {
         int i = 0;      //결합 가능한 타일 검사
@@ -317,7 +329,7 @@ public class Game : MonoBehaviour
 
                 if(a.gameObject.name == "Tile")
                 {
-                    //b가 숫자이고 a와 같은 수 일 경우
+                    //b가 일반 타일이고 b == a이거나 a가 블럭이 아닌 특수타일인 경우
                     if((b.gameObject.name == "Tile" && a.num == b.num) || (b.gameObject.name == "Multiple") || (b.gameObject.name == "Division" && a.num > 2))
                     {
                         i++;
@@ -380,7 +392,9 @@ public class Game : MonoBehaviour
         }
     }
 
-    //터치 조작
+    /// <summary>
+    /// 터치 입력을 통해 Move()를 호출한다.
+    /// </summary>
     public void Touch()
     {
         //터치 시작점 좌표
@@ -433,7 +447,10 @@ public class Game : MonoBehaviour
     }
 
 
-    //타일 이동 명령
+    /// <summary>
+    /// MoveOrCombine()을 통해 상,하,좌,우로 타일을 이동시킨다.
+    /// </summary>
+    /// <param name="dir"></param>
     public void Move(string dir)
     {
         isMove = true;
@@ -493,14 +510,20 @@ public class Game : MonoBehaviour
                 }
                 break;
         }
-
         //초기화
         gap = Vector2.zero;
         isMove = false;
     }
 
 
-    //타일 이동 및 결합
+    /// <summary>
+    /// [x1, y1]지점의 타일을 [x2, y2]지점으로 이동시킨다.
+    /// 이동이 불가능할 경우 이동하지 않고, 결합될 경우 [x2, y2]에 결합된 타일을 생성한다.
+    /// </summary>
+    /// <param name="x1">이동될 타일의 x좌표</param>
+    /// <param name="y1">이동될 타일의 y좌표</param>
+    /// <param name="x2">목표 지점의 x좌표</param>
+    /// <param name="y2">목표 지점의 y좌표</param>
     public void MoveOrCombine(int x1, int y1, int x2, int y2)
     {
         //일반 이동
@@ -750,6 +773,9 @@ public class Game : MonoBehaviour
     }
     #endregion
 
+    /// <summary>
+    /// 숫자 안보기 / 보기 토글
+    /// </summary>
     public void OnClickNumber()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
@@ -765,7 +791,9 @@ public class Game : MonoBehaviour
         EnableNum();
     }
 
-
+    /// <summary>
+    /// 메인메뉴로 돌아가기 버튼 클릭
+    /// </summary>
     public void OnClickExit()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
@@ -773,6 +801,9 @@ public class Game : MonoBehaviour
         close.SetActive(true);
     }
 
+    /// <summary>
+    /// 옵션 버튼 클릭
+    /// </summary>
     public void OnClickOption()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Popup"));
@@ -782,7 +813,11 @@ public class Game : MonoBehaviour
 
 
     #region 코루틴
-
+    /// <summary>
+    /// 32 타일(왕고양이) 2개가 결합되면 이펙트용 고양이 오브젝트를 생성하며 게임 화면의 시간 게이지가 있는 위치까지 이동한다.
+    /// </summary>
+    /// <param name="position">이펙트용 고양이가 생성되는 위치</param>
+    /// <returns></returns>
     IEnumerator Complete64(Vector2 position)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Prefabs/UI/CompleteEffect"), GameObject.Find("Canvas").transform);

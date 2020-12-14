@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// 난이도 조절
+/// </summary>
 public class Difficult : MonoBehaviour
 {
     public Text text;
@@ -46,7 +50,9 @@ public class Difficult : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// 난이도 버튼 클릭
+    /// </summary>
     public void OnClickDifficulty()
     {
         if(GameManager.Singleton.townLevel < 3)

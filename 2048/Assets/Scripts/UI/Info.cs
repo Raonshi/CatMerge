@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 알림창의 메시지 및 버튼별 동작
+/// </summary>
 public class Info : MonoBehaviour
 {
     public Text message;

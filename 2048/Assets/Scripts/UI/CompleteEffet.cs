@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 타일 64 완성 시 이펙트 연출
+/// </summary>
 public class CompleteEffet : MonoBehaviour
 {
     public Transform current;

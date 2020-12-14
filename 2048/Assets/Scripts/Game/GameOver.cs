@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// 게임 오버 화면이 나오면 실행된다.
+/// </summary>
 public class GameOver : MonoBehaviour
 {
     int you, point, lifeTime;
@@ -41,6 +44,9 @@ public class GameOver : MonoBehaviour
         GameManager.Singleton.totalPoint += point;
     }
 
+    /// <summary>
+    /// OK버튼 클릭시 실행
+    /// </summary>
     public void OnClickOK()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));

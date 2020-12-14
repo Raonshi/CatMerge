@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 옵션 창 활성화 시 실행
+/// </summary>
 public class OptionPanel : MonoBehaviour
 {
 

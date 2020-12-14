@@ -121,21 +121,21 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         if (GameManager.Singleton.tutorial4 == true && GameManager.Singleton.townLevel >= 3 && GameManager.Singleton.isNew == false && GameManager.Singleton.isHelp == false)
         {
             tutorial4.SetActive(true);
         }
 
-
         //텍스트 수치 표시
+        //게임 실행 가능 횟수가 full인 경우
         if(GameManager.Singleton.life == 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)))
         {
             startButtonText.text = string.Format("게임시작({0} / {1})\n00:00", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)));
         }
         else
         {
-            startButtonText.text = string.Format("게임시작({0} / {1})\n{2:00}:{3:00}", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)), TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
+            startButtonText.text = string.Format("게임시작({0} / {1})\n{2:00}:{3:00}", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)),
+                TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
         }       
         point.text = "포인트 : " + GameManager.Singleton.totalPoint;
         cash.text = "캐쉬 : " + GameManager.Singleton.totalCash;
@@ -178,9 +178,9 @@ public class Main : MonoBehaviour
     }
 
 
-    //고양이 마을 정보 갱신
-    //실행조건 : 마을 업그레이드할 때, 게임 시작할때
-    //마을 이미지 교체, 고양이 이미지 교체
+    /// <summary>
+    /// 마을 강화
+    /// </summary>
     public void UpdateCatTown()
     {
         //마을 화면 및 최대 고양이 수 초기화
@@ -198,8 +198,11 @@ public class Main : MonoBehaviour
         }
     }
 
-    //고양이 생성
-    //실행 조건 : 메인화면 시작할 때, 고양이 구매 버튼을 눌렀을 때
+    /// <summary>
+    /// 고양이 생성
+    /// </summary>
+    /// <param name="count">생성할 고양이 수</param>
+    /// <param name="isNew">인구가 추가될 경우 true</param>
     public void CatSpawn(int count, bool isNew)
     {
         for (int i = 0; i < count; i++)
@@ -221,6 +224,9 @@ public class Main : MonoBehaviour
         townUpgrade = false;
     }
 
+    /// <summary>
+    /// 장면 전환 및 데이터 불러오기 실행 시 고양이 초기화
+    /// </summary>
     public void CatDispose()
     {
         for(int i = 0; i < catList.Count; i++)
@@ -231,9 +237,10 @@ public class Main : MonoBehaviour
         catList.Clear();
     }
 
-
     #region 버튼
-
+    /// <summary>
+    /// 게임 시작
+    /// </summary>
     public void OnClickStart()
     {
         if(GameManager.Singleton.life == 0)
@@ -256,7 +263,10 @@ public class Main : MonoBehaviour
         GameManager.Singleton.LoadNextScene("Game");
     }
 
-
+    /// <summary>
+    /// 닫기 버튼
+    /// </summary>
+    /// <param name="obj"></param>
     public void OnClickClose(GameObject obj)
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
@@ -264,7 +274,9 @@ public class Main : MonoBehaviour
         obj.SetActive(false);
     }
 
-
+    /// <summary>
+    /// 고양이 마을 업그레이드 버튼 클릭. 마을이 최대레벨이면 점수배율 강화로 전환.
+    /// </summary>
     public void OnClickTownUpgrade()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
@@ -293,6 +305,9 @@ public class Main : MonoBehaviour
         SaveManager.Singleton.SaveUserJson();
     }
 
+    /// <summary>
+    /// 고양이 소환 버튼 클릭
+    /// </summary>
     public void OnClickSummonCat()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
@@ -320,13 +335,18 @@ public class Main : MonoBehaviour
         SaveManager.Singleton.SaveUserJson();
     }
 
+    /// <summary>
+    /// 옵션 버튼 클릭
+    /// </summary>
     public void OnClickOption()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         option.SetActive(true);
     }
 
-
+    /// <summary>
+    /// 재화표시 옆 +버튼 클릭시 상점 호출
+    /// </summary>
     public void OnClickBuy()
     {
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));

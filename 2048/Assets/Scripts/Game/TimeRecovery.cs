@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+
+/// <summary>
+/// 64완성 시 시간이 회복되는 연출을 담당한다.
+/// </summary>
 public class TimeRecovery : MonoBehaviour
 {
     public float destroyTime;

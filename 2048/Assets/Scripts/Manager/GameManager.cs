@@ -154,6 +154,10 @@ public class GameManager : MonoBehaviour
         SaveManager.Singleton.SaveUserJson();
     }
 
+
+    /// <summary>
+    /// 플레이어의 현재 점수 배율을 갱신한다.
+    /// </summary>
     public void UpdateScoreRate()
     {
         if (townLevel == 1)
@@ -166,7 +170,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// 로딩 기능
+    /// </summary>
+    /// <param name="sceneName">호출하려는 씬 이름</param>
     public void LoadNextScene(string sceneName)
     {
         nextScene = sceneName;

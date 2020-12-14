@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// 게임 애네서 생성되는 타일마다 개별적으로 연결된다.
+/// </summary>
 public class Slot : MonoBehaviour
 {
     public Image bg;
@@ -99,6 +102,12 @@ public class Slot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 타일을 목표지점까지 이동시킨다. 결합일 경우 목표지점에 도달하면 타일을 제거한다.
+    /// </summary>
+    /// <param name="x">목표지점의 x좌표</param>
+    /// <param name="y">목표지점의 y좌표</param>
+    /// <param name="combine">결합 여부</param>
     public void Move(int x, int y, bool combine)
     {
         move = true;

@@ -28,7 +28,6 @@ public class SaveManager : MonoBehaviour
     }
 
 
-    //세이브매니저 초기화 및 기존 유저 데이터 로드
     public void InitSaveManager()
     {
         Debug.Log("======================SaveManger loaded======================");
@@ -210,6 +209,11 @@ public class SaveManager : MonoBehaviour
 
 
     #region 파일 저장 및 불러오기
+    /// <summary>
+    /// 현재 데이터를 json으로 직렬화 후 파일로 저장
+    /// </summary>
+    /// <param name="data">저장할 데이터 문자열</param>
+    /// <param name="fileName">파일명</param>
     public void SaveData(string data, string fileName)
     {
         string path = Application.persistentDataPath + "/Save/" + fileName + ".json";
@@ -226,6 +230,12 @@ public class SaveManager : MonoBehaviour
         writer.Close();
     }
 
+
+    /// <summary>
+    /// 파일로 저장된 json을 문자열로 불러온다.
+    /// </summary>
+    /// <param name="fileName">불러올 파일명</param>
+    /// <returns>json 문자열 데이터</returns>
     public string LoadData(string fileName)
     {
         string path = Application.persistentDataPath + "/Save/" + fileName + ".json";
@@ -250,7 +260,9 @@ public class SaveManager : MonoBehaviour
 
 
 #region 앱 삭제 이후에도 데이터 보관
-
+    /// <summary>
+    /// 현재 저장된 json파일을 전부 별도의 저장 경로로 복사한다.
+    /// </summary>
     public void SaveDataOutSide()
     {
         string[] fileNameArray = Directory.GetFiles(Application.persistentDataPath + "/Save/");
@@ -278,6 +290,10 @@ public class SaveManager : MonoBehaviour
         Main.instance.dataSave.SetActive(true);
     }
 
+
+    /// <summary>
+    /// 별도의 저장 경로에 존재하는 json파일을 모두 플레이어 정보로 불러온다.
+    /// </summary>
     public void LoadDataOutSide()
     {
         string destPath = "Assets/Save/";
@@ -372,6 +388,10 @@ public class SaveManager : MonoBehaviour
 
 
 #region Data -> Json
+
+/// <summary>
+/// 플레이어 정보
+/// </summary>
 public class UserJson
 {
     public string nickname;
@@ -416,6 +436,9 @@ public class UserJson
     }
 }
 
+/// <summary>
+/// 마지막 종료시간
+/// </summary>
 public class TimeJson
 {
     public int second;
@@ -441,6 +464,9 @@ public class TimeJson
     }
 }
 
+/// <summary>
+/// 튜토리얼 알림창 활성/비활성 여부
+/// </summary>
 public class TutorialJson
 {
     public bool tutorial0;
@@ -464,7 +490,9 @@ public class TutorialJson
     }
 }
 
-
+/// <summary>
+/// 게임 옵션 설정값
+/// </summary>
 public class OptionJson
 {
     public float bgm;

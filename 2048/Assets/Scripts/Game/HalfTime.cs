@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 남은 시간이 절반 이하일 경우 실행되며 플레이어에게 남은 시간 알림을 연출한다.
+/// </summary>
 public class HalfTime : MonoBehaviour
 {
     Rigidbody2D rigidbody;

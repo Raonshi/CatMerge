@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// 게임 내의 제한시간이 흐르는 연출을 담당한다.
+/// </summary>
 public class Timer : MonoBehaviour
 {
     Slider timer;

@@ -49,6 +49,9 @@ public class SoundManager : MonoBehaviour
         VolumeControl();
     }
 
+    /// <summary>
+    /// GameManager의 bgm, sfx값을 통해 볼륨 조절
+    /// </summary>
     public void VolumeControl()
     {
         for(int i = 0; i < audio.Count; i++)
@@ -69,7 +72,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// 모든 사운드를 정지
+    /// </summary>
     public void SoundInit()
     {
 
@@ -81,6 +86,10 @@ public class SoundManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 사운드를 재생한다.
+    /// </summary>
+    /// <param name="clip">재생할 사운드</param>
     public void PlaySound(AudioClip clip)
     {
         for (int i = 0; i < audio.Count; i++)
