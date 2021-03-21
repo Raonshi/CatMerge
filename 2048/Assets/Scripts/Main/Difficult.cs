@@ -21,7 +21,7 @@ public class Difficult : MonoBehaviour
             
             buttonImage.color = Color.grey;
             text.fontSize = 40;
-            text.text = "마을 Lv3 이상\n해금";
+            text.text = "Unlock\n(Town LV3)";
         }
         else
         {
@@ -32,19 +32,19 @@ public class Difficult : MonoBehaviour
                 case GameManager.Difficulty.Easy:
                     ColorUtility.TryParseHtmlString("#98E05A", out color);
                     buttonImage.color = color;
-                    text.text = "쉬움";
+                    text.text = "EASY";
                     break;
 
                 case GameManager.Difficulty.Normal:
                     ColorUtility.TryParseHtmlString("#FA8748", out color);
                     buttonImage.color = color;
-                    text.text = "보통";
+                    text.text = "NORMAL";
                     break;
 
                 case GameManager.Difficulty.Hard:
                     ColorUtility.TryParseHtmlString("#FF4B38", out color);
                     buttonImage.color = color;
-                    text.text = "어려움";
+                    text.text = "HARD";
                     break;
             }
         }

@@ -13,7 +13,7 @@ public class Loading : MonoBehaviour
 
     void Start()
     {
-        message = "로 딩 중 . . .";
+        message = "L O A D I N G . . .";
 
         SoundManager.Singleton.SoundInit();
 

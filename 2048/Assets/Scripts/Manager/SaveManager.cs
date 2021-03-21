@@ -53,7 +53,6 @@ public class SaveManager : MonoBehaviour
             GameManager.Singleton.scoreRateLevel,
             GameManager.Singleton.best,
             GameManager.Singleton.totalPoint,
-            GameManager.Singleton.totalCash,
             GameManager.Singleton.catCount,
             TimeManager.Singleton.remainTime,
             GameManager.Singleton.isNew,
@@ -85,7 +84,6 @@ public class SaveManager : MonoBehaviour
         GameManager.Singleton.life = user.life;
         GameManager.Singleton.townLevel = user.townLevel;
         GameManager.Singleton.totalPoint = user.totalPoint;
-        GameManager.Singleton.totalCash = user.totalCash;
         GameManager.Singleton.scoreRateLevel = user.scoreRateLevel;
         GameManager.Singleton.catCount = user.catCount;
         GameManager.Singleton.best = user.best;
@@ -340,7 +338,6 @@ public class SaveManager : MonoBehaviour
                 GameManager.Singleton.life = user.life;
                 GameManager.Singleton.townLevel = user.townLevel;
                 GameManager.Singleton.totalPoint = user.totalPoint;
-                GameManager.Singleton.totalCash = user.totalCash;
                 GameManager.Singleton.scoreRateLevel = user.scoreRateLevel;
                 GameManager.Singleton.catCount = user.catCount;
                 GameManager.Singleton.best = user.best;
@@ -401,7 +398,6 @@ public class UserJson
     public int scoreRateLevel;
     public int best;
     public int totalPoint;
-    public int totalCash;
     public int catCount;
     public float remainTime;
 
@@ -410,7 +406,7 @@ public class UserJson
 
     public GameManager.Difficulty difficulty;
 
-    public void SetData(string _nickname, int _life,  int _townLevel, int _scoreRateLevel, int _best, int _totalPoint,int _totalCash,
+    public void SetData(string _nickname, int _life,  int _townLevel, int _scoreRateLevel, int _best, int _totalPoint,
         int _catCount, float _remainTime, bool _isNew, bool _isNum, GameManager.Difficulty _difficulty)
     {
         nickname = _nickname;
@@ -419,7 +415,6 @@ public class UserJson
         scoreRateLevel = _scoreRateLevel;
         best = _best;
         totalPoint = _totalPoint;
-        totalCash = _totalCash;
         catCount = _catCount;
         remainTime = _remainTime;
 

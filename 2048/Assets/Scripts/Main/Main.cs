@@ -9,7 +9,6 @@ public class Main : MonoBehaviour
 {
     //메인화면 알림창
     public GameObject close;
-    public GameObject notEnoughCash;
     public GameObject notEnoughLife;
     public GameObject notEnoughPoint;
     public GameObject fullCount;
@@ -30,13 +29,6 @@ public class Main : MonoBehaviour
     //포인트
     public Text point;
     public GameObject pointBuy;
-
-    //캐쉬
-    public Text cash;
-    public GameObject cashBuy;
-
-    //상점
-    public GameObject shopPanel;
 
     //최초 게임시작 유도
     public GameObject tutorial;
@@ -81,7 +73,6 @@ public class Main : MonoBehaviour
         isGift = true;
         townUpgrade = false;
 
-        notEnoughCash.SetActive(false);
         notEnoughLife.SetActive(false);
         notEnoughPoint.SetActive(false);
         close.SetActive(false);
@@ -90,7 +81,6 @@ public class Main : MonoBehaviour
         tutorial4.SetActive(false);
         option.SetActive(false);
         adGiftPanel.SetActive(false);
-        shopPanel.SetActive(false);
         dataSaveFail.SetActive(false);
         dataLoadFail.SetActive(false);
         dataSave.SetActive(false);
@@ -130,33 +120,32 @@ public class Main : MonoBehaviour
         //게임 실행 가능 횟수가 full인 경우
         if(GameManager.Singleton.life == 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)))
         {
-            startButtonText.text = string.Format("게임시작({0} / {1})\n00:00", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)));
+            startButtonText.text = string.Format("Start({0} / {1})\n00:00", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)));
         }
         else
         {
-            startButtonText.text = string.Format("게임시작({0} / {1})\n{2:00}:{3:00}", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)),
+            startButtonText.text = string.Format("Start({0} / {1})\n{2:00}:{3:00}", GameManager.Singleton.life, 5 + Convert.ToInt32(Mathf.Floor((GameManager.Singleton.townLevel - 1) * 0.5f)),
                 TimeManager.Singleton.chargeTime.Hours, TimeManager.Singleton.chargeTime.Minutes);
         }       
-        point.text = "포인트 : " + GameManager.Singleton.totalPoint;
-        cash.text = "캐쉬 : " + GameManager.Singleton.totalCash;
-        scoreRateText.text = "점수배율 : 1 + " + GameManager.Singleton.scoreRate + " 배";
-        catCount.text = "고양이 : " + GameManager.Singleton.catCount + " / " + maxCount;
+        point.text = "Point : " + GameManager.Singleton.totalPoint;
+        scoreRateText.text = "ScoreUP : 1 + " + GameManager.Singleton.scoreRate;
+        catCount.text = "Cats : " + GameManager.Singleton.catCount + " / " + maxCount;
 
         //마을 강화 가격
         if(GameManager.Singleton.townLevel < 5)
         {
             townUpgradePrice = GameManager.Singleton.townLevel * 15;
-            townUpgradePriceText.text = "마을 강화(lv" + GameManager.Singleton.townLevel + ")\n" + townUpgradePrice.ToString() + "포인트";
+            townUpgradePriceText.text = "Town UP(lv" + GameManager.Singleton.townLevel + ")\n" + townUpgradePrice.ToString() + "Point";
         }
         else
         {
             townUpgradePrice = 20 + Convert.ToInt32(GameManager.Singleton.scoreRateLevel * 1.15f);
-            townUpgradePriceText.text = string.Format("점수배율증가(lv {0})\n{1}포인트", GameManager.Singleton.scoreRateLevel, townUpgradePrice);
+            townUpgradePriceText.text = string.Format("ScoreUP(lv {0})\n{1}Point", GameManager.Singleton.scoreRateLevel, townUpgradePrice);
         }
 
         //고양이 소환 가격
         catPrice = (GameManager.Singleton.townLevel * 2) + 3;
-        catPriceText.text = catPrice.ToString() + "포인트";
+        catPriceText.text = catPrice.ToString() + "Point";
 
         //게임종료 알림창과 포인트 부족 알림창은 활성화 시 다른 버튼을 누를 수 없다.
         if(close.activeSelf == true || notEnoughPoint.activeSelf == true)
@@ -343,16 +332,5 @@ public class Main : MonoBehaviour
         SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
         option.SetActive(true);
     }
-
-    /// <summary>
-    /// 재화표시 옆 +버튼 클릭시 상점 호출
-    /// </summary>
-    public void OnClickBuy()
-    {
-        SoundManager.Singleton.PlaySound(Resources.Load<AudioClip>("Sounds/SFX_Click"));
-        shopPanel.SetActive(true);
-    }
-
-
     #endregion
 }
